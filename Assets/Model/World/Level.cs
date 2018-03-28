@@ -1,13 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace com.gStudios.isometric.world {
+namespace com.gStudios.isometric.model.world {
 
 	public class Level {
 
 		Tile[,] tiles;
 		int width;
+
+		public int Width {
+			get {
+				return width;
+			}
+		}
+
 		int height;
+
+		public int Height {
+			get {
+				return height;
+			}
+		}
 
 		public Level(int width, int height) {
 			this.width = width;
@@ -33,6 +46,18 @@ namespace com.gStudios.isometric.world {
 			return tiles [x, y];
 		}
 
+		public void RandomizeTiles() {
+			for (int x = 0; x < width; x++) {
+				for (int y = 0; y < height; y++) {
+					if (UnityEngine.Random.Range(0,2) == 0) {
+						tiles [x, y].Type = Tile.TileType.Empty;
+					}
+					else {
+						tiles [x, y].Type = Tile.TileType.Floor;
+					}
+				}
+			}
+		}
 	}
 
 }

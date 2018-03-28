@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-using com.gStudios.isometric.items;
+using com.gStudios.isometric.model.items;
 
-namespace com.gStudios.isometric.world {
+namespace com.gStudios.isometric.model.world {
 
 	public class Tile {
 
