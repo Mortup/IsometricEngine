@@ -11,6 +11,15 @@ namespace com.gStudios.isometric.world {
 
 		TileType type = TileType.Empty;
 
+		public TileType Type {
+			get {
+				return type;
+			}
+			set {
+				type = value;
+			}
+		}
+
 		PlacedFurniture placedFurniture;
 
 		Level level;
