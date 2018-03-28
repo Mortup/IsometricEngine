@@ -24,7 +24,20 @@ namespace com.gStudios.isometric.world {
 
 		Level level;
 		int x;
+
+		public int X {
+			get {
+				return x;
+			}
+		}
+
 		int y;
+
+		public int Y {
+			get {
+				return y;
+			}
+		}
 
 		public Tile(Level level, int x, int y) {
 			this.level = level;
