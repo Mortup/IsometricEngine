@@ -21,7 +21,7 @@ namespace com.gStudios.isometric.controller {
 		/// <param name="x">The x isometric coordinate.</param>
 		/// <param name="y">The y isometric coordinate.</param>
 		public static Vector2 CoordToScreen(int x, int y) {
-			return new Vector2((x - y) * TILE_WIDTH_HALF, (x + y) * TILE_HEIGHT_HALF);
+			return new Vector2((y - x) * TILE_WIDTH_HALF, -(x + y) * TILE_HEIGHT_HALF);
 		}
 
 	}
