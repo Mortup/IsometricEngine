@@ -50,10 +50,10 @@ namespace com.gStudios.isometric.model.world {
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
 					if (UnityEngine.Random.Range(0,2) == 0) {
-						tiles [x, y].Type = Tile.TileType.Empty;
+						tiles [x, y].Type = 0;
 					}
 					else {
-						tiles [x, y].Type = Tile.TileType.Floor;
+						tiles [x, y].Type = 1;
 					}
 				}
 			}

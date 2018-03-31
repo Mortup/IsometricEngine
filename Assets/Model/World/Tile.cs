@@ -9,27 +9,28 @@ namespace com.gStudios.isometric.model.world {
 
 	public class Tile {
 
-		public enum TileType { Empty, Floor };
+		public const int EmptyTileIndex = 0;
+		public const int NewTileIndex = 1;
 
 		Level level;
 		int x;
 		int y;
-		TileType type = TileType.Empty;
+		int type = 0;
 
 		PlacedFurniture placedFurniture;
 
 		private List<ITileObserver> observers;
 
-		public TileType Type {
+		public int Type {
 			get {
 				return type;
 			}
 			set {
+				type = value;
+
 				foreach (ITileObserver tileObserver in observers) {
 					tileObserver.NotifyTileTypeChanged (this);
 				}
-
-				type = value;
 			}
 		}
 

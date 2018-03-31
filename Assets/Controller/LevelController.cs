@@ -4,6 +4,7 @@ using System;
 
 using UnityEngine;
 
+using com.gStudios.isometric.controller.cursor;
 using com.gStudios.isometric.model.world;
 
 namespace com.gStudios.isometric.controller {
@@ -13,6 +14,7 @@ namespace com.gStudios.isometric.controller {
 		public Sprite floorSprite;
 
 		Level level;
+		CursorController cursorController;
 		TileSpriteManager tileSpriteManager;
 
 		void Start () {
@@ -27,23 +29,15 @@ namespace com.gStudios.isometric.controller {
 					tileSpriteManager.CreateSprite (level.GetTileAt(x,y));
 				}
 			}
+
+			cursorController = GetComponent<CursorController> ();
+			cursorController.Init (level);
 		}
 		
 		void Update () {
 			if (Input.GetKeyDown(KeyCode.L)) {
 				level.RandomizeTiles ();
 			}
-		}
-
-		void OnTileTypeChanged(Tile tile_data, GameObject tile_go) {
-			if (tile_data.Type == Tile.TileType.Floor) {
-				tile_go.GetComponent<SpriteRenderer> ().sprite = floorSprite;
-			}
-			else {
-				tile_go.GetComponent<SpriteRenderer> ().sprite = null;
-			}
-
-			// TODO: Add a unrecognized tile type error.
 		}
 	}
 

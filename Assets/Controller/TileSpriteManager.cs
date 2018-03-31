@@ -12,6 +12,8 @@ namespace com.gStudios {
 
 		Dictionary<Tile, GameObject> gameobjects;
 
+		Sprite defaultSprite = Resources.Load<Sprite> ("Sprites/Tiles/Default");
+
 		public TileSpriteManager() {
 			gameobjects = new Dictionary<Tile, GameObject> ();
 		}
@@ -19,7 +21,7 @@ namespace com.gStudios {
 		public GameObject CreateSprite(Tile tile) {
 			GameObject tile_go = new GameObject ();
 			tile_go.name = "Tile [" + tile.X.ToString () + "," + tile.Y.ToString () + "]";
-			tile_go.transform.position = (Vector3)IsometricTransformer.CoordToScreen (tile.X, tile.Y);
+			tile_go.transform.position = (Vector3)IsometricTransformer.CoordToWorld (tile.X, tile.Y);
 
 			SpriteRenderer sr = tile_go.AddComponent<SpriteRenderer> ();
 			sr.sortingOrder = tile.X + tile.Y;
@@ -37,10 +39,10 @@ namespace com.gStudios {
 		public void UpdateSprite(Tile tile, GameObject tile_go) {
 			SpriteRenderer sr = tile_go.GetComponent<SpriteRenderer> ();
 
-			if (tile.Type == Tile.TileType.Empty)
+			if (tile.Type == 0)
 				sr.sprite = null;
 			else {
-				sr.sprite = Resources.Load<Sprite> ("Sprites/Tiles/Default");
+				sr.sprite = defaultSprite;
 			}
 		}
 
