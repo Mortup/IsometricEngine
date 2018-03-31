@@ -29,8 +29,8 @@ namespace com.gStudios.isometric.controller {
 		/// <summary>
 		/// Converts world position to isometric tile coordinates.
 		/// </summary>
-		/// <returns>The tile coordinate coordinate.</returns>
-		/// <param name="screen">The screen position.</param>
+		/// <returns>The tile coordinates.</returns>
+		/// <param name="world">The world position.</param>
 		public static Vector2Int WorldToCoord(Vector2 world) {
 			world.x = -world.x;
 			world.y = -world.y;
@@ -40,6 +40,16 @@ namespace com.gStudios.isometric.controller {
 			map.y = Mathf.RoundToInt((world.y / TILE_HEIGHT_HALF - (world.x / TILE_WIDTH_HALF)) / 2);
 
 			return map;
+		}
+
+		/// <summary>
+		/// Converts screen position to isometric tile coordinates.
+		/// </summary>
+		/// <returns>The tile coordinates.</returns>
+		/// <param name="screen">The screen position</param>
+		public static Vector2Int ScreenToCoord(Vector2 screen) {
+			Vector2 world = Camera.main.ScreenToWorldPoint (screen);
+			return WorldToCoord (world);
 		}
 
 	}
