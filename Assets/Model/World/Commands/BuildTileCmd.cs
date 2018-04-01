@@ -16,12 +16,12 @@ namespace com.gStudios.isometric.model.world.commands {
 			if (index != Tile.EmptyTileIndex) {
 				// If is building ignore already built tiles.
 				if (previousIndex != Tile.EmptyTileIndex)
-					return null;
+					return NullCommand.instance;
 			}
 			else {
 				// If it's removing ignore empty tiles.
 				if (previousIndex == Tile.EmptyTileIndex)
-					return null;
+					return NullCommand.instance;
 			}
 
 			tile.Type = index;

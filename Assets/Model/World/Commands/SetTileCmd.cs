@@ -12,7 +12,7 @@ namespace com.gStudios.isometric.model.world.commands {
 		{
 			if (index == Tile.EmptyTileIndex) {
 				// Cannot destroy tiles.
-				return null;
+				return NullCommand.instance;
 			}
 
 			Tile tile = level.GetTileAt (posX, posY);
@@ -20,7 +20,7 @@ namespace com.gStudios.isometric.model.world.commands {
 
 			if (previousIndex == Tile.EmptyTileIndex)
 				// Cannot paint empty tiles.
-				return null;
+				return NullCommand.instance;
 
 			tile.Type = index;
 
