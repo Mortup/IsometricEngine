@@ -45,7 +45,7 @@ namespace com.gStudios.isometric.controller.cursor {
 
 			// Follow mouse?
 			if (followMouse) {
-				transform.position = IsometricTransformer.CoordToWorld (coords.x, coords.y);
+				SetPosition (coords.x, coords.y);
 			}
 
 			// Sort with tiles?
@@ -69,6 +69,15 @@ namespace com.gStudios.isometric.controller.cursor {
 			}
 
 
+		}
+
+		/// <summary>
+		/// Sets the position.
+		/// </summary>
+		/// <param name="x">The x isometric coordinate.</param>
+		/// <param name="y">The y isometric coordinate.</param>
+		public void SetPosition(int x, int y) {
+			transform.position = IsometricTransformer.CoordToWorld (x, y);
 		}
 
 		public void SetSprite(Sprite sprite) {

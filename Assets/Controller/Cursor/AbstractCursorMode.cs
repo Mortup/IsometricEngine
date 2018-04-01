@@ -19,7 +19,7 @@ namespace com.gStudios.isometric.controller.cursor {
 			this.level = level;
 			selectedIndex = -1;
 
-			cursorGameobject = GameObject.Instantiate( Resources.Load<GameObject> (Paths.CursorPrefab) );
+			cursorGameobject = SimplePool.Spawn( Resources.Load<GameObject> (Paths.CursorPrefab) , Vector3.zero, Quaternion.identity);
 			cursorGameobject.GetComponent<CursorSprite> ().Init (level);
 		}
 
