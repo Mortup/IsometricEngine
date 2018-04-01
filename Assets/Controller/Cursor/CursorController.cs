@@ -8,6 +8,8 @@ using com.gStudios.utils.structs;
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
 
+using com.gStudios.isometric.controller.config;
+
 namespace com.gStudios.isometric.controller.cursor {
 
 	public class CursorController : MonoBehaviour {
@@ -19,12 +21,10 @@ namespace com.gStudios.isometric.controller.cursor {
 
 		DropoutStack<CursorCommand> cmdStack;
 
-		private int maxUndoStack = 20;
-
 		public void Init(Level level) {
 			this.level = level;
 
-			cmdStack = new DropoutStack<CursorCommand> (maxUndoStack);
+			cmdStack = new DropoutStack<CursorCommand> (Settings.MaxCursorUndoStackSize);
 			SetMode ("build");
 
 			initialized = true;
@@ -65,10 +65,11 @@ namespace com.gStudios.isometric.controller.cursor {
 		}
 
 		private void ExcecuteClick() {
-			CursorCommand cmd = currentMode.OnClick (Input.mousePosition);
+			CursorCommand cmd = currentMode.ClickEnd (Input.mousePosition);
+
 			CursorCommand inverse = cmd.Excecute ();
 
-			if (inverse != null)
+			if (inverse != NullCommand.instance)
 				cmdStack.Push (inverse);
 		}
 
