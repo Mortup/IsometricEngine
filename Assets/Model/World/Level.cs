@@ -46,6 +46,15 @@ namespace com.gStudios.isometric.model.world {
 			return tiles [x, y];
 		}
 
+		public bool IsInBounds(int x, int y) {
+			if (x < 0 || y < 0)
+				return false;
+			if (x >= width || y >= height)
+				return false;
+
+			return true;
+		}
+
 		public void RandomizeTiles() {
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {

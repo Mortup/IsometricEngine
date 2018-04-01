@@ -20,6 +20,7 @@ namespace com.gStudios.isometric.controller.cursor {
 			selectedIndex = -1;
 
 			cursorGameobject = GameObject.Instantiate( Resources.Load<GameObject> (Paths.CursorPrefab) );
+			cursorGameobject.GetComponent<CursorSprite> ().Init (level);
 		}
 
 		public abstract CursorCommand ClickEnd (Vector2 mousePosition);
@@ -35,8 +36,8 @@ namespace com.gStudios.isometric.controller.cursor {
 			selectedIndex = index;
 		}
 
-		public void SetCursorActive(bool value) {
-			cursorGameobject.SetActive (value);
+		public void DestroyCursors() {
+			GameObject.Destroy (cursorGameobject);
 		}
 		
 	}

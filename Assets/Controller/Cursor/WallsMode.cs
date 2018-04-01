@@ -12,7 +12,7 @@ namespace com.gStudios.isometric.controller.cursor {
 
 		public override CursorCommand ClickEnd(Vector2 mousePosition) {
 			Debug.Log ("Clicking on Walls Mode");
-			return null;
+			return NullCommand.instance;
 		}
 
 	}

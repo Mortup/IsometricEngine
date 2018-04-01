@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Tiles
+    uniqueID: 4012549315
+    locked: 0
+  - name: Cursors
+    uniqueID: 972919759
+    locked: 0
   - name: Debug
     uniqueID: 3769576603
     locked: 0

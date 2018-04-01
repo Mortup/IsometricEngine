@@ -31,7 +31,8 @@ namespace com.gStudios {
 			tile_go.transform.SetParent (tileHolder.transform, true);
 
 			SpriteRenderer sr = tile_go.AddComponent<SpriteRenderer> ();
-			sr.sortingOrder = tile.X + tile.Y;
+			sr.sortingLayerName = "Tiles";
+			sr.sortingOrder = GetSortingOrder(tile.X, tile.Y);
 			UpdateSprite (tile, tile_go);
 
 			tile.Subscribe (this);
@@ -53,6 +54,9 @@ namespace com.gStudios {
 			}
 		}
 
+		public static int GetSortingOrder(int x, int y) {
+			return (x + y) * 10;
+		}
 	}
 
 }

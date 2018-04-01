@@ -17,7 +17,19 @@ namespace com.gStudios.isometric.controller.cursor {
 		bool initialized = false;
 
 		Level level;
-		CursorMode currentMode;
+		CursorMode _currentMode;
+
+		public CursorMode currentMode {
+			get {
+				return _currentMode;
+			}
+			set {
+				if (_currentMode != null)
+					_currentMode.DestroyCursors ();
+				
+				_currentMode = value;
+			}
+		}
 
 		DropoutStack<CursorCommand> cmdStack;
 

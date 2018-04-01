@@ -11,6 +11,14 @@ namespace com.gStudios.isometric.controller.cursor {
 	public class BuildMode : AbstractCursorMode {
 
 		public BuildMode(Level level) : base(level) {
+			CursorSprite cursorSprite = cursorGameobject.GetComponent<CursorSprite> ();
+			cursorSprite.SetSprite (Resources.Load<Sprite> (Paths.CursorSprite ("BuildCursor")));
+			cursorSprite.SetInverseSprite (Resources.Load<Sprite> (Paths.CursorSprite ("BuildInverseCursor")));
+
+			cursorSprite.SortWithTiles ();
+			cursorSprite.FollowMouse ();
+			cursorSprite.showOnEmptyWhenInverted = false;
+			cursorSprite.showOnTiles = false;
 		}
 
 		public override CursorCommand ClickEnd(Vector2 mousePosition) {

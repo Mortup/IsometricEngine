@@ -17,7 +17,7 @@ namespace com.gStudios.isometric.controller.cursor {
 
 		void SetSelectedIndex (int index);
 
-		void SetCursorActive (bool value);
+		void DestroyCursors();
 
 	}
 
