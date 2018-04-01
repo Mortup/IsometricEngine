@@ -47,6 +47,9 @@ namespace com.gStudios.isometric.controller.cursor {
 				return;
 
 			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ())
+				currentMode.ClickStart (Input.mousePosition);
+
+			if (Input.GetMouseButtonUp(0))
 				ExcecuteClick ();
 
 			if (Input.GetButtonDown("Undo")) {

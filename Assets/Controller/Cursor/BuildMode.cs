@@ -10,6 +10,9 @@ using com.gStudios.isometric.controller.config;
 namespace com.gStudios.isometric.controller.cursor {
 	public class BuildMode : AbstractCursorMode {
 
+		bool isDragging = false;
+		Vector2Int dragStartCoords;
+
 		public BuildMode(Level level) : base(level) {
 			CursorSprite cursorSprite = cursorGameobject.GetComponent<CursorSprite> ();
 			cursorSprite.SetSprite (Resources.Load<Sprite> (Paths.CursorSprite ("BuildCursor")));
@@ -21,13 +24,25 @@ namespace com.gStudios.isometric.controller.cursor {
 			cursorSprite.showOnTiles = false;
 		}
 
-		public override CursorCommand ClickEnd(Vector2 mousePosition) {
-			Vector2Int pressedCoords = IsometricTransformer.ScreenToCoord (mousePosition);
+		public override void ClickStart (Vector2 mousePosition)
+		{
+			base.ClickStart (mousePosition);
 
-			if (Input.GetButton ("InverseFunction")) {
-				return new BuildTileCmd (level, pressedCoords.x, pressedCoords.y, Tile.EmptyTileIndex);
+			isDragging = true;
+			dragStartCoords = IsometricTransformer.ScreenToCoord (mousePosition);
+		}
+
+		public override CursorCommand ClickEnd(Vector2 mousePosition) {
+
+			Vector2Int releasedCoords = IsometricTransformer.ScreenToCoord (mousePosition);
+			int index = Input.GetButton ("InverseFunction") ? Tile.EmptyTileIndex : Tile.NewTileIndex;
+			
+			if (!isDragging){
+				return NullCommand.instance;
 			}
-			return new BuildTileCmd (level, pressedCoords.x, pressedCoords.y, Tile.NewTileIndex);
+
+			isDragging = false;
+			return new BuildAreaCmd(level, dragStartCoords.x, releasedCoords.x, dragStartCoords.y, releasedCoords.y, index);
 		}
 	}
 }
