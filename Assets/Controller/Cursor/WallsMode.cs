@@ -10,7 +10,7 @@ namespace com.gStudios.isometric.controller.cursor {
 
 		public WallsMode(Level level) : base (level) {}
 
-		public override CursorCommand OnClick(Vector2 mousePosition) {
+		public override CursorCommand ClickEnd(Vector2 mousePosition) {
 			Debug.Log ("Clicking on Walls Mode");
 			return null;
 		}

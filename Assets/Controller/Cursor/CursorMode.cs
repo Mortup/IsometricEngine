@@ -11,10 +11,14 @@ namespace com.gStudios.isometric.controller.cursor {
 	/// </summary>
 	public interface CursorMode {
 
-		CursorCommand OnClick(Vector2 mousePosition);
+		void ClickStart (Vector2 mousePosition);
+
+		CursorCommand ClickEnd(Vector2 mousePosition);
 
 		void SetSelectedIndex (int index);
-		
+
+		void SetCursorActive (bool value);
+
 	}
 
 }

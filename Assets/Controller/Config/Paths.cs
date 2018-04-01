@@ -9,6 +9,8 @@ namespace com.gStudios.isometric.controller.config {
 		const string TilesSprites = "Sprites/Tiles/";
 		const string CursorSprites = "Sprites/Cursors/";
 
+		public const string CursorPrefab = "Prefabs/Cursor";
+
 		public static string CursorSprite(string name) {
 			return CursorSprites + name;
 		}

@@ -5,19 +5,26 @@ using UnityEngine;
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
 
+using com.gStudios.isometric.controller.config;
+
 namespace com.gStudios.isometric.controller.cursor {
 
 	public abstract class AbstractCursorMode : CursorMode {
 
 		protected Level level;
 		protected int selectedIndex;
+		protected GameObject cursorGameobject;
 
 		public AbstractCursorMode(Level level) {
 			this.level = level;
 			selectedIndex = -1;
+
+			cursorGameobject = GameObject.Instantiate( Resources.Load<GameObject> (Paths.CursorPrefab) );
 		}
 
-		public abstract CursorCommand OnClick (Vector2 mousePosition);
+		public abstract CursorCommand ClickEnd (Vector2 mousePosition);
+
+		public virtual void ClickStart (Vector2 mousePosition) {}
 
 		public void SetSelectedIndex(int index) {
 			if (index == -1) {
@@ -26,6 +33,10 @@ namespace com.gStudios.isometric.controller.cursor {
 			}
 
 			selectedIndex = index;
+		}
+
+		public void SetCursorActive(bool value) {
+			cursorGameobject.SetActive (value);
 		}
 		
 	}
