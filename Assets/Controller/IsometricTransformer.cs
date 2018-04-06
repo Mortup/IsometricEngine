@@ -27,6 +27,15 @@ namespace com.gStudios.isometric.controller {
 		}
 
 		/// <summary>
+		/// Converts isometric tile coordinates to a world position.
+		/// </summary>
+		/// <returns>The world position.</returns>
+		/// <param name="coords">The isometric coordinates.</param>
+		public static Vector2 CoordToWorld(Vector2Int coords) {
+			return CoordToWorld (coords.x, coords.y);
+		}
+
+		/// <summary>
 		/// Converts world position to isometric tile coordinates.
 		/// </summary>
 		/// <returns>The tile coordinates.</returns>

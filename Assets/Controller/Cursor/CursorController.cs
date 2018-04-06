@@ -1,98 +1,78 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-using com.gStudios.utils.structs;
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
 
+using com.gStudios.isometric.controller.cursor.modes;
 using com.gStudios.isometric.controller.config;
+
+using com.gStudios.utils.structs;
 
 namespace com.gStudios.isometric.controller.cursor {
 
+	/// <summary>
+	/// This class takes care of the user click actions and the
+	/// instantiation of cursors.
+	/// </summary>
 	public class CursorController : MonoBehaviour {
 
-		bool initialized = false;
-
+		/// <summary>
+		/// A reference to the current level.
+		/// </summary>
 		Level level;
-		CursorMode _currentMode;
 
-		public CursorMode currentMode {
-			get {
-				return _currentMode;
-			}
-			set {
-				if (_currentMode != null)
-					_currentMode.DestroyCursors ();
-				
-				_currentMode = value;
-			}
-		}
+		modes.CursorMode currentMode;
 
-		DropoutStack<CursorCommand> cmdStack;
+		const int mouseButton = 0;
 
+		DropoutStack<CursorCommand> inverseCommands;
+
+		/// <summary>
+		/// Should be called right after instantiation.
+		/// </summary>
+		/// <param name="level">The level to interact with.</param>
 		public void Init(Level level) {
 			this.level = level;
+			SimplePool.Preload (Resources.Load<GameObject> (Paths.CursorPrefab));
+			inverseCommands = new DropoutStack<CursorCommand> (Settings.MaxCursorUndoStackSize);
 
-			cmdStack = new DropoutStack<CursorCommand> (Settings.MaxCursorUndoStackSize);
 			SetMode ("build");
+		}
 
-			initialized = true;
+		public void SetMode(string mode) {
+			Debug.Log ("Using incomplete function SetMode");
+			currentMode = new BuildMode (level);
 		}
 
 		public void Update() {
-			if (!initialized)
-				return;
-
-			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ())
-				currentMode.ClickStart (Input.mousePosition);
-
-			if (Input.GetMouseButtonUp(0))
-				ExcecuteClick ();
-
-			if (Input.GetButtonDown("Undo")) {
+			if (Input.GetMouseButtonDown (mouseButton))
+				ClickStart ();
+			if (Input.GetMouseButtonUp (mouseButton))
+				ClickEnd ();
+			if (Input.GetButtonDown ("Undo"))
 				Undo ();
-			}
+
+			currentMode.UpdateCursors (Input.mousePosition);
 		}
 
-		public void SetMode(string newMode) {
-
-			switch(newMode) {
-			case "build":
-				currentMode = new BuildMode (level);
-				break;
-			case "floor":
-				currentMode = new FloorMode (level);
-				break;
-			case "walls":
-				currentMode = new WallsMode (level);
-				break;
-			case "furniture":
-				currentMode = new FurnitureMode (level);
-				break;
-			default:
-				Debug.LogError ("Cannot find mode " + newMode);
-				break;
-			}
-
+		public void ClickStart() {
+			if (EventSystem.current.IsPointerOverGameObject ())
+				return;
+			
+			currentMode.ClickStart (Input.mousePosition);
 		}
 
-		private void ExcecuteClick() {
+		public void ClickEnd() {
 			CursorCommand cmd = currentMode.ClickEnd (Input.mousePosition);
-
-			CursorCommand inverse = cmd.Excecute ();
-
-			if (inverse != NullCommand.instance)
-				cmdStack.Push (inverse);
+			CursorCommand invCmd = cmd.Excecute ();
+			inverseCommands.Push (invCmd);
 		}
 
-		private void Undo() {
-			if (cmdStack.Count > 0) {
-				CursorCommand cmd = cmdStack.Pop ();
-				cmd.Excecute ();
-			}
+		void Undo() {
+			inverseCommands.Pop ().Excecute ();
 		}
 	}
 
