@@ -61,7 +61,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 			}
 		}
 
-		public void SetIndex(int index) {
+		public virtual void SetIndex(int index) {
 			this.index = index;
 		}
 

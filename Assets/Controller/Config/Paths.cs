@@ -16,7 +16,7 @@ namespace com.gStudios.isometric.controller.config {
 		}
 
 		public static string TileSprite(int index) {
-			return TilesSprites + index.ToString ();
+			return TilesSprites + "/Floor" + index.ToString ();
 		}
 		
 	}

@@ -43,8 +43,20 @@ namespace com.gStudios.isometric.controller.cursor {
 		}
 
 		public void SetMode(string mode) {
-			Debug.Log ("Using incomplete function SetMode");
-			currentMode = new BuildMode (level);
+			if (currentMode != null)
+				currentMode.Deactivate ();
+
+			if (mode == "build") {
+				currentMode = new BuildMode (level);
+			}
+			else if (mode == "floor") {
+				currentMode = new FloorPaintMode (level);
+			}
+			else {
+				Debug.LogError ("Trying to set an unkown mode " + mode);
+			}
+
+			currentMode.Activate ();
 		}
 
 		public void Update() {
