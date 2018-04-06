@@ -16,12 +16,14 @@ namespace com.gStudios {
 
 		Dictionary<Tile, GameObject> gameobjects;
 
-		Sprite defaultSprite = Resources.Load<Sprite> (Paths.TileSprite("Default"));
+		Sprite[] tileSprites;
 
 		public TileSpriteManager() {
 			tileHolder = new GameObject ("Tiles");
 
 			gameobjects = new Dictionary<Tile, GameObject> ();
+
+			LoadSprites ();
 		}
 
 		public GameObject CreateSprite(Tile tile) {
@@ -47,15 +49,20 @@ namespace com.gStudios {
 		public void UpdateSprite(Tile tile, GameObject tile_go) {
 			SpriteRenderer sr = tile_go.GetComponent<SpriteRenderer> ();
 
-			if (tile.Type == 0)
-				sr.sprite = null;
-			else {
-				sr.sprite = defaultSprite;
-			}
+			if (tile.Type >= tileSprites.Length)
+				Debug.LogError ("Can't find a sprite for tile with ID: " + tile.Type.ToString ());
+
+			sr.sprite = tileSprites [tile.Type];
 		}
 
 		public static int GetSortingOrder(int x, int y) {
 			return (x + y) * 10;
+		}
+
+		void LoadSprites() {
+			Sprite[] loadedSprites = Resources.LoadAll<Sprite> (Paths.TilesSprites);
+			tileSprites = new Sprite[loadedSprites.Length + 1];
+			loadedSprites.CopyTo (tileSprites, 1);
 		}
 	}
 

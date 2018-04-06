@@ -6,7 +6,7 @@ namespace com.gStudios.isometric.controller.config {
 
 	public static class Paths {
 
-		const string TilesSprites = "Sprites/Tiles/";
+		public const string TilesSprites = "Sprites/Tiles";
 		const string CursorSprites = "Sprites/Cursors/";
 
 		public const string CursorPrefab = "Prefabs/Cursor";
@@ -16,11 +16,7 @@ namespace com.gStudios.isometric.controller.config {
 		}
 
 		public static string TileSprite(int index) {
-			return TileSprite (index.ToString ());
-		}
-
-		public static string TileSprite(string name) {
-			return TilesSprites + name;
+			return TilesSprites + index.ToString ();
 		}
 		
 	}
