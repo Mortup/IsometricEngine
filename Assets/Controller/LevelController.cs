@@ -4,6 +4,7 @@ using System;
 
 using UnityEngine;
 
+using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.cursor;
 using com.gStudios.isometric.model.world;
 
@@ -18,6 +19,7 @@ namespace com.gStudios.isometric.controller {
 		TileSpriteManager tileSpriteManager;
 
 		void Start () {
+			DataLoader.Init ();
 			tileSpriteManager = new TileSpriteManager ();
 
 			level = new Level (50,50);

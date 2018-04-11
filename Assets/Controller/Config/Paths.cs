@@ -8,6 +8,7 @@ namespace com.gStudios.isometric.controller.config {
 
 		public const string TilesSprites = "Sprites/Tiles";
 		const string CursorSprites = "Sprites/Cursors/";
+		const string JsonDatas = "Data/";
 
 		public const string CursorPrefab = "Prefabs/Cursor";
 
@@ -17,6 +18,10 @@ namespace com.gStudios.isometric.controller.config {
 
 		public static string TileSprite(int index) {
 			return TilesSprites + "/Floor" + index.ToString ();
+		}
+
+		public static string JsonData(string name) {
+			return JsonDatas + name + "Data";
 		}
 		
 	}

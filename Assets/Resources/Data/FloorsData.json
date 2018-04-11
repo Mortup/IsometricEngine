@@ -1,0 +1,19 @@
+{
+	"cosa":"Jajajaj",
+	"data": [
+		{
+			"id":7,
+			"name":"Kitchen Tiles",
+			"desc":"This tiles brand and why are they so special",
+			"brand":"HomePlace",
+			"price":4500
+		},
+		{
+			"id":2,
+			"name":"Blue Rug",
+			"desc":"The description of the bluest rug",
+			"brand":"HomePlace",
+			"prince":3000
+		}
+	]
+}
