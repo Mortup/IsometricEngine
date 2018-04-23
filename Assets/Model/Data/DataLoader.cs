@@ -18,6 +18,10 @@ namespace com.gStudios.isometric.controller.data {
 			floorsContainer = JsonUtility.FromJson<FloorsContainer>(floorsJson.text);
 			initialized = true;
 		}
+
+		public static List<FloorData> GetFloors() {
+			return floorsContainer.data;
+		}
 		
 	}
 

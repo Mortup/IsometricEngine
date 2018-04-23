@@ -59,6 +59,11 @@ namespace com.gStudios.isometric.controller.cursor {
 			currentMode.Activate ();
 		}
 
+		public void SetIndex(int index) {
+			if (currentMode != null)
+				currentMode.SetIndex (index);
+		}
+
 		public void Update() {
 			if (Input.GetMouseButtonDown (mouseButton))
 				ClickStart ();

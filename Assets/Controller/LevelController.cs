@@ -12,8 +12,6 @@ namespace com.gStudios.isometric.controller {
 
 	public class LevelController : MonoBehaviour {
 
-		public Sprite floorSprite;
-
 		Level level;
 		CursorController cursorController;
 		TileSpriteManager tileSpriteManager;
@@ -41,6 +39,16 @@ namespace com.gStudios.isometric.controller {
 				level.RandomizeTiles ();
 			}
 		}
+
+		// CONTROLLER GETTERS
+		public CursorController GetCursorController() {
+			return cursorController;
+		}
+
+		public TileSpriteManager GetTileSpriteManager() {
+			return tileSpriteManager;
+		}
+		// END CONTROLLER GETTERS
 	}
 
 }

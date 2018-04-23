@@ -6,6 +6,8 @@ using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
 using com.gStudios.isometric.controller.config;
 
+using com.gStudios.isometric.controller.ui;
+
 namespace com.gStudios.isometric.controller.cursor.modes {
 
 	public class FloorPaintMode : DraggableMode {
@@ -38,7 +40,6 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 			isDragging = false;
 			return new PaintAreaCmd (level, startCoords.x, endCoords.x, startCoords.y, endCoords.y, selectedIndex);
 		}
-		
 	}
 
 }
