@@ -61,9 +61,7 @@ namespace com.gStudios {
 		}
 
 		void LoadSprites() {
-			Sprite[] loadedSprites = Resources.LoadAll<Sprite> (Paths.TilesSprites);
-			tileSprites = new Sprite[loadedSprites.Length + 1];
-			loadedSprites.CopyTo (tileSprites, 1);
+			tileSprites = Resources.LoadAll<Sprite> (Paths.TilesSprites);
 		}
 
 		public Sprite GetSprite(FloorData fd) {
