@@ -9,7 +9,7 @@ using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.data.structures;
 
-namespace com.gStudios {
+namespace com.gStudios.isometric.controller.loaders {
 
 	public class TileSpriteManager : ITileObserver {
 

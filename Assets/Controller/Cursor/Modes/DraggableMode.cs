@@ -5,6 +5,7 @@ using UnityEngine;
 using com.gStudios.isometric.model.world;
 
 using com.gStudios.isometric.controller.config;
+using com.gStudios.isometric.controller.loaders;
 using com.gStudios.utils;
 
 namespace com.gStudios.isometric.controller.cursor.modes {

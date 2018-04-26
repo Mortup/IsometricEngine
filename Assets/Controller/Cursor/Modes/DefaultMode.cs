@@ -4,6 +4,7 @@ using UnityEngine;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
+using com.gStudios.isometric.controller.loaders;
 
 using com.gStudios.isometric.controller.config;
 
