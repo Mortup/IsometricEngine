@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.cursor;
-using com.gStudios.isometric.controller.loaders;
+using com.gStudios.isometric.controller.spriteObservers;
 using com.gStudios.isometric.model.data.structures;
 
 namespace com.gStudios.isometric.controller.ui {
