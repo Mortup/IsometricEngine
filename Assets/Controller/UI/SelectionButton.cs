@@ -12,9 +12,9 @@ namespace com.gStudios.isometric.controller.ui {
 	public class SelectionButton : MonoBehaviour {
 
 		CursorController cursorController;
-		FloorData floorData;
+		TileData floorData;
 
-		public void Init(FloorData floorData, Sprite sprite, CursorController cursorController) {
+		public void Init(TileData floorData, Sprite sprite, CursorController cursorController) {
 			this.cursorController = cursorController;
 			this.floorData = floorData;
 

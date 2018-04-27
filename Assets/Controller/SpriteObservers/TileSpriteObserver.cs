@@ -64,7 +64,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			tileSprites = Resources.LoadAll<Sprite> (Paths.TilesSprites);
 		}
 
-		public Sprite GetSprite(FloorData fd) {
+		public Sprite GetSprite(TileData fd) {
 			return tileSprites [fd.id];
 		}
 	}

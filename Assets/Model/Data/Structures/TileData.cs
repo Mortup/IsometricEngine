@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace com.gStudios.isometric.model.data.structures {
 
 	[Serializable]
-	public class FloorData {
+	public class TileData {
 
 		public int id;
 		public string name;

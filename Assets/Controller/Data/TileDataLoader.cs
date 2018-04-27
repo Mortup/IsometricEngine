@@ -16,11 +16,11 @@ namespace com.gStudios.isometric.controller.data {
 			floorsContainer = JsonUtility.FromJson<FloorsContainer>(floorsJson.text);
 		}
 
-		public List<FloorData> GetData() {
+		public List<TileData> GetData() {
 			return floorsContainer.data;
 		}
 
-		public FloorData GetDataById(int id) {
+		public TileData GetDataById(int id) {
 			return floorsContainer.data [id];
 		}
 		

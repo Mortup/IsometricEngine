@@ -29,8 +29,8 @@ namespace com.gStudios.isometric.controller.ui {
 		public void ShowFloorButtons() {
 			RemoveChilds ();
 
-			List<FloorData> floorDatas = DataManager.tileData.GetData ();
-			foreach (FloorData fd in floorDatas) {
+			List<TileData> floorDatas = DataManager.tileData.GetData ();
+			foreach (TileData fd in floorDatas) {
 				GameObject button = GameObject.Instantiate (buttonPrefab);
 				childs.Add (button);
 				button.transform.SetParent (transform);

@@ -9,7 +9,7 @@ namespace com.gStudios.isometric.model.data.structures {
 	public class FloorsContainer {
 
 		public string cosa;
-		public List<FloorData> data;
+		public List<TileData> data;
 		
 	}
 
