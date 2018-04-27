@@ -18,7 +18,7 @@ namespace com.gStudios.isometric.controller {
 		TileSpriteObserver tileSpriteManager;
 
 		void Start () {
-			DataLoader.Init ();
+			TileDataLoader.Init ();
 			tileSpriteManager = new TileSpriteObserver ();
 
 			level = new Level (50,50);

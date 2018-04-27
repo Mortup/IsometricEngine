@@ -7,7 +7,7 @@ using com.gStudios.isometric.model.data.structures;
 
 namespace com.gStudios.isometric.controller.data {
 
-	public static class DataLoader {
+	public static class TileDataLoader {
 
 		static bool initialized = false;
 
