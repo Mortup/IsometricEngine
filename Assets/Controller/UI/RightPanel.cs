@@ -29,7 +29,7 @@ namespace com.gStudios.isometric.controller.ui {
 		public void ShowFloorButtons() {
 			RemoveChilds ();
 
-			List<FloorData> floorDatas = TileDataLoader.GetFloors ();
+			List<FloorData> floorDatas = DataManager.tileData.GetData ();
 			foreach (FloorData fd in floorDatas) {
 				GameObject button = GameObject.Instantiate (buttonPrefab);
 				childs.Add (button);

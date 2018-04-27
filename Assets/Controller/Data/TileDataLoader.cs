@@ -7,20 +7,21 @@ using com.gStudios.isometric.model.data.structures;
 
 namespace com.gStudios.isometric.controller.data {
 
-	public static class TileDataLoader {
+	public class TileDataLoader {
 
-		static bool initialized = false;
+		FloorsContainer floorsContainer;
 
-		static FloorsContainer floorsContainer;
-
-		public static void Init() {
+		public TileDataLoader() {
 			TextAsset floorsJson = Resources.Load<TextAsset> (Paths.JsonData ("Floors"));
 			floorsContainer = JsonUtility.FromJson<FloorsContainer>(floorsJson.text);
-			initialized = true;
 		}
 
-		public static List<FloorData> GetFloors() {
+		public List<FloorData> GetData() {
 			return floorsContainer.data;
+		}
+
+		public FloorData GetDataById(int id) {
+			return floorsContainer.data [id];
 		}
 		
 	}
