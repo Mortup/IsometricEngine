@@ -9,11 +9,11 @@ namespace com.gStudios.isometric.controller.data {
 
 	public class TileDataLoader {
 
-		FloorsContainer floorsContainer;
+		TileDataContainer floorsContainer;
 
 		public TileDataLoader() {
 			TextAsset floorsJson = Resources.Load<TextAsset> (Paths.JsonData ("Floors"));
-			floorsContainer = JsonUtility.FromJson<FloorsContainer>(floorsJson.text);
+			floorsContainer = JsonUtility.FromJson<TileDataContainer>(floorsJson.text);
 		}
 
 		public List<TileData> GetData() {
