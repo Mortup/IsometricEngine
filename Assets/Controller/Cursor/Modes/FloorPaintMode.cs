@@ -4,8 +4,9 @@ using UnityEngine;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
-using com.gStudios.isometric.controller.config;
 
+using com.gStudios.isometric.controller.config;
+using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.ui;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
@@ -13,10 +14,10 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 	public class FloorPaintMode : DraggableMode {
 
 		public FloorPaintMode(Level level) : base(level) {
-			defaultSprite = Resources.Load<Sprite> (Paths.CursorSprite("Default"));
-			onEmptySprite = Resources.Load<Sprite> (Paths.CursorSprite("Empty"));
-			invertedSprite = Resources.Load<Sprite> (Paths.TileSprite (Tile.NewTileIndex));
-			invertedOnEmptySprite = Resources.Load<Sprite> (Paths.CursorSprite("Empty"));
+			defaultSprite = DataManager.cursorSpriteData.defaultSprite;
+			onEmptySprite = DataManager.cursorSpriteData.emptySprite;
+			invertedSprite = DataManager.tileSpriteData.GetDataById (Tile.NewTileIndex);
+			invertedOnEmptySprite = DataManager.cursorSpriteData.emptySprite;
 			cursorSr.sortingLayerName = "Tiles";
 			SetIndex (Tile.NewTileIndex + 1);
 		}
@@ -25,7 +26,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 		{
 			base.SetIndex (index);
 
-			defaultSprite = Resources.Load<Sprite> (Paths.TileSprite(index));
+			defaultSprite = DataManager.tileSpriteData.GetDataById(index);
 		}
 
 		public override CursorCommand ClickEnd (Vector2 mousePosition) {

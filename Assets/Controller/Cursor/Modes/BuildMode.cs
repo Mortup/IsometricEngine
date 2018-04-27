@@ -7,6 +7,7 @@ using com.gStudios.isometric.model.world.commands;
 
 using com.gStudios.utils;
 
+using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.config;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
@@ -14,10 +15,10 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 	public class BuildMode : DraggableMode {
 
 		public BuildMode(Level level) : base(level) {
-			defaultSprite = Resources.Load<Sprite> (Paths.CursorSprite ("Build"));
-			invertedSprite = Resources.Load<Sprite> (Paths.CursorSprite ("BuildInverse"));
-			onTileSprite = Resources.Load<Sprite> (Paths.CursorSprite ("BuildOverTile"));
-			invertedOnEmptySprite = Resources.Load<Sprite> (Paths.CursorSprite ("BuildInverseOnEmpty"));
+			defaultSprite = DataManager.cursorSpriteData.buildSprite;
+			invertedSprite = DataManager.cursorSpriteData.buildInverseSprite;
+			onTileSprite = DataManager.cursorSpriteData.buildOverTileSprite;
+			invertedOnEmptySprite = DataManager.cursorSpriteData.buildInvertedOnEmptySprite;
 			cursorSr.sortingLayerName = "Tiles";
 		}
 

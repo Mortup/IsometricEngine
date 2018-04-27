@@ -10,6 +10,7 @@ namespace com.gStudios.isometric.controller.data {
 
 		static TileDataLoader _tileData;
 		static TileSpriteDataLoader _tileSpriteData;
+		static CursorSpriteDataLoader _cursorSpriteData;
 
 		static bool initialized = false;
 
@@ -19,6 +20,7 @@ namespace com.gStudios.isometric.controller.data {
 
 			_tileData = new TileDataLoader ();
 			_tileSpriteData = new TileSpriteDataLoader ();
+			_cursorSpriteData = new CursorSpriteDataLoader ();
 
 			initialized = true;
 		}
@@ -40,6 +42,13 @@ namespace com.gStudios.isometric.controller.data {
 			get {
 				CheckInitialization ();
 				return _tileSpriteData;
+			}
+		}
+
+		public static CursorSpriteDataLoader cursorSpriteData {
+			get {
+				CheckInitialization ();
+				return _cursorSpriteData;
 			}
 		}
 

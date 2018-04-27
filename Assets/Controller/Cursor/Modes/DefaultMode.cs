@@ -7,6 +7,7 @@ using com.gStudios.isometric.model.world.commands;
 using com.gStudios.isometric.controller.spriteObservers;
 
 using com.gStudios.isometric.controller.config;
+using com.gStudios.isometric.controller.data;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
 
@@ -33,7 +34,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
 			cursorGo = new GameObject ("Cursor");
 			cursorSr = cursorGo.AddComponent<SpriteRenderer> ();
-			cursorSr.sprite = Resources.Load<Sprite> (Paths.CursorSprite ("Default"));
+			cursorSr.sprite = DataManager.cursorSpriteData.defaultSprite;
 			cursorSr.sortingLayerName = "Debug";
 		}
 
