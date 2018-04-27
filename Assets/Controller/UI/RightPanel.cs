@@ -32,6 +32,7 @@ namespace com.gStudios.isometric.controller.ui {
 			List<FloorData> floorDatas = DataLoader.GetFloors ();
 			foreach (FloorData fd in floorDatas) {
 				GameObject button = GameObject.Instantiate (buttonPrefab);
+				childs.Add (button);
 				button.transform.SetParent (transform);
 
 				SelectionButton sb = button.GetComponent<SelectionButton> ();
@@ -42,6 +43,7 @@ namespace com.gStudios.isometric.controller.ui {
 		public void RemoveChilds() {
 			while (childs.Count > 0) {
 				Destroy (childs [0]);
+				childs.Remove (childs [0]);
 			}
 		}
 		
