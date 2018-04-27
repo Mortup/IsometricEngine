@@ -16,7 +16,7 @@ namespace com.gStudios.isometric.controller.ui {
 		[SerializeField] GameObject buttonPrefab;
 
 		CursorController cursorController;
-		TileSpriteManager tileSpriteManager;
+		TileSpriteObserver tileSpriteManager;
 		List<GameObject> childs;
 
 		void Awake() {

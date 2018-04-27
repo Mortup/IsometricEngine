@@ -15,11 +15,11 @@ namespace com.gStudios.isometric.controller {
 
 		Level level;
 		CursorController cursorController;
-		TileSpriteManager tileSpriteManager;
+		TileSpriteObserver tileSpriteManager;
 
 		void Start () {
 			DataLoader.Init ();
-			tileSpriteManager = new TileSpriteManager ();
+			tileSpriteManager = new TileSpriteObserver ();
 
 			level = new Level (50,50);
 			level.RandomizeTiles ();
@@ -46,7 +46,7 @@ namespace com.gStudios.isometric.controller {
 			return cursorController;
 		}
 
-		public TileSpriteManager GetTileSpriteManager() {
+		public TileSpriteObserver GetTileSpriteManager() {
 			return tileSpriteManager;
 		}
 		// END CONTROLLER GETTERS

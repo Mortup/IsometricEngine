@@ -52,7 +52,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
 			if (level.IsInBounds(coords.x, coords.y)) {
 				cursorSr.enabled = true;
-				cursorSr.sortingOrder = TileSpriteManager.GetSortingOrder (coords.x, coords.y) + sortingOrderOffset;
+				cursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (coords.x, coords.y) + sortingOrderOffset;
 				cursorGo.transform.position = IsometricTransformer.CoordToWorld (coords);
 
 				cursorSr.sprite = GetCursorSprite (coords);

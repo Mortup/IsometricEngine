@@ -11,7 +11,7 @@ using com.gStudios.isometric.model.data.structures;
 
 namespace com.gStudios.isometric.controller.loaders {
 
-	public class TileSpriteManager : ITileObserver {
+	public class TileSpriteObserver : ITileObserver {
 
 		GameObject tileHolder;
 
@@ -19,7 +19,7 @@ namespace com.gStudios.isometric.controller.loaders {
 
 		Sprite[] tileSprites;
 
-		public TileSpriteManager() {
+		public TileSpriteObserver() {
 			tileHolder = new GameObject ("Tiles");
 
 			gameobjects = new Dictionary<Tile, GameObject> ();

@@ -57,7 +57,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 					SpriteRenderer staticCursorSr = staticCursorGo.GetComponent<SpriteRenderer> ();
 					staticCursorSr.sprite = GetCursorSprite (new Vector2Int(x,y));
 					staticCursorSr.sortingLayerName = cursorSr.sortingLayerName;
-					staticCursorSr.sortingOrder = TileSpriteManager.GetSortingOrder (x, y) + staticOrderOffset;
+					staticCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (x, y) + staticOrderOffset;
 
 					activeStaticCursors.Push (staticCursorGo);
 				}
