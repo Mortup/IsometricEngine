@@ -5,6 +5,7 @@ using UnityEngine;
 
 using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.config;
+using com.gStudios.isometric.controller.data;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.data.structures;
@@ -17,14 +18,10 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
 		Dictionary<Tile, GameObject> gameobjects;
 
-		Sprite[] tileSprites;
-
 		public TileSpriteObserver() {
 			tileHolder = new GameObject ("Tiles");
 
 			gameobjects = new Dictionary<Tile, GameObject> ();
-
-			LoadSprites ();
 		}
 
 		public GameObject CreateSprite(Tile tile) {
@@ -50,22 +47,14 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 		public void UpdateSprite(Tile tile, GameObject tile_go) {
 			SpriteRenderer sr = tile_go.GetComponent<SpriteRenderer> ();
 
-			if (tile.Type >= tileSprites.Length)
+			if (tile.Type >= DataManager.tileSpriteData.GetData().Length)
 				Debug.LogError ("Can't find a sprite for tile with ID: " + tile.Type.ToString ());
 
-			sr.sprite = tileSprites [tile.Type];
+			sr.sprite = DataManager.tileSpriteData.GetDataById(tile.Type);
 		}
 
 		public static int GetSortingOrder(int x, int y) {
 			return (x + y) * 10;
-		}
-
-		void LoadSprites() {
-			tileSprites = Resources.LoadAll<Sprite> (Paths.TilesSprites);
-		}
-
-		public Sprite GetSprite(TileData fd) {
-			return tileSprites [fd.id];
 		}
 	}
 

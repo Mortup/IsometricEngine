@@ -16,14 +16,12 @@ namespace com.gStudios.isometric.controller.ui {
 		[SerializeField] GameObject buttonPrefab;
 
 		CursorController cursorController;
-		TileSpriteObserver tileSpriteManager;
 		List<GameObject> childs;
 
 		void Awake() {
 			childs = new List<GameObject>();
 
 			cursorController = levelController.GetCursorController ();
-			tileSpriteManager = levelController.GetTileSpriteManager ();
 		}
 
 		public void ShowFloorButtons() {
@@ -36,7 +34,7 @@ namespace com.gStudios.isometric.controller.ui {
 				button.transform.SetParent (transform);
 
 				SelectionButton sb = button.GetComponent<SelectionButton> ();
-				sb.Init (fd, tileSpriteManager.GetSprite(fd), cursorController);
+				sb.Init (fd, DataManager.tileSpriteData.GetDataById(fd.id), cursorController);
 			}
 		}
 
