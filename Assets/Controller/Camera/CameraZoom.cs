@@ -17,15 +17,11 @@ namespace com.gStudios.isometric.controller.camera {
 		}
 
 		void Update() {
-			float newSize = cam.orthographicSize * Mathf.Pow(2, Input.mouseScrollDelta.y);
+			float newSize = cam.orthographicSize * Mathf.Pow(2, -Input.mouseScrollDelta.y);
 			newSize = Mathf.Max (1f, newSize);
 			newSize = Mathf.Min (8f, newSize);
 
 			cam.orthographicSize = newSize;
-		}
-
-		void OnGUI() {
-			GUILayout.Label (cam.orthographicSize.ToString ());
 		}
 	}
 
