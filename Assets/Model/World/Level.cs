@@ -67,6 +67,10 @@ namespace com.gStudios.isometric.model.world {
 				}
 			}
 		}
+
+		public Tile[,] GetTilesForSerialization() {
+			return tiles;
+		}
 	}
 
 }

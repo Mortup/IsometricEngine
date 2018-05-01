@@ -7,6 +7,7 @@ using UnityEngine;
 using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.cursor;
 using com.gStudios.isometric.controller.spriteObservers;
+using com.gStudios.isometric.controller.saving;
 using com.gStudios.isometric.model.world;
 
 namespace com.gStudios.isometric.controller {
@@ -15,21 +16,16 @@ namespace com.gStudios.isometric.controller {
 
 		Level level;
 		CursorController cursorController;
-		TileSpriteObserver tileSpriteManager;
+		TileSpriteObserver tileSpriteObserver;
+		LevelSerializer levelSerializer;
 
 		void Start () {
 			DataManager.Init ();
-			tileSpriteManager = new TileSpriteObserver ();
 
-			level = new Level (50,50);
-			level.RandomizeTiles ();
+			tileSpriteObserver = new TileSpriteObserver ();
 
-			// Create a GameObject for each of out tiles.
-			for (int x = 0; x < level.Width; x++) {
-				for (int y = 0; y < level.Height; y++) {
-					tileSpriteManager.CreateSprite (level.GetTileAt(x,y));
-				}
-			}
+			levelSerializer = new LevelSerializer (tileSpriteObserver);
+			level = levelSerializer.LoadLevel ();
 
 			cursorController = GetComponent<CursorController> ();
 			cursorController.Init (level);
@@ -39,6 +35,10 @@ namespace com.gStudios.isometric.controller {
 			if (Input.GetKeyDown(KeyCode.L)) {
 				level.RandomizeTiles ();
 			}
+
+			if (Input.GetKeyDown(KeyCode.S)) {
+				levelSerializer.SaveLevel (level);
+			}
 		}
 
 		// CONTROLLER GETTERS
@@ -47,7 +47,7 @@ namespace com.gStudios.isometric.controller {
 		}
 
 		public TileSpriteObserver GetTileSpriteManager() {
-			return tileSpriteManager;
+			return tileSpriteObserver;
 		}
 		// END CONTROLLER GETTERS
 	}
