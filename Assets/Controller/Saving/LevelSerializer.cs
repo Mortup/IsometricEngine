@@ -14,12 +14,19 @@ namespace com.gStudios.isometric.controller.saving {
 	public class LevelSerializer {
 		TileSpriteObserver tileSpriteObserver;
 
+		const string savesFolder = "Saves";
+		const string saveName = "save2.binary";
+		const string fullSavePath = savesFolder + "/" + saveName;
+
 		public LevelSerializer(TileSpriteObserver tileSpriteObserver) {
 			this.tileSpriteObserver = tileSpriteObserver;
 		}
 
 		public Level LoadLevel() {
-			FileStream saveFile = File.Open ("Saves/save.isom", FileMode.Open);
+			if (!File.Exists (fullSavePath))
+				return NewLevel ();
+
+			FileStream saveFile = File.Open (fullSavePath, FileMode.Open);
 			BinaryFormatter formatter = new BinaryFormatter ();
 			string data = (string)formatter.Deserialize (saveFile);
 			LevelData levelData = LoadJson (data);
@@ -54,10 +61,10 @@ namespace com.gStudios.isometric.controller.saving {
 
 			string data = CreateJson (level);
 
-			if (!Directory.Exists ("Saves"))
-				Directory.CreateDirectory ("Saves");
+			if (!Directory.Exists (savesFolder))
+				Directory.CreateDirectory (savesFolder);
 
-			FileStream saveFile = File.Create ("Saves/save.isom");
+			FileStream saveFile = File.Create (fullSavePath);
 			BinaryFormatter formatter = new BinaryFormatter ();
 			formatter.Serialize (saveFile, data);
 			saveFile.Close ();
