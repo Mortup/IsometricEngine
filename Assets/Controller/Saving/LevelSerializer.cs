@@ -15,7 +15,7 @@ namespace com.gStudios.isometric.controller.saving {
 		TileSpriteObserver tileSpriteObserver;
 
 		const string savesFolder = "Saves";
-		const string saveName = "save2.binary";
+		const string saveName = "save3.binary";
 		const string fullSavePath = savesFolder + "/" + saveName;
 
 		public LevelSerializer(TileSpriteObserver tileSpriteObserver) {
@@ -28,8 +28,7 @@ namespace com.gStudios.isometric.controller.saving {
 
 			FileStream saveFile = File.Open (fullSavePath, FileMode.Open);
 			BinaryFormatter formatter = new BinaryFormatter ();
-			string data = (string)formatter.Deserialize (saveFile);
-			LevelData levelData = LoadJson (data);
+			LevelData levelData = (LevelData)formatter.Deserialize (saveFile);
 
 			Level level = new Level (levelData.width, levelData.height);
 
@@ -59,7 +58,7 @@ namespace com.gStudios.isometric.controller.saving {
 		public void SaveLevel(Level level) {
 			Debug.Log ("Saving level");
 
-			string data = CreateJson (level);
+			LevelData data = SerializeLevel (level);
 
 			if (!Directory.Exists (savesFolder))
 				Directory.CreateDirectory (savesFolder);
@@ -70,18 +69,13 @@ namespace com.gStudios.isometric.controller.saving {
 			saveFile.Close ();
 		}
 
-		string CreateJson(Level level) {
+		LevelData SerializeLevel(Level level) {
 			LevelData data = new LevelData ();
 			data.height = level.Height;
 			data.width = level.Width;
 			data.tiles = FlattenTileArray (level.GetTilesForSerialization (), level.Height, level.Width);
 
-			return JsonUtility.ToJson (data);
-		}
-
-		LevelData LoadJson(string data) {
-			LevelData levelData = JsonUtility.FromJson<LevelData>(data);
-			return levelData;
+			return data;
 		}
 
 		public int[] FlattenTileArray(Tile[,] arr, int width, int height) {
