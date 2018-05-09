@@ -53,6 +53,15 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			sr.sprite = DataManager.tileSpriteData.GetDataById(tile.Type);
 		}
 
+		public void RemoveTiles() {
+
+			foreach(KeyValuePair<Tile, GameObject> entry in gameobjects)
+			{
+				GameObject.Destroy (entry.Value);
+			}
+			gameobjects = new Dictionary<Tile, GameObject> ();
+		}
+
 		public static int GetSortingOrder(int x, int y) {
 			return (x + y) * 10;
 		}

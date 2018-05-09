@@ -22,23 +22,33 @@ namespace com.gStudios.isometric.controller {
 		void Start () {
 			DataManager.Init ();
 
+			cursorController = GetComponent<CursorController> ();
 			tileSpriteObserver = new TileSpriteObserver ();
 
 			levelSerializer = new LevelSerializer (tileSpriteObserver);
-			level = levelSerializer.LoadLevel ();
+			LoadLevel ();
 
-			cursorController = GetComponent<CursorController> ();
 			cursorController.Init (level);
 		}
 		
 		void Update () {
-			if (Input.GetKeyDown(KeyCode.L)) {
+			if (Input.GetKeyDown(KeyCode.R)) {
 				level.RandomizeTiles ();
 			}
 
 			if (Input.GetKeyDown(KeyCode.S)) {
 				levelSerializer.SaveLevel (level);
 			}
+
+			if (Input.GetKeyDown(KeyCode.L)) {
+				LoadLevel ();
+			}
+		}
+
+		void LoadLevel() {
+			tileSpriteObserver.RemoveTiles ();
+			level = levelSerializer.LoadLevel ();
+			cursorController.Init (level);
 		}
 
 		// CONTROLLER GETTERS
