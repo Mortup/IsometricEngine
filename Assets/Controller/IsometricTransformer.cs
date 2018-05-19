@@ -14,8 +14,6 @@ namespace com.gStudios.isometric.controller {
 		public const float TILE_WIDTH_HALF = 0.5f;
 		public const float TILE_HEIGHT_HALF = 0.25f;
 
-		public const float TILE_HEIGHT_THICKNESS = 9f / 64;
-
 		/// <summary>
 		/// Converts isometric tile coordinates to a world position.
 		/// </summary>
@@ -24,7 +22,7 @@ namespace com.gStudios.isometric.controller {
 		/// <param name="y">The y isometric coordinate.</param>
 		public static Vector2 CoordToWorld(int x, int y) {
 			Vector2 world = new Vector2 ((y - x) * TILE_WIDTH_HALF, -(x + y) * TILE_HEIGHT_HALF);
-			Vector2 offset = new Vector2 (TILE_WIDTH_HALF, TILE_HEIGHT_HALF + TILE_HEIGHT_THICKNESS);
+			Vector2 offset = new Vector2 (TILE_WIDTH_HALF, 0f);
 			return world - offset;
 		}
 
