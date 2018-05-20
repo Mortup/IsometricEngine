@@ -6,6 +6,8 @@ namespace com.gStudios.isometric.model.world {
 	public class Level {
 
 		Tile[,] tiles;
+		Wall[,,] walls;
+
 		int width;
 
 		public int Width {
@@ -26,15 +28,27 @@ namespace com.gStudios.isometric.model.world {
 			this.width = width;
 			this.height = height;
 
+			// Init tiles
 			tiles = new Tile[width,height];
 
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					tiles [x, y] = new Tile (this, x, y);
+					tiles [x, y] = new Tile (x, y);
 				}
 			}
 
-			UnityEngine.Debug.Log ("World created with " + (width*height) + " tiles.");
+			// Init walls
+			walls = new Wall[width+1, height+1, 2];
+
+			for (int x = 0; x < width+1; x++) {
+				for (int y = 0; y < height+1; y++) {
+
+					walls [x, y, 0] = new Wall (x,y);
+					walls [x, y, 1] = new Wall (x,y);
+
+				}
+			}
+
 		}
 
 		public Tile GetTileAt(int x, int y) {

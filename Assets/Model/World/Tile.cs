@@ -12,7 +12,6 @@ namespace com.gStudios.isometric.model.world {
 		public const int EmptyTileIndex = 0;
 		public const int NewTileIndex = 1;
 
-		Level level;
 		int x;
 		int y;
 		int type = 0;
@@ -46,8 +45,7 @@ namespace com.gStudios.isometric.model.world {
 			}
 		}
 
-		public Tile(Level level, int x, int y) {
-			this.level = level;
+		public Tile(int x, int y) {
 			this.x = x;
 			this.y = y;
 
