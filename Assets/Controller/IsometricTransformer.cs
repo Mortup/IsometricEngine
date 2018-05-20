@@ -61,6 +61,40 @@ namespace com.gStudios.isometric.controller {
 			return WorldToCoord (world);
 		}
 
+		public static Vector2 WallPosToWorld(int x, int y, int z) {
+			Vector2 world = new Vector2 ((y - x) * TILE_WIDTH_HALF, -(x + y) * TILE_HEIGHT_HALF);
+			Vector2 offset = Vector2.zero;
+
+			if (z == 0)
+				offset += new Vector2 (TILE_WIDTH_HALF, 0f);
+
+			return world - offset;
+		}
+
+		public static Vector2 WallPosToWorld(Vector3Int wallPos) {
+			return WallPosToWorld (wallPos.x, wallPos.y, wallPos.z);
+		}
+
+		public static Vector3Int WorldToWallPos(Vector2 world) {			
+			int gridX = Mathf.FloorToInt(world.x / TILE_WIDTH_HALF) + 1;
+			int gridY = Mathf.FloorToInt(-world.y / TILE_HEIGHT_HALF) + 1;
+
+			int x = Mathf.CeilToInt ((gridY / 2f) - (gridX / 2f));
+			int y = Mathf.FloorToInt((gridX / 2f) + (gridY / 2f));
+			int z = Mathf.Abs (Mathf.Abs(gridX % 2) - Mathf.Abs(gridY % 2));
+
+			return new Vector3Int(x,y,z);
+		}
+
+		/// <summary>
+		/// Converts screen position to a wall position.
+		/// </summary>
+		/// <returns>The to wall position.</returns>
+		/// <param name="screen">The screen position.</param>
+		public static Vector3Int ScreenToWallPos(Vector2 screen) {
+			Vector2 world = Camera.main.ScreenToWorldPoint (screen);
+			return WorldToWallPos (world);
+		}
 	}
 
 }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+using com.gStudios.isometric.controller;
+
 public class SpriteImportSettings : AssetPostprocessor
 {
 	public const int PPU = 64;
@@ -14,14 +16,24 @@ public class SpriteImportSettings : AssetPostprocessor
 
 		tis.spritePixelsPerUnit = PPU;
 		tis.filterMode = FilterMode.Point;
+		tis.mipmapEnabled = false;
 
-		Debug.Log (assetPath);
 		if (assetPath.Contains("Tiles") || assetPath.Contains("Cursors")) {
-			Debug.Log ("Contains");
+			float tileHeightOffset = ((float)26/42);
+
 			tis.spriteAlignment = (int)SpriteAlignment.Custom;
-			tis.spritePivot = new Vector2 (0, 0.6f);
+			tis.spritePivot = new Vector2 (0, tileHeightOffset);
+		}
+		else if (assetPath.Contains("Walls")) {
+			float tileHeightOffset = ((float)2 / 130);
+			float tileWidthOffset = ((float)2 / 38);
+
+			tis.spriteAlignment = (int)SpriteAlignment.Custom;
+			tis.spritePivot = new Vector2 (tileWidthOffset, tileHeightOffset);
 		}
 
+		Debug.Log ("Procceseed sprites.");
 		textureImporter.SetTextureSettings (tis);
 	}
+
 }
