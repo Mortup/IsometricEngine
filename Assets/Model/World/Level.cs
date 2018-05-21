@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+using com.gStudios.isometric.model.world.tile;
+using com.gStudios.isometric.model.world.wall;
+
 namespace com.gStudios.isometric.model.world {
 
 	public class Level {
 
-		Tile[,] tiles;
-		Wall[,,] walls;
+		ITile[,] tiles;
+		IWall[,,] walls;
 
 		int width;
 
@@ -29,29 +32,43 @@ namespace com.gStudios.isometric.model.world {
 			this.height = height;
 
 			// Init tiles
-			tiles = new Tile[width,height];
+			tiles = new ITile[width,height];
 
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					tiles [x, y] = new Tile (x, y);
+					tiles [x, y] = new RegularTile (x, y);
 				}
 			}
 
 			// Init walls
-			walls = new Wall[width+1, height+1, 2];
+			walls = new IWall[width+1, height+1, 2];
 
 			for (int x = 0; x < width+1; x++) {
 				for (int y = 0; y < height+1; y++) {
 
-					walls [x, y, 0] = new Wall (x,y,0);
-					walls [x, y, 1] = new Wall (x,y,1);
+					if (x == width) {
+						walls [x, y, 0] = new NullWall (x, y, 0);
+					}
+					if (y == height) {
+						walls [x, y, 1] = new NullWall (x, y, 1);
+					}
 
+					if (walls [x, y, 0] == null)
+						walls [x, y, 0] = new RegularWall (x,y,0);
+
+					if (walls [x, y, 1] == null)
+						walls [x, y, 1] = new RegularWall (x,y,1);
+
+					if (x == 0 || x == width)
+						walls [x, y, 1].Type = WallIndex.NewWallIndex;
+					if (y == 0 || y == height)
+						walls [x, y, 0].Type = WallIndex.NewWallIndex;
 				}
 			}
 
 		}
 
-		public Tile GetTileAt(int x, int y) {
+		public ITile GetTileAt(int x, int y) {
 			if (x > width || x < 0 || y > height || y < 0) {
 				UnityEngine.Debug.LogError("Tile ("+x+","+y+") is out of range.");
 				return null;
@@ -60,7 +77,7 @@ namespace com.gStudios.isometric.model.world {
 			return tiles [x, y];
 		}
 
-		public Wall GetWallAt(int x, int y, int z) {
+		public IWall GetWallAt(int x, int y, int z) {
 			if (x > width+1 || x < 0 || y > height+1 || y < 0) {
 				UnityEngine.Debug.LogError("Wall ("+x+","+y+","+z+") is out of range.");
 				return null;
@@ -95,7 +112,18 @@ namespace com.gStudios.isometric.model.world {
 			}
 		}
 
-		public Tile[,] GetTilesForSerialization() {
+		public void RandomizeWalls() {
+			for (int x = 0; x < width + 1; x++) {
+				for (int y = 0; y < height + 1; y++) {
+
+					walls [x, y, 0].Type = UnityEngine.Random.Range (0, 2) == 0 ? 0 : 1;
+					walls [x, y, 1].Type = UnityEngine.Random.Range (0, 2) == 0 ? 0 : 1;
+
+				}
+			}
+		}
+
+		public ITile[,] GetTilesForSerialization() {
 			return tiles;
 		}
 	}

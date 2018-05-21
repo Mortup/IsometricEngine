@@ -4,6 +4,7 @@ using UnityEngine;
 
 using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.model.world;
+using com.gStudios.isometric.model.world.wall;
 
 namespace com.gStudios.isometric.controller.spriteObservers {
 
@@ -11,15 +12,17 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
 		GameObject wallHolder;
 
-		Dictionary<Wall, GameObject> gameobjects;
+		Dictionary<IWall, GameObject> gameobjects;
+
+		int currentClipping = 1;
 
 		public WallSpriteObserver() {
 			wallHolder = new GameObject ("Walls");
 
-			gameobjects = new Dictionary<Wall, GameObject> ();
+			gameobjects = new Dictionary<IWall, GameObject> ();
 		}
 
-		public GameObject CreateSprite(Wall wall) {
+		public GameObject CreateSprite(IWall wall) {
 			GameObject wall_go = new GameObject ();
 			wall_go.name = "Wall [" + wall.X.ToString () + "," + wall.Y.ToString () + "," + wall.Z.ToString () + "]";
 			wall_go.transform.position = (Vector3)IsometricTransformer.WallPosToWorld(wall.X, wall.Y, wall.Z);
@@ -35,26 +38,23 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			return wall_go;
 		}
 
-		public void NotifyWallTypeChanged(Wall wall) {
+		public void NotifyWallTypeChanged(IWall wall) {
 			UpdateSprite (wall, gameobjects [wall]);
 		}
 
-		public void UpdateSprite(Wall wall, GameObject wall_go) {
+		public void UpdateSprite(IWall wall, GameObject wall_go) {
 			SpriteRenderer sr = wall_go.GetComponent<SpriteRenderer> ();
 
-			if (wall.Type >= DataManager.wallSpriteData.GetData().Length)
-				Debug.LogError ("Can't find a sprite for wall with ID: " + wall.Type.ToString ());
-
-			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type);
+			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type, wall.Z, currentClipping);
 		}
 
 		public void RemoveWalls() {
 
-			foreach(KeyValuePair<Wall, GameObject> entry in gameobjects)
+			foreach(KeyValuePair<IWall, GameObject> entry in gameobjects)
 			{
 				GameObject.Destroy (entry.Value);
 			}
-			gameobjects = new Dictionary<Wall, GameObject> ();
+			gameobjects = new Dictionary<IWall, GameObject> ();
 		}
 
 		public static int GetSortingOrder(int x, int y, int z) {

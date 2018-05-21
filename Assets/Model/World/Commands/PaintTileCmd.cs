@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+using com.gStudios.isometric.model.world.tile;
+
 namespace com.gStudios.isometric.model.world.commands {
 
 	public class PaintTileCmd : CursorCommand {
@@ -10,10 +12,10 @@ namespace com.gStudios.isometric.model.world.commands {
 
 		public override CursorCommand Excecute ()
 		{
-			Tile tile = level.GetTileAt (posX, posY);
+			ITile tile = level.GetTileAt (posX, posY);
 			int previousIndex = tile.Type;
 
-			if (previousIndex == Tile.EmptyTileIndex) {
+			if (previousIndex == TileIndex.EmptyTileIndex) {
 				// Cannot paint an empty tile.
 				return NullCommand.instance;
 			}

@@ -5,16 +5,16 @@ using System.Diagnostics;
 
 using com.gStudios.isometric.model.items;
 
-namespace com.gStudios.isometric.model.world {
+namespace com.gStudios.isometric.model.world.tile {
 
-	public class Tile {
+	public class RegularTile : ITile {
 
 		public const int EmptyTileIndex = 0;
 		public const int NewTileIndex = 1;
 
 		int x;
 		int y;
-		int type = 0;
+		int type = EmptyTileIndex;
 
 		PlacedFurniture placedFurniture;
 
@@ -45,7 +45,7 @@ namespace com.gStudios.isometric.model.world {
 			}
 		}
 
-		public Tile(int x, int y) {
+		public RegularTile(int x, int y) {
 			this.x = x;
 			this.y = y;
 

@@ -7,7 +7,7 @@ using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.data;
 
-using com.gStudios.isometric.model.world;
+using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.data.structures;
 
 namespace com.gStudios.isometric.controller.spriteObservers {
@@ -16,15 +16,15 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
 		GameObject tileHolder;
 
-		Dictionary<Tile, GameObject> gameobjects;
+		Dictionary<ITile, GameObject> gameobjects;
 
 		public TileSpriteObserver() {
 			tileHolder = new GameObject ("Tiles");
 
-			gameobjects = new Dictionary<Tile, GameObject> ();
+			gameobjects = new Dictionary<ITile, GameObject> ();
 		}
 
-		public GameObject CreateSprite(Tile tile) {
+		public GameObject CreateSprite(ITile tile) {
 			GameObject tile_go = new GameObject ();
 			tile_go.name = "Tile [" + tile.X.ToString () + "," + tile.Y.ToString () + "]";
 			tile_go.transform.position = (Vector3)IsometricTransformer.CoordToWorld (tile.X, tile.Y);
@@ -40,11 +40,11 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			return tile_go;
 		}
 
-		public void NotifyTileTypeChanged(Tile tile) {
+		public void NotifyTileTypeChanged(ITile tile) {
 			UpdateSprite (tile, gameobjects [tile]);
 		}
 
-		public void UpdateSprite(Tile tile, GameObject tile_go) {
+		public void UpdateSprite(ITile tile, GameObject tile_go) {
 			SpriteRenderer sr = tile_go.GetComponent<SpriteRenderer> ();				
 
 			sr.sprite = DataManager.tileSpriteData.GetDataById(tile.Type);
@@ -52,11 +52,11 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
 		public void RemoveTiles() {
 
-			foreach(KeyValuePair<Tile, GameObject> entry in gameobjects)
+			foreach(KeyValuePair<ITile, GameObject> entry in gameobjects)
 			{
 				GameObject.Destroy (entry.Value);
 			}
-			gameobjects = new Dictionary<Tile, GameObject> ();
+			gameobjects = new Dictionary<ITile, GameObject> ();
 		}
 
 		public static int GetSortingOrder(int x, int y) {

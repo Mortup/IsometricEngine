@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+using com.gStudios.isometric.model.world.tile;
+
 namespace com.gStudios.isometric.model.world.commands {
 
 	public class SetTileCmd : CursorCommand {
@@ -10,15 +12,15 @@ namespace com.gStudios.isometric.model.world.commands {
 
 		public override CursorCommand Excecute ()
 		{
-			if (index == Tile.EmptyTileIndex) {
+			if (index == TileIndex.EmptyTileIndex) {
 				// Cannot destroy tiles.
 				return NullCommand.instance;
 			}
 
-			Tile tile = level.GetTileAt (posX, posY);
+			ITile tile = level.GetTileAt (posX, posY);
 			int previousIndex = tile.Type;
 
-			if (previousIndex == Tile.EmptyTileIndex)
+			if (previousIndex == TileIndex.EmptyTileIndex)
 				// Cannot paint empty tiles.
 				return NullCommand.instance;
 

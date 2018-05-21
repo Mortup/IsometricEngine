@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using com.gStudios.isometric.model.world;
+using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.commands;
 
 using com.gStudios.utils;
@@ -21,12 +22,12 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 			invertedOnEmptySprite = DataManager.cursorSpriteData.buildInvertedOnEmptySprite;
 			cursorSr.sortingLayerName = "Tiles";
 		}
-
+//
 		public override CursorCommand ClickEnd (Vector2 mousePosition) {
 			if (!isDragging)
 				return NullCommand.instance;
 
-			int selectedIndex = Input.GetButton ("InverseFunction") ? Tile.EmptyTileIndex : Tile.NewTileIndex;
+			int selectedIndex = Input.GetButton ("InverseFunction") ? TileIndex.EmptyTileIndex : TileIndex.NewTileIndex;
 
 			Vector2Int startCoords = IsometricTransformer.ScreenToCoord (mouseStartPosition);
 			Vector2Int endCoords = IsometricTransformer.ScreenToCoord (mousePosition);

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace com.gStudios.isometric.model.world {
+namespace com.gStudios.isometric.model.world.tile {
 
 	public interface ITileObserver {
 
-		void NotifyTileTypeChanged (Tile tile);
+		void NotifyTileTypeChanged (ITile tile);
 
 	}
 

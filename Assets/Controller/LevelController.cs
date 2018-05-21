@@ -37,7 +37,7 @@ namespace com.gStudios.isometric.controller {
 		
 		void Update () {
 			if (Input.GetKeyDown(KeyCode.R)) {
-				level.RandomizeTiles ();
+				level.RandomizeWalls ();
 			}
 
 			if (Input.GetKeyDown(KeyCode.S)) {

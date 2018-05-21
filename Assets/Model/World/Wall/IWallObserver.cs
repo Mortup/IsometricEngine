@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace com.gStudios.isometric.model.world {
+namespace com.gStudios.isometric.model.world.wall {
 
 	public interface IWallObserver {
 
-		void NotifyWallTypeChanged (Wall wall);
+		void NotifyWallTypeChanged (IWall wall);
 		
 	}
 

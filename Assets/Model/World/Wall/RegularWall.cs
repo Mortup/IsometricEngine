@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace com.gStudios.isometric.model.world {
+namespace com.gStudios.isometric.model.world.wall {
 
-	public class Wall {
-
-		public const int EmptyWallIndex = 0;
-		public const int NewWallIndex = 1;
+	public class RegularWall : IWall {
 
 		int x;
 		int y;
 		int z;
-		int type = 0;
+		int type = WallIndex.EmptyWallIndex;
 
 		private List<IWallObserver> observers;
 
@@ -47,7 +44,7 @@ namespace com.gStudios.isometric.model.world {
 			}
 		}
 
-		public Wall(int x, int y, int z) {
+		public RegularWall(int x, int y, int z) {
 			this.x = x;
 			this.y = y;
 			this.z = z;

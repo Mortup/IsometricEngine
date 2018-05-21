@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using com.gStudios.isometric.model.world;
+using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.commands;
 using com.gStudios.isometric.controller.spriteObservers;
 
@@ -68,15 +69,15 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 		}
 
 		protected Sprite GetCursorSprite(Vector2Int coords) {
-			Tile tile = level.GetTileAt (coords.x, coords.y);
+			ITile tile = level.GetTileAt (coords.x, coords.y);
 			if (tile == null)
 				return null;
 
 			if (invertedSprite != null && Input.GetButton("InverseFunction")) {
-				if (invertedOnEmptySprite != null && tile.Type == Tile.EmptyTileIndex) {
+				if (invertedOnEmptySprite != null && tile.Type == TileIndex.EmptyTileIndex) {
 					return invertedOnEmptySprite;
 				}
-				else if (invertedOnTileSprite != null && tile.Type != Tile.EmptyTileIndex) {
+				else if (invertedOnTileSprite != null && tile.Type != TileIndex.EmptyTileIndex) {
 					return invertedOnTileSprite;
 				}
 				else {
@@ -84,10 +85,10 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 				}
 			}
 			else {
-				if (onEmptySprite != null && tile.Type == Tile.EmptyTileIndex) {
+				if (onEmptySprite != null && tile.Type == TileIndex.EmptyTileIndex) {
 					return onEmptySprite;
 				}
-				else if (onTileSprite != null && tile.Type != Tile.EmptyTileIndex) {
+				else if (onTileSprite != null && tile.Type != TileIndex.EmptyTileIndex) {
 					return onTileSprite;
 				}
 				else {
