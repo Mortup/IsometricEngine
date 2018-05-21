@@ -43,8 +43,8 @@ namespace com.gStudios.isometric.model.world {
 			for (int x = 0; x < width+1; x++) {
 				for (int y = 0; y < height+1; y++) {
 
-					walls [x, y, 0] = new Wall (x,y);
-					walls [x, y, 1] = new Wall (x,y);
+					walls [x, y, 0] = new Wall (x,y,0);
+					walls [x, y, 1] = new Wall (x,y,1);
 
 				}
 			}
@@ -58,6 +58,19 @@ namespace com.gStudios.isometric.model.world {
 			}
 
 			return tiles [x, y];
+		}
+
+		public Wall GetWallAt(int x, int y, int z) {
+			if (x > width+1 || x < 0 || y > height+1 || y < 0) {
+				UnityEngine.Debug.LogError("Wall ("+x+","+y+","+z+") is out of range.");
+				return null;
+			}
+			if (z != 0 && z != 1) {
+				UnityEngine.Debug.LogError("Wall ("+x+","+y+","+z+") is out of range.");
+				return null;
+			}
+
+			return walls [x, y, z];
 		}
 
 		public bool IsInBounds(int x, int y) {

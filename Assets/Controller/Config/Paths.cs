@@ -7,6 +7,8 @@ namespace com.gStudios.isometric.controller.config {
 	public static class Paths {
 
 		public const string TilesSprites = "Sprites/Tiles";
+		public const string WallSprites = "Sprites/Walls";
+
 		const string CursorSprites = "Sprites/Cursors/";
 		const string JsonDatas = "Data/";
 

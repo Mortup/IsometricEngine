@@ -16,7 +16,10 @@ namespace com.gStudios.isometric.controller {
 
 		Level level;
 		CursorController cursorController;
+
 		TileSpriteObserver tileSpriteObserver;
+		WallSpriteObserver wallSpriteObserver;
+
 		LevelSerializer levelSerializer;
 
 		void Start () {
@@ -24,8 +27,9 @@ namespace com.gStudios.isometric.controller {
 
 			cursorController = GetComponent<CursorController> ();
 			tileSpriteObserver = new TileSpriteObserver ();
+			wallSpriteObserver = new WallSpriteObserver ();
 
-			levelSerializer = new LevelSerializer (tileSpriteObserver);
+			levelSerializer = new LevelSerializer (tileSpriteObserver, wallSpriteObserver);
 			LoadLevel ();
 
 			cursorController.Init (level);
@@ -47,7 +51,10 @@ namespace com.gStudios.isometric.controller {
 
 		void LoadLevel() {
 			tileSpriteObserver.RemoveTiles ();
+			wallSpriteObserver.RemoveWalls ();
+
 			level = levelSerializer.LoadLevel ();
+
 			cursorController.Init (level);
 		}
 

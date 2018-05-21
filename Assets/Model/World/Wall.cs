@@ -11,9 +11,10 @@ namespace com.gStudios.isometric.model.world {
 
 		int x;
 		int y;
+		int z;
 		int type = 0;
 
-		// Observers list
+		private List<IWallObserver> observers;
 
 		public int Type {
 			get {
@@ -22,9 +23,9 @@ namespace com.gStudios.isometric.model.world {
 			set {
 				type = value;
 
-				/*foreach (ITileObserver tileObserver in observers) {
-					tileObserver.NotifyTileTypeChanged (this);
-				}*/
+				foreach (IWallObserver wallObserver in observers) {
+					wallObserver.NotifyWallTypeChanged (this);
+				}
 			}
 		}
 
@@ -40,9 +41,25 @@ namespace com.gStudios.isometric.model.world {
 			}
 		}
 
-		public Wall(int x, int y) {
+		public int Z {
+			get {
+				return z;
+			}
+		}
+
+		public Wall(int x, int y, int z) {
 			this.x = x;
 			this.y = y;
+			this.z = z;
+
+			observers = new List<IWallObserver> ();
+		}
+
+		public void Subscribe(IWallObserver observer) {
+			if (observers.Contains (observer))
+				UnityEngine.Debug.LogError ("Trying to add an observer more than once.");
+
+			observers.Add (observer);
 		}
 	}
 

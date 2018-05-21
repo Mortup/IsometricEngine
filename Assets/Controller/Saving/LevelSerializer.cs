@@ -13,13 +13,15 @@ namespace com.gStudios.isometric.controller.saving {
 
 	public class LevelSerializer {
 		TileSpriteObserver tileSpriteObserver;
+		WallSpriteObserver wallSpriteObserver;
 
 		const string savesFolder = "Saves";
 		const string saveName = "save3.binary";
 		const string fullSavePath = savesFolder + "/" + saveName;
 
-		public LevelSerializer(TileSpriteObserver tileSpriteObserver) {
+		public LevelSerializer(TileSpriteObserver tileSpriteObserver, WallSpriteObserver wallSpriteObserver) {
 			this.tileSpriteObserver = tileSpriteObserver;
+			this.wallSpriteObserver = wallSpriteObserver;
 		}
 
 		public Level LoadLevel() {
@@ -36,6 +38,15 @@ namespace com.gStudios.isometric.controller.saving {
 				for (int y = 0; y < level.Height; y++) {
 					level.GetTileAt(x,y).Type = levelData.tiles [x + y * level.Width];
 					tileSpriteObserver.CreateSprite (level.GetTileAt(x,y));
+				}
+			}
+
+			for (int x = 0; x < level.Width+1; x++) {
+				for (int y = 0; y < level.Height+1; y++) {
+					level.GetWallAt (x, y, 0).Type = 0; // TODO: Load the type
+					level.GetWallAt (x, y, 1).Type = 0; // TODO: Load the type
+					wallSpriteObserver.CreateSprite(level.GetWallAt(x,y,0));
+					wallSpriteObserver.CreateSprite(level.GetWallAt(x,y,1));
 				}
 			}
 
