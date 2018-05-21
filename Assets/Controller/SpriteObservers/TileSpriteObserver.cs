@@ -45,10 +45,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 		}
 
 		public void UpdateSprite(Tile tile, GameObject tile_go) {
-			SpriteRenderer sr = tile_go.GetComponent<SpriteRenderer> ();
-
-			if (tile.Type >= DataManager.tileSpriteData.GetData().Length)
-				Debug.LogError ("Can't find a sprite for tile with ID: " + tile.Type.ToString ());
+			SpriteRenderer sr = tile_go.GetComponent<SpriteRenderer> ();				
 
 			sr.sprite = DataManager.tileSpriteData.GetDataById(tile.Type);
 		}

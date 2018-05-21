@@ -15,15 +15,19 @@ namespace com.gStudios.isometric.controller.data {
 			sprites = Resources.LoadAll<Sprite> (Paths.TilesSprites);
 		}
 
-		public Sprite[] GetData() {
-			return sprites;
-		}
-
 		public Sprite GetDataById(int id) {
+			if (id > sprites.Length) {
+				Debug.LogError ("Can't find a sprite for tile with ID: " + id.ToString ());
+			}
+
 			return sprites [id];
 		}
 
 		public Sprite GetDataByTileData(TileData td) {
+			if (td.id > sprites.Length) {
+				Debug.LogError ("Can't find a sprite for tile with ID: " + td.id.ToString ());
+			}
+
 			return GetDataById (td.id);
 		}
 		
