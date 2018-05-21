@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.wall;
+using com.gStudios.isometric.model.world.generation;
 
 namespace com.gStudios.isometric.model.world {
 
@@ -31,41 +32,8 @@ namespace com.gStudios.isometric.model.world {
 			this.width = width;
 			this.height = height;
 
-			// Init tiles
-			tiles = new ITile[width,height];
-
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
-					tiles [x, y] = new RegularTile (x, y);
-				}
-			}
-
-			// Init walls
-			walls = new IWall[width+1, height+1, 2];
-
-			for (int x = 0; x < width+1; x++) {
-				for (int y = 0; y < height+1; y++) {
-
-					if (x == width) {
-						walls [x, y, 0] = new NullWall (x, y, 0);
-					}
-					if (y == height) {
-						walls [x, y, 1] = new NullWall (x, y, 1);
-					}
-
-					if (walls [x, y, 0] == null)
-						walls [x, y, 0] = new RegularWall (x,y,0);
-
-					if (walls [x, y, 1] == null)
-						walls [x, y, 1] = new RegularWall (x,y,1);
-
-					if (x == 0 || x == width)
-						walls [x, y, 1].Type = WallIndex.NewWallIndex;
-					if (y == 0 || y == height)
-						walls [x, y, 0].Type = WallIndex.NewWallIndex;
-				}
-			}
-
+			tiles = TileGenerator.Generate(width, height);
+			walls = WallGenerator.Generate(width, height);
 		}
 
 		public ITile GetTileAt(int x, int y) {
