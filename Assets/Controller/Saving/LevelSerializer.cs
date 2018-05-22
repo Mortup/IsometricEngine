@@ -57,6 +57,7 @@ namespace com.gStudios.isometric.controller.saving {
 		public Level NewLevel() {
 			Level level = new Level (10, 10);
 			level.RandomizeTiles ();
+			level.RandomizeWalls ();
 
 			for (int x = 0; x < level.Width; x++) {
 				for (int y = 0; y < level.Height; y++) {

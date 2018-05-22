@@ -48,6 +48,21 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type, wall.Z, currentClipping);
 		}
 
+		public void UpdateAllSprites() {
+			foreach(KeyValuePair<IWall, GameObject> entry in gameobjects)
+			{
+				UpdateSprite (entry.Key, entry.Value);
+			}
+		}
+
+		public void SetClipping(int clipping) {
+			int lastClipping = currentClipping;
+			currentClipping = clipping;
+
+			if (lastClipping != currentClipping)
+				UpdateAllSprites ();
+		}
+
 		public void RemoveWalls() {
 
 			foreach(KeyValuePair<IWall, GameObject> entry in gameobjects)
