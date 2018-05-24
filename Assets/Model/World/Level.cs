@@ -34,6 +34,8 @@ namespace com.gStudios.isometric.model.world {
 
 			tiles = TileGenerator.Generate(width, height);
 			walls = WallGenerator.Generate(width, height);
+
+			RandomizeTiles ();
 		}
 
 		public ITile GetTileAt(int x, int y) {

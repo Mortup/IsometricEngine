@@ -46,6 +46,17 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			SpriteRenderer sr = wall_go.GetComponent<SpriteRenderer> ();
 
 			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type, wall.Z, currentClipping);
+
+			/*// TODO: HORRIBLE SHIT. MUST DELETE. WILL NOT BE ALLOWED D:
+			if (wall.Z == 1 || wall.Y == 0 || wall.Y == 4)
+				return;
+			if (level.GetWallAt(wall.X, wall.Y-1, wall.Z).Type == WallIndex.EmptyWallIndex) {
+				return;
+			}
+			if (level.GetWallAt(wall.X, wall.Y+1, wall.Z).Type == WallIndex.EmptyWallIndex) {
+				return;
+			}*/
+				
 		}
 
 		public void UpdateAllSprites() {
@@ -70,6 +81,17 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 				GameObject.Destroy (entry.Value);
 			}
 			gameobjects = new Dictionary<IWall, GameObject> ();
+		}
+
+		public void BindLevel(Level level) {
+			
+			for (int x = 0; x < level.Width+1; x++) {
+				for (int y = 0; y < level.Height+1; y++) {
+					CreateSprite(level.GetWallAt(x,y,0));
+					CreateSprite(level.GetWallAt(x,y,1));
+				}
+			}
+
 		}
 
 		public static int GetSortingOrder(int x, int y, int z) {

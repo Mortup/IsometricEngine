@@ -7,12 +7,16 @@ using UnityEngine;
 using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.cursor;
 using com.gStudios.isometric.controller.spriteObservers;
-using com.gStudios.isometric.controller.saving;
+
+using com.gStudios.isometric.model.saving;
 using com.gStudios.isometric.model.world;
 
 namespace com.gStudios.isometric.controller {
 
 	public class LevelController : MonoBehaviour {
+
+		[SerializeField] int levelWidth;
+		[SerializeField] int levelHeight;
 
 		Level level;
 		CursorController cursorController;
@@ -29,10 +33,8 @@ namespace com.gStudios.isometric.controller {
 			tileSpriteObserver = new TileSpriteObserver ();
 			wallSpriteObserver = new WallSpriteObserver ();
 
-			levelSerializer = new LevelSerializer (tileSpriteObserver, wallSpriteObserver);
+			levelSerializer = new LevelSerializer ();
 			LoadLevel ();
-
-			cursorController.Init (level);
 		}
 		
 		void Update () {
@@ -60,9 +62,18 @@ namespace com.gStudios.isometric.controller {
 			tileSpriteObserver.RemoveTiles ();
 			wallSpriteObserver.RemoveWalls ();
 
-			level = levelSerializer.LoadLevel ();
+			Level level;
+			if (levelSerializer.ExistsSavedLevel ()) {
+				level = levelSerializer.LoadLevel ();
+			}
+			else {
+				level = new Level(levelWidth, levelHeight);
+			}
 
 			cursorController.Init (level);
+
+			tileSpriteObserver.BindLevel (level);
+			wallSpriteObserver.BindLevel (level);
 		}
 
 		// CONTROLLER GETTERS

@@ -7,6 +7,7 @@ using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.data;
 
+using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.data.structures;
 
@@ -57,6 +58,14 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 				GameObject.Destroy (entry.Value);
 			}
 			gameobjects = new Dictionary<ITile, GameObject> ();
+		}
+
+		public void BindLevel(Level level) {
+			for (int x = 0; x < level.Width; x++) {
+				for (int y = 0; y < level.Height; y++) {
+					CreateSprite (level.GetTileAt(x,y));
+				}
+			}
 		}
 
 		public static int GetSortingOrder(int x, int y) {
