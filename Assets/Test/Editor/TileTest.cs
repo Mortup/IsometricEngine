@@ -4,19 +4,33 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 
+using com.gStudios.isometric.model.world.tile;
+
 public class TileTest {
 
-	[Test]
-	public void TileTestSimplePasses() {
-		
+	RegularTile tile;
+
+	[SetUp]
+	public void Setup() {
+		tile = new RegularTile (13, 42);
 	}
 
-	// A UnityTest behaves like a coroutine in PlayMode
-	// and allows you to yield null to skip a frame in EditMode
-	[UnityTest]
-	public IEnumerator TileTestWithEnumeratorPasses() {
-		// Use the Assert class to test conditions.
-		// yield to skip a frame
-		yield return null;
+	[Test]
+	public void TileCoordStays() {
+		Assert.AreEqual (tile.X, 13);
+		Assert.AreEqual (tile.Y, 42);
 	}
+
+	[Test]
+	public void TileTypeInit() {
+		Assert.AreEqual (tile.Type, TileIndex.EmptyTileIndex);
+	}
+
+	/*[Test]
+	public void TileTypeChangeCallback() {
+		RegularTile tile = new RegularTile (13, 42);
+
+		int callsCount = 0;
+
+	}*/
 }
