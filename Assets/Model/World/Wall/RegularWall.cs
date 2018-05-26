@@ -4,16 +4,11 @@ using UnityEngine;
 
 namespace com.gStudios.isometric.model.world.wall {
 
-	public class RegularWall : IWall {
-
-		int x;
-		int y;
-		int z;
-		int type = WallIndex.EmptyWallIndex;
+	public class RegularWall : AbstractWall {
 
 		private List<IWallObserver> observers;
 
-		public int Type {
+		public override int Type {
 			get {
 				return type;
 			}
@@ -26,33 +21,11 @@ namespace com.gStudios.isometric.model.world.wall {
 			}
 		}
 
-		public int X {
-			get {
-				return x;
-			}
-		}
-
-		public int Y {
-			get {
-				return y;
-			}
-		}
-
-		public int Z {
-			get {
-				return z;
-			}
-		}
-
-		public RegularWall(int x, int y, int z) {
-			this.x = x;
-			this.y = y;
-			this.z = z;
-
+		public RegularWall(Level level, int x, int y, int z) : base(level, x, y, z) {
 			observers = new List<IWallObserver> ();
 		}
 
-		public void Subscribe(IWallObserver observer) {
+		public override void Subscribe(IWallObserver observer) {
 			if (observers.Contains (observer))
 				UnityEngine.Debug.LogError ("Trying to add an observer more than once.");
 

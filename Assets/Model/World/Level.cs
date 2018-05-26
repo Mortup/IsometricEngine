@@ -33,13 +33,17 @@ namespace com.gStudios.isometric.model.world {
 			this.height = height;
 
 			tiles = TileGenerator.Generate(width, height);
-			walls = WallGenerator.Generate(width, height);
+			walls = WallGenerator.Generate(this, width, height);
 
 			RandomizeTiles ();
 		}
 
+		public bool IsTileInBounds(int x, int y) {
+			return (x < width && x >= 0 && y < height && y >= 0);
+		}
+
 		public ITile GetTileAt(int x, int y) {
-			if (x > width || x < 0 || y > height || y < 0) {
+			if (!IsTileInBounds(x, y)) {
 				UnityEngine.Debug.LogError("Tile ("+x+","+y+") is out of range.");
 				return null;
 			}
@@ -47,8 +51,12 @@ namespace com.gStudios.isometric.model.world {
 			return tiles [x, y];
 		}
 
+		public bool IsWallInBounds(int x, int y, int z) {
+			return (x <= width + 1 && x >= 0 && y <= height + 1 && height >= 0 && (z == 0 || z == 1));
+		}
+
 		public IWall GetWallAt(int x, int y, int z) {
-			if (x > width+1 || x < 0 || y > height+1 || y < 0) {
+			if (!IsWallInBounds(x,y,z)) {
 				UnityEngine.Debug.LogError("Wall ("+x+","+y+","+z+") is out of range.");
 				return null;
 			}

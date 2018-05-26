@@ -13,7 +13,8 @@ namespace com.gStudios.isometric.model.world.wall {
 		int Type {get; set;}
 
 		void Subscribe (IWallObserver observer);
-		
+
+		IWall GetNeighbor (int xOffset, int yOffset, int z);
 	}
 
 }
