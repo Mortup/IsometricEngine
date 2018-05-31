@@ -47,16 +47,18 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
 			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type, wall.Z, currentClipping);
 
-			/*// TODO: HORRIBLE SHIT. MUST DELETE. WILL NOT BE ALLOWED D:
-			if (wall.Z == 1 || wall.Y == 0 || wall.Y == 4)
-				return;
-			if (level.GetWallAt(wall.X, wall.Y-1, wall.Z).Type == WallIndex.EmptyWallIndex) {
-				return;
-			}
-			if (level.GetWallAt(wall.X, wall.Y+1, wall.Z).Type == WallIndex.EmptyWallIndex) {
-				return;
-			}*/
-				
+            // TODO: HORRIBLE SHIT. MUST DELETE. WILL NOT BE ALLOWED D:
+            if (wall.Z == 1) {
+                return;
+            }
+            if (wall.GetNeighbor(-1, 0, wall.Z) == null || wall.GetNeighbor(-1, 0, wall.Z).Type == WallIndex.EmptyWallIndex) {
+                return;
+            }
+            if (wall.GetNeighbor(1,0,wall.Z) == null || wall.GetNeighbor(1,0,wall.Z).Type == WallIndex.EmptyWallIndex) {
+                return;
+            }
+
+            sr.sprite = Resources.Load<Sprite>("Sprites/Walls/Wall_02_0");
 		}
 
 		public void UpdateAllSprites() {

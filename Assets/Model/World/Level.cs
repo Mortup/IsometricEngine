@@ -52,7 +52,15 @@ namespace com.gStudios.isometric.model.world {
 		}
 
 		public bool IsWallInBounds(int x, int y, int z) {
-			return (x <= width + 1 && x >= 0 && y <= height + 1 && height >= 0 && (z == 0 || z == 1));
+            if (z != 0 && z != 1)
+                return false;
+
+            if (x < 0 || y < 0)
+                return false;
+
+            if (x > width || y > height)
+                return false;
+            return true;
 		}
 
 		public IWall GetWallAt(int x, int y, int z) {

@@ -29,8 +29,6 @@ public class TileTest {
 
 	[Test]
 	public void TileTypeChangeCallback() {
-		RegularTile tile = new RegularTile (13, 42);
-
 		int callsCount = 0;
         var observer = Substitute.For<ITileObserver>();
         observer.NotifyTileTypeChanged(Arg.Do<ITile>(x => callsCount += 1));
