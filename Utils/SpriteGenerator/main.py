@@ -1,7 +1,24 @@
+import os
+
 from PIL import Image
 
-im = Image.open("TestFolder/Wall_01_0.png")
+img_width = 38
+img_height = 130
 
-r, g, b, a = im.split()
-im = Image.merge("RGBA", (b, g, r, a))
-im.show()
+folderName = "Placeholders"
+
+def getImagePath(index):
+	return os.path.join(folderName, "/img_" + str(i) + ".png")
+
+
+
+
+# MAIN
+if not os.path.exists(folderName):
+	os.makedirs(folderName)
+
+for i in range(64):
+	im = Image.new("RGBA", (img_width, img_height))
+	im.save(getImagePath(i))
+	print(getImagePath(i))
+
