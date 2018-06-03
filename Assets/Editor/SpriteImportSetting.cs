@@ -17,8 +17,9 @@ public class SpriteImportSettings : AssetPostprocessor
 		tis.spritePixelsPerUnit = PPU;
 		tis.filterMode = FilterMode.Point;
 		tis.mipmapEnabled = false;
+        tis.spriteMode = (int)SpriteImportMode.Single;
 
-		if (assetPath.Contains("Tiles") || assetPath.Contains("Cursors")) {
+        if (assetPath.Contains("Tiles") || assetPath.Contains("Cursors")) {
 			float tileHeightOffset = ((float)26/42);
 
 			tis.spriteAlignment = (int)SpriteAlignment.Custom;

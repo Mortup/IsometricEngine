@@ -44,8 +44,8 @@ namespace com.gStudios.isometric.model.world.wall {
 		}
 
 		public IWall GetNeighbor(int xOffset, int yOffset, int z) {
-			if (!level.IsWallInBounds (x + xOffset, y + yOffset, z))
-				return null; // TODO: Or error? Or NullWall?
+            if (!level.IsWallInBounds(x + xOffset, y + yOffset, z))
+                return new NullWall(level, x + xOffset, y + yOffset, z);
 
 			return level.GetWallAt (x + xOffset, y + yOffset, z);
 		}

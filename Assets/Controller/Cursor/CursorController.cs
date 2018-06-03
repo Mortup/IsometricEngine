@@ -36,7 +36,7 @@ namespace com.gStudios.isometric.controller.cursor {
 		/// <param name="level">The level to interact with.</param>
 		public void Init(Level level) {
 			this.level = level;
-			SimplePool.Preload (Resources.Load<GameObject> (Paths.CursorPrefab));
+			SimplePool.Preload (Resources.Load<GameObject> (GamePaths.CursorPrefab));
 			inverseCommands = new DropoutStack<CursorCommand> (Settings.MaxCursorUndoStackSize);
 
 			SetMode ("build");

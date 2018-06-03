@@ -36,6 +36,7 @@ namespace com.gStudios.isometric.model.world {
 			walls = WallGenerator.Generate(this, width, height);
 
 			RandomizeTiles ();
+            RandomizeWalls();
 		}
 
 		public bool IsTileInBounds(int x, int y) {

@@ -12,7 +12,7 @@ namespace com.gStudios.isometric.controller.data {
 		Sprite[] sprites;
 
 		public TileSpriteDataLoader() {
-			sprites = Resources.LoadAll<Sprite> (Paths.TilesSprites);
+			sprites = Resources.LoadAll<Sprite> (GamePaths.TilesSprites);
 		}
 
 		public Sprite GetDataById(int id) {

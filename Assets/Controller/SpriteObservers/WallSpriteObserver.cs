@@ -45,20 +45,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 		public void UpdateSprite(IWall wall, GameObject wall_go) {
 			SpriteRenderer sr = wall_go.GetComponent<SpriteRenderer> ();
 
-			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type, wall.Z, currentClipping);
-
-            // TODO: HORRIBLE SHIT. MUST DELETE. WILL NOT BE ALLOWED D:
-            if (wall.Z == 1) {
-                return;
-            }
-            if (wall.GetNeighbor(-1, 0, wall.Z) == null || wall.GetNeighbor(-1, 0, wall.Z).Type == WallIndex.EmptyWallIndex) {
-                return;
-            }
-            if (wall.GetNeighbor(1,0,wall.Z) == null || wall.GetNeighbor(1,0,wall.Z).Type == WallIndex.EmptyWallIndex) {
-                return;
-            }
-
-            sr.sprite = Resources.Load<Sprite>("Sprites/Walls/Wall_02_0");
+			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type).GetSprite(wall);
 		}
 
 		public void UpdateAllSprites() {

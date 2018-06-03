@@ -12,7 +12,7 @@ namespace com.gStudios.isometric.controller.data {
 		TileDataContainer floorsContainer;
 
 		public TileDataLoader() {
-			TextAsset floorsJson = Resources.Load<TextAsset> (Paths.JsonData ("Floors"));
+			TextAsset floorsJson = Resources.Load<TextAsset> (GamePaths.JsonData ("Floors"));
 			floorsContainer = JsonUtility.FromJson<TileDataContainer>(floorsJson.text);
 		}
 

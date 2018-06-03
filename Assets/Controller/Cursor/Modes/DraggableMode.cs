@@ -47,7 +47,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 			Vector2Int minCoords = CoordUtil.MinCoords (startCoords, endCoords);
 			Vector2Int maxCoords = CoordUtil.MaxCoords (startCoords, endCoords);
 
-			GameObject cursorPrefab = Resources.Load<GameObject> (Paths.CursorPrefab);
+			GameObject cursorPrefab = Resources.Load<GameObject> (GamePaths.CursorPrefab);
 
 			for (int x = minCoords.x; x <= maxCoords.x; x++) {
 				for (int y = minCoords.y; y <= maxCoords.y; y++) {
