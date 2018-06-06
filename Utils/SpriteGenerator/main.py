@@ -1,24 +1,29 @@
 import os
+import random
+import argparse
 
-from PIL import Image
+from PIL import Image, ImageFont, ImageDraw
 
-img_width = 38
-img_height = 130
+from generator import generatorpaths, spritetransformer
 
-folderName = "Placeholders"
+__author__ = 'Mortup'
 
-def getImagePath(index):
-	return os.path.join(folderName, "/img_" + str(i) + ".png")
-
-
-
+output_path = generatorpaths.DEFAULT_OUTPUT_PATH
 
 # MAIN
-if not os.path.exists(folderName):
-	os.makedirs(folderName)
+parser = argparse.ArgumentParser(description='Script to generate wall sprite variations.\nAuthor: Mortup')
+parser.add_argument('-n', '--number', help='Index of the wall to create.', required=True)
+args = parser.parse_args()
 
-for i in range(64):
-	im = Image.new("RGBA", (img_width, img_height))
-	im.save(getImagePath(i))
-	print(getImagePath(i))
+if not os.path.exists(os.path.join(output_path, str(args.number))):
+	os.makedirs(os.path.join(output_path, str(args.number)))
+
+# Should be asked as
+
+images = spritetransformer.generate_images(args.number)
+
+for i, im in enumerate(images):
+	im.save(os.path.join(output_path, str(args.number), 'wall_'+str(i).zfill(5)+'.png'))
+
+print("Done!")
 

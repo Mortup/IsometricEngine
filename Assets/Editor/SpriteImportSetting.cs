@@ -33,7 +33,6 @@ public class SpriteImportSettings : AssetPostprocessor
 			tis.spritePivot = new Vector2 (tileWidthOffset, tileHeightOffset);
 		}
 
-		Debug.Log ("Procceseed sprites.");
 		textureImporter.SetTextureSettings (tis);
 	}
 
