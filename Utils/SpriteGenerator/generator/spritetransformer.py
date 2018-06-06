@@ -26,7 +26,7 @@ def get_coords_by_condition(cond_number, z):
 		raise ValueError('Arg z must be 0 or 1')
 
 	z0_coords = ['nzz','zzp','znp','pzz','pzp','pnp']
-	z1_coords = ['znp','nzz','zzz','npz','zpp','zpz']
+	z1_coords = ['znp','nzz','zzz','zpp','npz','zpz']
 
 	if z == 0:
 		return z0_coords[cond_number]
@@ -41,6 +41,7 @@ sprite_height = 130
 
 border_mask_color = (255, 0, 255, 255)
 top_mask_color = (0, 0, 255, 255)
+side_dark_mask_color = (255, 0, 0, 255)
 remove_mask_color = (255, 255, 255, 255)
 
 def generate_empty_masks():
@@ -79,9 +80,11 @@ def generate_images(blueprint_number):
 	# Should be asked as argument
 	border = Image.open(generatorpaths.blueprint_border_path(blueprint_number))
 	top = Image.open(generatorpaths.blueprint_top_path(blueprint_number))
+	side_dark = Image.open(generatorpaths.blueprint_side_dark_path(blueprint_number))
 
 	border_color = border.convert('RGBA').getpixel((1,1))
 	top_color = top.convert('RGBA').getpixel((1,1))
+	side_dark_color = side_dark.convert('RGBA').getpixel((1,1))
 
 	res_images = []
 
@@ -111,6 +114,8 @@ def generate_images(blueprint_number):
 							pixels[i,j] = border_color
 						if pixels[i,j] == top_mask_color:
 							pixels[i,j] = top_color
+						if pixels[i,j] == side_dark_mask_color:
+							pixels[i,j] = side_dark_color
 
 				final_mask.paste(mask, (0,0), mask)
 			except FileNotFoundError:

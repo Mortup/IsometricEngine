@@ -32,8 +32,8 @@ namespace com.gStudios.isometric.controller.data.structs {
                 conditions.Add(wall.GetNeighbor(0, -1, 1).Type != WallIndex.EmptyWallIndex);
                 conditions.Add(wall.GetNeighbor(-1, 0, 0).Type != WallIndex.EmptyWallIndex);
                 conditions.Add(wall.GetNeighbor(0, 0, 0).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(-1, 1, 0).Type != WallIndex.EmptyWallIndex);
                 conditions.Add(wall.GetNeighbor(0, 1, 1).Type != WallIndex.EmptyWallIndex);
+                conditions.Add(wall.GetNeighbor(-1, 1, 0).Type != WallIndex.EmptyWallIndex);
                 conditions.Add(wall.GetNeighbor(0, 1, 0).Type != WallIndex.EmptyWallIndex);
             }
 

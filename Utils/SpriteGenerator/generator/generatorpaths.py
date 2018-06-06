@@ -19,3 +19,6 @@ def blueprint_border_path(index):
 
 def blueprint_top_path(index):
 	return os.path.join(BLUEPRINTS_PATH, str(index), 'top.png')
+
+def blueprint_side_dark_path(index):
+	return os.path.join(BLUEPRINTS_PATH, str(index), 'side_dark.png')
