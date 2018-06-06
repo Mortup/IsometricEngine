@@ -33,8 +33,6 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			sr.sortingOrder = GetSortingOrder(wall.X, wall.Y, wall.Z);
 			UpdateSprite (wall, wall_go);
 
-            //sr.color = Random.ColorHSV();
-
 			wall.Subscribe (this);
 			gameobjects.Add (wall, wall_go);
 			return wall_go;

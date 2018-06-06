@@ -19,6 +19,7 @@ if not os.path.exists(os.path.join(output_path, str(args.number))):
 	os.makedirs(os.path.join(output_path, str(args.number)))
 
 # Should be asked as
+print ("Running...")
 
 images = spritetransformer.generate_images(args.number)
 
