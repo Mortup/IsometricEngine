@@ -8,6 +8,9 @@ DEFAULT_OUTPUT_PATH = os.path.join(pathutils.parent(os.path.realpath(__file__), 
 MASKS_PATH = os.path.join(pathutils.parent(os.path.realpath(__file__), 2), 'masks')
 BLUEPRINTS_PATH = os.path.join(pathutils.parent(os.path.realpath(__file__), 2), 'blueprints')
 
+z0_crop_mask_path = os.path.join(MASKS_PATH, 'cropZ0Base.png')
+z1_crop_mask_path = os.path.join(MASKS_PATH, 'cropZ1Base.png')
+
 def blueprint_z0_path(index):
 	return os.path.join(BLUEPRINTS_PATH, str(index), 'z0.png')
 

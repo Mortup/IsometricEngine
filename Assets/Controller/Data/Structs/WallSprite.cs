@@ -13,7 +13,7 @@ namespace com.gStudios.isometric.controller.data.structs {
             this.sprites = sprites;
         }
 		
-        public Sprite GetSprite(IWall wall) {
+        public Sprite GetSprite(IWall wall, bool isCropped) {
             // TODO: Create a new class to check this, so I can check the # of sprites on the constructor too.
             if (wall.Type == WallIndex.EmptyWallIndex)
                 return sprites[0];
@@ -38,6 +38,7 @@ namespace com.gStudios.isometric.controller.data.structs {
             }
 
             conditions.Add(wall.Z == 1);
+            conditions.Add(isCropped);
 
             int index = 0;
             for (int i = 0; i < conditions.Count; i++) {

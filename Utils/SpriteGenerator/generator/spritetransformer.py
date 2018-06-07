@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 
-from . import bitman, maskloader, generatorpaths
+from . import bitman, maskloader, generatorpaths, cropper
 
 missing_masks = 0
 
@@ -15,11 +15,15 @@ def evaluate_conditions(i):
 	res.append(bitman.isKthBitSet(i, 5))
 	res.append(bitman.isKthBitSet(i, 6))
 	res.append(bitman.isKthBitSet(i, 7)) # Z
+	res.append(bitman.isKthBitSet(i, 8))
 
 	return res
 
 def get_z_coord(i):
 	return evaluate_conditions(i)[6]
+
+def get_cropped(i):
+	return evaluate_conditions(i)[7]
 
 def get_coords_by_condition(cond_number, z):
 	if z != 0 and z != 1:
@@ -31,6 +35,8 @@ def get_coords_by_condition(cond_number, z):
 	if z == 0:
 		return z0_coords[cond_number]
 	return z1_coords[cond_number]
+
+
 
 
 number_of_conditions = len(evaluate_conditions(0))
@@ -53,7 +59,6 @@ def generate_empty_masks():
 	empty_mask = Image.new('RGBA', (sprite_width, sprite_height), (0,0,0,0))
 
 	for index in range(number_of_conditions-1):
-		"""
 		z = 0
 		c = 0
 		empty_mask.save(maskloader.get_mask_path(z, get_coords_by_condition(index, z), c, True))
@@ -61,7 +66,7 @@ def generate_empty_masks():
 		c = 1
 		empty_mask.save(maskloader.get_mask_path(z, get_coords_by_condition(index, z), c, True))
 		empty_mask.save(maskloader.get_mask_path(z, get_coords_by_condition(index, z), c, False))
-		"""
+		
 		z = 1
 		c = 0
 		empty_mask.save(maskloader.get_mask_path(z, get_coords_by_condition(index, z), c, True))
@@ -77,7 +82,6 @@ def generate_images(blueprint_number):
 
 	empty = Image.new('RGBA', (sprite_width, sprite_height), (0,0,0,0))
 
-	# Should be asked as argument
 	border = Image.open(generatorpaths.blueprint_border_path(blueprint_number))
 	top = Image.open(generatorpaths.blueprint_top_path(blueprint_number))
 	side_dark = Image.open(generatorpaths.blueprint_side_dark_path(blueprint_number))
@@ -91,21 +95,30 @@ def generate_images(blueprint_number):
 	for i in range(number_of_sprites):
 
 		z = get_z_coord(i)
+		is_cropped = get_cropped(i)
 
 		if z == 0:
-			im = Image.open(generatorpaths.blueprint_z0_path(blueprint_number))
+			if is_cropped == 0:
+				im = Image.open(generatorpaths.blueprint_z0_path(blueprint_number))
+			else:
+				im = cropper.crop_base_sprite_top_masked(Image.open(generatorpaths.blueprint_z0_path(blueprint_number)),
+					Image.open(generatorpaths.z0_crop_mask_path))
 		else:
-			im = Image.open(generatorpaths.blueprint_z1_path(blueprint_number))
+			if is_cropped == 0:
+				im = Image.open(generatorpaths.blueprint_z1_path(blueprint_number))
+			else:
+				im = cropper.crop_base_sprite_top_masked(Image.open(generatorpaths.blueprint_z1_path(blueprint_number)),
+					Image.open(generatorpaths.z1_crop_mask_path))
 
 		conds = evaluate_conditions(i)
 
 		# Additive pass
 		final_mask = Image.new('RGBA', (sprite_width, sprite_height), (0,0,0,0))
-		for index in range(len(conds)-1):
+		for index in range(len(conds)-2):
 			c = conds[index]
 
 			try:
-				mask = maskloader.get_mask(z, get_coords_by_condition(index, z), c, True)
+				mask = maskloader.get_mask(z, get_coords_by_condition(index, z), c, True, is_cropped)
 				pixels = mask.load() # create the pixel map
 
 				for i in range(mask.size[0]): # for every pixel:
@@ -119,7 +132,7 @@ def generate_images(blueprint_number):
 
 				final_mask.paste(mask, (0,0), mask)
 			except FileNotFoundError:
-				handle_FileNotFoundError(z, get_coords_by_condition(index, z), c, True)
+				handle_FileNotFoundError(z, get_coords_by_condition(index, z), c, True, is_cropped)
 
 		pixels = final_mask.load()
 		for i in range(mask.size[0]): # for every pixel:
@@ -129,14 +142,14 @@ def generate_images(blueprint_number):
 		im.paste(final_mask, (0,0), final_mask)
 
 		# Substractive pass
-		for index in range(len(conds)-1):
+		for index in range(len(conds)-2):
 			c = conds[index]
 
 			try:
-				bordermask = maskloader.get_mask(z, get_coords_by_condition(index, z), c, False)
+				bordermask = maskloader.get_mask(z, get_coords_by_condition(index, z), c, False, is_cropped)
 				im.paste(empty, (0,0), bordermask)
 			except FileNotFoundError:
-				handle_FileNotFoundError(z, get_coords_by_condition(index, z), c, False)
+				handle_FileNotFoundError(z, get_coords_by_condition(index, z), c, False, is_cropped)
 
 		res_images.append(im)
 

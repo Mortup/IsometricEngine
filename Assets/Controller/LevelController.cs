@@ -51,10 +51,10 @@ namespace com.gStudios.isometric.controller {
 			}
 
 			if (Input.GetKeyDown(KeyCode.P)) {
-				wallSpriteObserver.SetClipping (1);
+				wallSpriteObserver.SetClipping (true);
 			}
 			if (Input.GetKeyDown(KeyCode.O)) {
-				wallSpriteObserver.SetClipping (0);
+				wallSpriteObserver.SetClipping (false);
 			}
 		}
 

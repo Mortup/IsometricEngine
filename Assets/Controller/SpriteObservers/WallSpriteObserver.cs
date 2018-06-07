@@ -14,7 +14,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
 		Dictionary<IWall, GameObject> gameobjects;
 
-		int currentClipping = 1;
+        bool isCurrentlyClipping = true;
 
 		public WallSpriteObserver() {
 			wallHolder = new GameObject ("Walls");
@@ -45,7 +45,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 		public void UpdateSprite(IWall wall, GameObject wall_go) {
 			SpriteRenderer sr = wall_go.GetComponent<SpriteRenderer> ();
 
-			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type).GetSprite(wall);
+			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type).GetSprite(wall, isCurrentlyClipping);
 		}
 
 		public void UpdateAllSprites() {
@@ -55,11 +55,11 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			}
 		}
 
-		public void SetClipping(int clipping) {
-			int lastClipping = currentClipping;
-			currentClipping = clipping;
+		public void SetClipping(bool clipping) {
+			bool lastClipping = isCurrentlyClipping;
+			isCurrentlyClipping = clipping;
 
-			if (lastClipping != currentClipping)
+			if (lastClipping != isCurrentlyClipping)
 				UpdateAllSprites ();
 		}
 
