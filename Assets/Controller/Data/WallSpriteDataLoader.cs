@@ -6,25 +6,30 @@ using UnityEngine;
 
 using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.data.structs;
+using com.gStudios.isometric.model.world.wall;
 
 namespace com.gStudios.isometric.controller.data {
 
 	public class WallSpriteDataLoader {
 
-        List<WallSprite> sprites;
+        List<IWallSprite> sprites;
 
 		public WallSpriteDataLoader() {
-            sprites = new List<WallSprite>();
+            sprites = new List<IWallSprite>();
 
             string wallSpritesFullPath = Path.Combine(GamePaths.ResourcesBase, GamePaths.WallSprites);
             string[] directories = Directory.GetDirectories(wallSpritesFullPath);
             foreach (string folder in directories.OrderBy(x => x, new TrailingNumberComparer())) {
                 Sprite[] currentSpritePack = Resources.LoadAll<Sprite>(folder.Remove(0, GamePaths.ResourcesBase.Length + 1));
-                sprites.Add(new WallSprite(currentSpritePack));
+
+                if (sprites.Count == WallIndex.EmptyWallIndex)
+                    sprites.Add(new EmptySprite(currentSpritePack[0]));
+                else
+                    sprites.Add(new DefaultWallSprite(currentSpritePack));
             }
 		}
 
-		public WallSprite GetDataById(int id) {
+		public IWallSprite GetDataById(int id) {
 			return sprites[id];
 		}
 		
