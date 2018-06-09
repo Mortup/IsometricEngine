@@ -5,7 +5,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.tile;
-using com.gStudios.isometric.model.data.structures;
 
 namespace com.gStudios.isometric.model.saving {
 
@@ -47,10 +46,10 @@ namespace com.gStudios.isometric.model.saving {
 			return level;
 		}
 
-		public void SaveLevel(Level level) {
+		public void SaveLevel(Level level, ITile[,] tiles) {
 			UnityEngine.Debug.Log ("Saving level");
 
-			LevelData data = SerializeLevel (level);
+			LevelData data = SerializeLevel (level, tiles);
 
 			if (!Directory.Exists (savesFolder))
 				Directory.CreateDirectory (savesFolder);
@@ -61,11 +60,11 @@ namespace com.gStudios.isometric.model.saving {
 			saveFile.Close ();
 		}
 
-		LevelData SerializeLevel(Level level) {
+		LevelData SerializeLevel(Level level, ITile[,] tiles) {
 			LevelData data = new LevelData ();
 			data.height = level.Height;
 			data.width = level.Width;
-			data.tiles = FlattenTileArray (level.GetTilesForSerialization (), level.Height, level.Width);
+			data.tiles = FlattenTileArray (tiles, level.Height, level.Width);
 
 			return data;
 		}

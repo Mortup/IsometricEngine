@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+using com.gStudios.isometric.model.saving;
 using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.wall;
 using com.gStudios.isometric.model.world.generation;
@@ -77,6 +78,11 @@ namespace com.gStudios.isometric.model.world {
 			return walls [x, y, z];
 		}
 
+        public void Save(LevelSerializer levelSerializer) {
+            UnityEngine.Debug.Log("Hi there!");
+            levelSerializer.SaveLevel(this, tiles);
+        }
+
 		public void RandomizeTiles() {
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
@@ -99,10 +105,6 @@ namespace com.gStudios.isometric.model.world {
 
 				}
 			}
-		}
-
-		public ITile[,] GetTilesForSerialization() {
-			return tiles;
 		}
 	}
 

@@ -9,10 +9,11 @@ namespace com.gStudios.isometric.model.saving {
 	[Serializable]
 	public class LevelData
 	{
-		public int[] tiles;
 		public int width;
 		public int height;
 
-	}
+        public int[] tiles;
+        public int[] wallIndexes;
+    }
 
 }
