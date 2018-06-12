@@ -180,7 +180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Pintar Murallas
+  m_Text: Build Walls
 --- !u!222 &121076091
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 387264106}
   - component: {fileID: 387264105}
   m_Layer: 5
-  m_Name: Btn_ItemsMode
+  m_Name: Btn_WallsPaintMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -326,7 +326,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: furniture
+          m_StringArgument: paintWalls
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -448,7 +448,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: build
+          m_StringArgument: buildFloor
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 944000953}
@@ -541,7 +541,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.19215688, g: 0.19215688, b: 0.19215688, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -897,7 +897,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Pintar Piso
+  m_Text: Paint Floor
 --- !u!222 &1167001725
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -971,7 +971,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Construir
+  m_Text: Build Floor
 --- !u!222 &1192700436
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -990,7 +990,7 @@ GameObject:
   - component: {fileID: 1315073050}
   - component: {fileID: 1315073049}
   m_Layer: 5
-  m_Name: Btn_WallsMode
+  m_Name: Btn_WallsBuildMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1062,7 +1062,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: walls
+          m_StringArgument: buildWalls
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -1167,7 +1167,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Editar Muebles
+  m_Text: Paint Walls
 --- !u!222 &1429982141
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1456,7 +1456,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: floor
+          m_StringArgument: paintFloor
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 944000953}

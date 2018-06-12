@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 using com.gStudios.isometric.model.world;
@@ -14,7 +13,6 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
 		const int staticOrderOffset = 1;        // Sprite order in layer for static cursors.
 
-		protected bool isDragging = false;
         protected Vector2Int dragStartCoords;
 
 		Stack<GameObject> activeStaticCursors;
@@ -27,7 +25,6 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 		{
 			base.ClickStart (mousePosition);
 
-			isDragging = true;
 			dragStartCoords = IsometricTransformer.ScreenToCoord(mousePosition);
         }
 
@@ -38,7 +35,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 			while (activeStaticCursors.Count > 0)
 				SimplePool.Despawn (activeStaticCursors.Pop ());
 
-			if (!isDragging)
+			if (!validClickStart)
 				return;
 
             Vector2Int startCoords = dragStartCoords;

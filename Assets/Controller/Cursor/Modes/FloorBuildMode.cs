@@ -16,24 +16,18 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 	public class BuildMode : DraggableTileMode {
 
 		public BuildMode(Level level) : base(level) {
-			defaultSprite = DataManager.cursorSpriteData.buildSprite;
-			invertedSprite = DataManager.cursorSpriteData.buildInverseSprite;
-			onTileSprite = DataManager.cursorSpriteData.buildOverTileSprite;
-			invertedOnEmptySprite = DataManager.cursorSpriteData.buildInvertedOnEmptySprite;
+			defaultSprite = DataManager.cursorSpriteData.tileBuildSprite;
+			invertedSprite = DataManager.cursorSpriteData.tileRemoveSprite;
+			onTileSprite = DataManager.cursorSpriteData.tileBuildOverTileSprite;
+			invertedOnEmptySprite = DataManager.cursorSpriteData.tileRemoveOnEmptySprite;
 		}
 
-		public override CursorCommand ClickEnd (Vector2 mousePosition) {
-			if (!isDragging)
-				return NullCommand.instance;
+        protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
+            int selectedIndex = Input.GetButton("InverseFunction") ? TileIndex.EmptyTileIndex : TileIndex.NewTileIndex;
+            Vector2Int endCoords = IsometricTransformer.ScreenToCoord(mousePosition);
 
-			int selectedIndex = Input.GetButton ("InverseFunction") ? TileIndex.EmptyTileIndex : TileIndex.NewTileIndex;
-
-			Vector2Int endCoords = IsometricTransformer.ScreenToCoord (mousePosition);
-
-			isDragging = false;
-			return new BuildAreaCmd (level, dragStartCoords.x, endCoords.x, dragStartCoords.y, endCoords.y, selectedIndex);
-		}
-		
-	}
+            return new BuildAreaCmd(level, dragStartCoords.x, endCoords.x, dragStartCoords.y, endCoords.y, selectedIndex);
+        }
+    }
 
 }

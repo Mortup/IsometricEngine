@@ -21,13 +21,15 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 		protected int mainCursorSortingOrderOffset = 2;
 
 		protected Level level;
-		protected int index = -1;
+		protected int index = -1;   // The current index of the mode (May be the wall painting index, 0 for removing and 1 for bulding, etc.)
 
 		protected GameObject mainCursorGo;
 		protected SpriteRenderer mainCursorSr;
 
-		// Cursor sprites
-		protected Sprite defaultSprite;
+        protected bool validClickStart = false; // Has the user started the click in a valid way?
+
+        // Cursor sprites
+        protected Sprite defaultSprite;
 		protected Sprite onTileSprite;
 		protected Sprite onEmptySprite;
 		protected Sprite invertedSprite;
@@ -39,9 +41,10 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
 			mainCursorGo = new GameObject ("Main Cursor");
 			mainCursorSr = mainCursorGo.AddComponent<SpriteRenderer> ();
-			mainCursorSr.sprite = DataManager.cursorSpriteData.defaultSprite;
 			mainCursorSr.sortingLayerName = "Debug";
-		}
+
+            defaultSprite = DataManager.cursorSpriteData.defaultSprite;
+        }
 
 		public virtual void Activate() {
 			mainCursorGo.SetActive (true);
@@ -50,8 +53,22 @@ namespace com.gStudios.isometric.controller.cursor.modes {
             GameObject.Destroy(mainCursorGo);
 		}
 
-		public virtual void ClickStart (Vector2 mousePosition) {}
-		public abstract CursorCommand ClickEnd (Vector2 mousePosition);
+		public virtual void ClickStart (Vector2 mousePosition) {
+            validClickStart = true;
+        }
+
+		public CursorCommand ClickEnd (Vector2 mousePosition) {
+            if (!validClickStart)
+                return NullCommand.instance;
+
+            CursorCommand action = GetActionCommand(mousePosition);
+
+            validClickStart = false;
+
+            return action;
+        }
+
+        protected abstract CursorCommand GetActionCommand(Vector2 mousePosition);
 
 		public virtual void UpdateCursors(Vector2 mousePosition) {
 			Vector2Int coords = IsometricTransformer.ScreenToCoord (mousePosition);

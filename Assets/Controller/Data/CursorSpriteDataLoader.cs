@@ -11,19 +11,23 @@ namespace com.gStudios.isometric.controller.data {
 		public Sprite defaultSprite;
 		public Sprite emptySprite;
 
-		public Sprite buildSprite;
-		public Sprite buildInverseSprite;
-		public Sprite buildOverTileSprite;
-		public Sprite buildInvertedOnEmptySprite;
+		public Sprite tileBuildSprite;
+		public Sprite tileRemoveSprite;
+		public Sprite tileBuildOverTileSprite;
+		public Sprite tileRemoveOnEmptySprite;
+
+        public Sprite wallMainSprite;
 
 		public CursorSpriteDataLoader() {
 			defaultSprite = Resources.Load<Sprite> (GamePaths.CursorSprite ("Default"));
-			emptySprite = Resources.Load<Sprite> (GamePaths.CursorSprite ("Empty"));
+			emptySprite = Resources.Load<Sprite> (GamePaths.TileCursorSprite ("Empty"));
 
-			buildSprite = Resources.Load<Sprite> (GamePaths.CursorSprite ("Build"));
-			buildInverseSprite = Resources.Load<Sprite> (GamePaths.CursorSprite ("BuildInverse"));
-			buildOverTileSprite = Resources.Load<Sprite> (GamePaths.CursorSprite ("BuildOverTile"));
-			buildInvertedOnEmptySprite = Resources.Load<Sprite> (GamePaths.CursorSprite ("BuildInverseOnEmpty"));
+			tileBuildSprite = Resources.Load<Sprite> (GamePaths.TileCursorSprite ("Build"));
+			tileRemoveSprite = Resources.Load<Sprite> (GamePaths.TileCursorSprite ("BuildInverse"));
+			tileBuildOverTileSprite = Resources.Load<Sprite> (GamePaths.TileCursorSprite ("BuildOverTile"));
+            tileRemoveOnEmptySprite = Resources.Load<Sprite> (GamePaths.TileCursorSprite ("BuildInverseOnEmpty"));
+
+            wallMainSprite = Resources.Load<Sprite>(GamePaths.WallCursorSprite("Main"));
 		}
 		
 	}

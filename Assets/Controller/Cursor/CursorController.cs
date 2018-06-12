@@ -52,6 +52,9 @@ namespace com.gStudios.isometric.controller.cursor {
 			else if (mode == "paintFloor") {
 				currentMode = new FloorPaintMode (level);
 			}
+            else if (mode == "buildWalls") {
+                currentMode = new WallBuildMode(level);
+            }
 			else {
 				Debug.LogError ("Trying to set an unkown mode " + mode);
 			}
