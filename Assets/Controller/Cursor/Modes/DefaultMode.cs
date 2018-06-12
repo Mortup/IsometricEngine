@@ -12,15 +12,19 @@ using com.gStudios.isometric.controller.data;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
 
+    /// <summary>
+    /// Base abstract class for all cursor modes.
+    /// Provides basic functionality.
+    /// </summary>
 	public abstract class DefaultMode : CursorMode {
 
-		const int sortingOrderOffset = 2;
+		protected int mainCursorSortingOrderOffset = 2;
 
 		protected Level level;
 		protected int index = -1;
 
-		protected GameObject cursorGo;
-		protected SpriteRenderer cursorSr;
+		protected GameObject mainCursorGo;
+		protected SpriteRenderer mainCursorSr;
 
 		// Cursor sprites
 		protected Sprite defaultSprite;
@@ -33,17 +37,17 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 		public DefaultMode(Level level) {
 			this.level = level;
 
-			cursorGo = new GameObject ("Cursor");
-			cursorSr = cursorGo.AddComponent<SpriteRenderer> ();
-			cursorSr.sprite = DataManager.cursorSpriteData.defaultSprite;
-			cursorSr.sortingLayerName = "Debug";
+			mainCursorGo = new GameObject ("Main Cursor");
+			mainCursorSr = mainCursorGo.AddComponent<SpriteRenderer> ();
+			mainCursorSr.sprite = DataManager.cursorSpriteData.defaultSprite;
+			mainCursorSr.sortingLayerName = "Debug";
 		}
 
 		public virtual void Activate() {
-			cursorGo.SetActive (true);
+			mainCursorGo.SetActive (true);
 		}
 		public virtual void Deactivate() {
-			cursorGo.SetActive (false);
+            GameObject.Destroy(mainCursorGo);
 		}
 
 		public virtual void ClickStart (Vector2 mousePosition) {}
@@ -53,14 +57,14 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 			Vector2Int coords = IsometricTransformer.ScreenToCoord (mousePosition);
 
 			if (level.IsTileInBounds(coords.x, coords.y)) {
-				cursorSr.enabled = true;
-				cursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (coords.x, coords.y) + sortingOrderOffset; // Only for tiles?
-				cursorGo.transform.position = IsometricTransformer.CoordToWorld (coords); // Only for tiles
+				mainCursorSr.enabled = true;
+				mainCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (coords.x, coords.y) + mainCursorSortingOrderOffset; // Only for tiles?
+				mainCursorGo.transform.position = IsometricTransformer.CoordToWorld (coords); // Only for tiles
 
-				cursorSr.sprite = GetCursorSprite (coords); // Only for tiles
+				mainCursorSr.sprite = GetCursorSprite (coords); // Only for tiles
 			}
 			else {
-				cursorSr.enabled = false;
+				mainCursorSr.enabled = false;
 			}
 		}
 

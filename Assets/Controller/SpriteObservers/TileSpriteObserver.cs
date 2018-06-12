@@ -32,7 +32,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			tile_go.transform.SetParent (tileHolder.transform, true);
 
 			SpriteRenderer sr = tile_go.AddComponent<SpriteRenderer> ();
-			sr.sortingLayerName = "Floors";
+			sr.sortingLayerName = "Floor";
 			sr.sortingOrder = GetSortingOrder(tile.X, tile.Y);
 			UpdateSprite (tile, tile_go);
 

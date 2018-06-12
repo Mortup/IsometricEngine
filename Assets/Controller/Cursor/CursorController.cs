@@ -39,17 +39,17 @@ namespace com.gStudios.isometric.controller.cursor {
 			SimplePool.Preload (Resources.Load<GameObject> (GamePaths.CursorPrefab));
 			inverseCommands = new DropoutStack<CursorCommand> (Settings.MaxCursorUndoStackSize);
 
-			SetMode ("build");
+			SetMode ("buildFloor");
 		}
 
 		public void SetMode(string mode) {
 			if (currentMode != null)
 				currentMode.Deactivate ();
 
-			if (mode == "build") {
+			if (mode == "buildFloor") {
 				currentMode = new BuildMode (level);
 			}
-			else if (mode == "floor") {
+			else if (mode == "paintFloor") {
 				currentMode = new FloorPaintMode (level);
 			}
 			else {

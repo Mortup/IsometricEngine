@@ -10,9 +10,9 @@ using com.gStudios.utils;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
 
-	public abstract class DraggableTileMode : DefaultMode {
+	public abstract class DraggableTileMode : TileMode {
 
-		const int staticOrderOffset = 1;
+		const int staticOrderOffset = 1;        // Sprite order in layer for static cursors.
 
 		protected bool isDragging = false;
         protected Vector2Int dragStartCoords;
@@ -21,7 +21,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
 		public DraggableTileMode(Level level) : base(level) {
 			activeStaticCursors = new Stack<GameObject> ();
-		}
+        }
 
 		public override void ClickStart (Vector2 mousePosition)
 		{
@@ -56,7 +56,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
 					SpriteRenderer staticCursorSr = staticCursorGo.GetComponent<SpriteRenderer> ();
 					staticCursorSr.sprite = GetCursorSprite (new Vector2Int(x,y));
-					staticCursorSr.sortingLayerName = cursorSr.sortingLayerName;
+					staticCursorSr.sortingLayerName = mainCursorSr.sortingLayerName;
 					staticCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (x, y) + staticOrderOffset;
 
 					activeStaticCursors.Push (staticCursorGo);

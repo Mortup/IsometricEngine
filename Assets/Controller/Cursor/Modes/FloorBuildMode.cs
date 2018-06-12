@@ -20,9 +20,8 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 			invertedSprite = DataManager.cursorSpriteData.buildInverseSprite;
 			onTileSprite = DataManager.cursorSpriteData.buildOverTileSprite;
 			invertedOnEmptySprite = DataManager.cursorSpriteData.buildInvertedOnEmptySprite;
-			cursorSr.sortingLayerName = "Tiles";
 		}
-//
+
 		public override CursorCommand ClickEnd (Vector2 mousePosition) {
 			if (!isDragging)
 				return NullCommand.instance;

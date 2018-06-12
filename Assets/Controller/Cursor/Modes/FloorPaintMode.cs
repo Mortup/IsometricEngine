@@ -19,7 +19,6 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 			onEmptySprite = DataManager.cursorSpriteData.emptySprite;
 			invertedSprite = DataManager.tileSpriteData.GetDataById (TileIndex.NewTileIndex);
 			invertedOnEmptySprite = DataManager.cursorSpriteData.emptySprite;
-			cursorSr.sortingLayerName = "Tiles";
 			SetIndex (TileIndex.NewTileIndex + 1);
 		}
 
