@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.tile;
+using com.gStudios.isometric.model.world.wall;
 
 namespace com.gStudios.isometric.model.saving {
 
@@ -38,18 +37,19 @@ namespace com.gStudios.isometric.model.saving {
 
 			for (int x = 0; x < level.Width+1; x++) {
 				for (int y = 0; y < level.Height+1; y++) {
-					level.GetWallAt (x, y, 0).Type = 0; // TODO: Load the type
-					level.GetWallAt (x, y, 1).Type = 0; // TODO: Load the type
-				}
+                    for (int z = 0; z < 2; z++) {
+                        level.GetWallAt(x, y, z).Type = levelData.wallIndexes[Flattened3dIndex(x, y, z, level.Width + 1, level.Height + 1)];
+                    }
+                }
 			}
 
 			return level;
 		}
 
-		public void SaveLevel(Level level, ITile[,] tiles) {
+		public void SaveLevel(Level level, ITile[,] tiles, IWall[,,] walls) {
 			UnityEngine.Debug.Log ("Saving level");
 
-			LevelData data = SerializeLevel (level, tiles);
+			LevelData data = SerializeLevel (level, tiles, walls);
 
 			if (!Directory.Exists (savesFolder))
 				Directory.CreateDirectory (savesFolder);
@@ -60,26 +60,54 @@ namespace com.gStudios.isometric.model.saving {
 			saveFile.Close ();
 		}
 
-		LevelData SerializeLevel(Level level, ITile[,] tiles) {
-			LevelData data = new LevelData ();
-			data.height = level.Height;
-			data.width = level.Width;
-			data.tiles = FlattenTileArray (tiles, level.Height, level.Width);
+		LevelData SerializeLevel(Level level, ITile[,] tiles, IWall[,,] walls) {
+            LevelData data = new LevelData {
+                height = level.Height,
+                width = level.Width,
+                tiles = FlattenTileArray(tiles),
+                wallIndexes = FlattenWallsArray(walls)
+            };
 
 			return data;
 		}
 
-		public int[] FlattenTileArray(ITile[,] arr, int width, int height) {
-			int[] data = new int[width * height];
+        int[] FlattenTileArray(ITile[,] arr) {
+            int width = arr.GetLength(0);
+            int height = arr.GetLength(1);
 
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
-					data [x + y * width] = arr [x, y].Type;
-				}
-			}
+            int[] data = new int[width * height];
 
-			return data;
-		}
-	}
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    data[x + y * width] = arr[x, y].Type;
+                }
+            }
+
+            return data;
+        }
+
+        int[] FlattenWallsArray(IWall[,,] arr) {
+            int width = arr.GetLength(0);
+            int height = arr.GetLength(1);
+            int depth = arr.GetLength(2);
+
+            int[] data = new int[width * height * depth];
+
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    for (int z = 0; z < depth; z++) {
+                        data[Flattened3dIndex(x, y, z, width, height)] = arr[x, y, z].Type;
+                    }
+                }
+            }
+
+            return data;
+        }
+
+        int Flattened3dIndex(int x, int y, int z, int width, int height) {
+            return x + y * width + z * width * height;
+        }
+
+    }
 
 }

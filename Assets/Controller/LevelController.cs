@@ -18,6 +18,8 @@ namespace com.gStudios.isometric.controller {
 		[SerializeField] int levelWidth;
 		[SerializeField] int levelHeight;
 
+        [SerializeField] bool debugLoadLevel;
+
 		Level level;
 		CursorController cursorController;
 
@@ -62,7 +64,7 @@ namespace com.gStudios.isometric.controller {
 			tileSpriteObserver.RemoveTiles ();
 			wallSpriteObserver.RemoveWalls ();
 
-            if (levelSerializer.ExistsSavedLevel()) {
+            if (debugLoadLevel && levelSerializer.ExistsSavedLevel()) {
                 level = levelSerializer.LoadLevel();
             }
             else {

@@ -42,7 +42,7 @@ public class TrailingNumberComparer : IComparer<string> {
 
     public static bool IsNumeric(object value) {
         try {
-            int i = Convert.ToInt32(value.ToString());
+            Convert.ToInt32(value.ToString());
             return true;
         }
         catch (FormatException) {
