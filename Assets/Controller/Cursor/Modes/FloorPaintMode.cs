@@ -12,7 +12,7 @@ using com.gStudios.isometric.controller.ui;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
 
-	public class FloorPaintMode : DraggableMode {
+	public class FloorPaintMode : DraggableTileMode {
 
 		public FloorPaintMode(Level level) : base(level) {
 			defaultSprite = DataManager.cursorSpriteData.defaultSprite;
@@ -36,11 +36,10 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
 			int selectedIndex = Input.GetButton ("InverseFunction") ? TileIndex.NewTileIndex : index;
 
-			Vector2Int startCoords = IsometricTransformer.ScreenToCoord (mouseStartPosition);
 			Vector2Int endCoords = IsometricTransformer.ScreenToCoord (mousePosition);
 
 			isDragging = false;
-			return new PaintAreaCmd (level, startCoords.x, endCoords.x, startCoords.y, endCoords.y, selectedIndex);
+			return new PaintAreaCmd (level, dragStartCoords.x, endCoords.x, dragStartCoords.y, endCoords.y, selectedIndex);
 		}
 	}
 

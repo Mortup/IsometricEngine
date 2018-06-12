@@ -10,16 +10,16 @@ using com.gStudios.utils;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
 
-	public abstract class DraggableMode : DefaultMode {
+	public abstract class DraggableTileMode : DefaultMode {
 
 		const int staticOrderOffset = 1;
 
 		protected bool isDragging = false;
-		protected Vector2 mouseStartPosition;
+        protected Vector2Int dragStartCoords;
 
 		Stack<GameObject> activeStaticCursors;
 
-		public DraggableMode(Level level) : base(level) {
+		public DraggableTileMode(Level level) : base(level) {
 			activeStaticCursors = new Stack<GameObject> ();
 		}
 
@@ -28,8 +28,8 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 			base.ClickStart (mousePosition);
 
 			isDragging = true;
-			mouseStartPosition = mousePosition;
-		}
+			dragStartCoords = IsometricTransformer.ScreenToCoord(mousePosition);
+        }
 
 		public override void UpdateCursors (Vector2 mousePosition)
 		{
@@ -41,7 +41,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 			if (!isDragging)
 				return;
 
-			Vector2Int startCoords = IsometricTransformer.ScreenToCoord (mouseStartPosition);
+            Vector2Int startCoords = dragStartCoords;
 			Vector2Int endCoords = IsometricTransformer.ScreenToCoord (mousePosition);
 
 			Vector2Int minCoords = CoordUtil.MinCoords (startCoords, endCoords);

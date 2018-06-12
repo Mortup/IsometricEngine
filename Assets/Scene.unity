@@ -217,6 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelWidth: 10
   levelHeight: 10
+  debugLoadLevel: 1
 --- !u!4 &317608090
 Transform:
   m_ObjectHideFlags: 0

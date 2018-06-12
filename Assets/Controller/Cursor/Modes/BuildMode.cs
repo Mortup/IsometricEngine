@@ -13,7 +13,7 @@ using com.gStudios.isometric.controller.config;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
 
-	public class BuildMode : DraggableMode {
+	public class BuildMode : DraggableTileMode {
 
 		public BuildMode(Level level) : base(level) {
 			defaultSprite = DataManager.cursorSpriteData.buildSprite;
@@ -29,11 +29,10 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
 			int selectedIndex = Input.GetButton ("InverseFunction") ? TileIndex.EmptyTileIndex : TileIndex.NewTileIndex;
 
-			Vector2Int startCoords = IsometricTransformer.ScreenToCoord (mouseStartPosition);
 			Vector2Int endCoords = IsometricTransformer.ScreenToCoord (mousePosition);
 
 			isDragging = false;
-			return new BuildAreaCmd (level, startCoords.x, endCoords.x, startCoords.y, endCoords.y, selectedIndex);
+			return new BuildAreaCmd (level, dragStartCoords.x, endCoords.x, dragStartCoords.y, endCoords.y, selectedIndex);
 		}
 		
 	}

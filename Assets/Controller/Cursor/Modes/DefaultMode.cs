@@ -54,10 +54,10 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
 			if (level.IsTileInBounds(coords.x, coords.y)) {
 				cursorSr.enabled = true;
-				cursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (coords.x, coords.y) + sortingOrderOffset;
-				cursorGo.transform.position = IsometricTransformer.CoordToWorld (coords);
+				cursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (coords.x, coords.y) + sortingOrderOffset; // Only for tiles?
+				cursorGo.transform.position = IsometricTransformer.CoordToWorld (coords); // Only for tiles
 
-				cursorSr.sprite = GetCursorSprite (coords);
+				cursorSr.sprite = GetCursorSprite (coords); // Only for tiles
 			}
 			else {
 				cursorSr.enabled = false;
