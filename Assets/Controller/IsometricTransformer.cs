@@ -95,6 +95,24 @@ namespace com.gStudios.isometric.controller {
 			Vector2 world = Camera.main.ScreenToWorldPoint (screen);
 			return WorldToWallPos (world);
 		}
+
+        public static Vector2 VertexToWorld(int x, int y) {
+            Vector2 coordWorldPos = CoordToWorld(x, y);
+            return coordWorldPos + new Vector2(TILE_WIDTH_HALF, TILE_HEIGHT_HALF);
+        }
+
+        public static Vector2 VertexToWorld(Vector2Int vertex) {
+            return VertexToWorld(vertex.x, vertex.y);
+        }
+
+        public static Vector2Int WorldToVertex(Vector2 world) {
+            return WorldToCoord(new Vector2(world.x, world.y - TILE_HEIGHT_HALF));
+        }
+
+        public static Vector2Int ScreenToVertex(Vector2 screen) {
+            Vector2 world = Camera.main.ScreenToWorldPoint(screen);
+            return WorldToVertex(world);
+        }
 	}
 
 }

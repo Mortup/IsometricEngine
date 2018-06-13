@@ -84,7 +84,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 		}
 
 		public static int GetSortingOrder(int x, int y, int z) {
-			return TileSpriteObserver.GetSortingOrder (x, y) + 2 - z;
+			return TileSpriteObserver.GetSortingOrder (x, y) + 1 - z;
 		}
 	}
 
