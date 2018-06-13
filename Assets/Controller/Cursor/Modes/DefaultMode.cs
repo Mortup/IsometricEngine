@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.commands;
-using com.gStudios.isometric.controller.spriteObservers;
 
-using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.data;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
@@ -70,20 +66,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
         protected abstract CursorCommand GetActionCommand(Vector2 mousePosition);
 
-		public virtual void UpdateCursors(Vector2 mousePosition) {
-			Vector2Int coords = IsometricTransformer.ScreenToCoord (mousePosition);
-
-			if (level.IsTileInBounds(coords.x, coords.y)) {
-				mainCursorSr.enabled = true;
-				mainCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (coords.x, coords.y) + mainCursorSortingOrderOffset; // Only for tiles?
-				mainCursorGo.transform.position = IsometricTransformer.CoordToWorld (coords); // Only for tiles
-
-				mainCursorSr.sprite = GetCursorSprite (coords); // Only for tiles
-			}
-			else {
-				mainCursorSr.enabled = false;
-			}
-		}
+        public abstract void UpdateCursors(Vector2 mousePosition);
 
 		public virtual void SetIndex(int index) {
 			this.index = index;

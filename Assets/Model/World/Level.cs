@@ -65,6 +65,10 @@ namespace com.gStudios.isometric.model.world {
             return true;
 		}
 
+        public bool IsVertexInBounds(int x, int y) {
+            return IsWallInBounds(x, y, 0);
+        }
+
 		public IWall GetWallAt(int x, int y, int z) {
 			if (!IsWallInBounds(x,y,z)) {
 				UnityEngine.Debug.LogError("Wall ("+x+","+y+","+z+") is out of range.");
