@@ -32,6 +32,10 @@ public class SpriteImportSettings : AssetPostprocessor
 			tis.spriteAlignment = (int)SpriteAlignment.Custom;
 			tis.spritePivot = new Vector2 (tileWidthOffset, tileHeightOffset);
 		}
+        else if (assetPath.Contains("WallCursors")) {
+            tis.spriteAlignment = (int)SpriteAlignment.Custom;
+            tis.spritePivot = new Vector2(0.5f, 0.02f);
+        }
 
 		textureImporter.SetTextureSettings (tis);
 	}
