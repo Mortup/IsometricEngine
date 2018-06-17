@@ -9,6 +9,7 @@ namespace com.gStudios.isometric.controller.ui {
 		[SerializeField] GameObject rightPanel;
 
 		void Update() {
+            // Reset UI when loading a level.
 			if (Input.GetKeyDown(KeyCode.L)) {
 				ResetUI ();
 			}

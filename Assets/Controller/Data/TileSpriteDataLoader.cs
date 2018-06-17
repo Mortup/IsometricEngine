@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
 
 using com.gStudios.isometric.controller.config;
@@ -12,7 +11,8 @@ namespace com.gStudios.isometric.controller.data {
 		Sprite[] sprites;
 
 		public TileSpriteDataLoader() {
-			sprites = Resources.LoadAll<Sprite> (GamePaths.TilesSprites);
+			Sprite[] unorderedprites = Resources.LoadAll<Sprite> (GamePaths.TilesSprites);
+            sprites = unorderedprites.OrderBy(x => x.name, new TrailingNumberComparer()).ToArray();
 		}
 
 		public Sprite GetDataById(int id) {

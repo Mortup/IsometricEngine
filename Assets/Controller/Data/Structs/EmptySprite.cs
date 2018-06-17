@@ -14,6 +14,10 @@ namespace com.gStudios.isometric.controller.data.structs {
         public Sprite GetSprite(IWall wall, bool isCropped) {
             return sprite;
         }
+
+        public Sprite GetThumbnail() {
+            return sprite;
+        }
     }
 
 }

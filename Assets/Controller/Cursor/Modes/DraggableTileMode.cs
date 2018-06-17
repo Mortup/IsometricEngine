@@ -2,6 +2,7 @@
 using UnityEngine;
 
 using com.gStudios.isometric.model.world;
+using com.gStudios.isometric.model.world.commands;
 
 using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.spriteObservers;
@@ -10,8 +11,6 @@ using com.gStudios.utils;
 namespace com.gStudios.isometric.controller.cursor.modes {
 
 	public abstract class DraggableTileMode : TileMode {
-
-		const int staticOrderOffset = 1;        // Sprite order in layer for static cursors.
 
         protected Vector2Int dragStartCoords;
 
@@ -54,11 +53,13 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 					SpriteRenderer staticCursorSr = staticCursorGo.GetComponent<SpriteRenderer> ();
 					staticCursorSr.sprite = GetCursorSprite (new Vector2Int(x,y));
 					staticCursorSr.sortingLayerName = mainCursorSr.sortingLayerName;
-					staticCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (x, y) + staticOrderOffset;
+					staticCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (x, y, FloorSubLayer.Cursor);
 
 					activeStaticCursors.Push (staticCursorGo);
 				}
 			}
+
+            return;
 		}
 
 		

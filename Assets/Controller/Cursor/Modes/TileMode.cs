@@ -2,8 +2,9 @@
 
 using com.gStudios.isometric.controller.spriteObservers;
 
-using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world;
+using com.gStudios.isometric.model.world.commands;
+using com.gStudios.isometric.model.world.tile;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
 
@@ -23,17 +24,18 @@ namespace com.gStudios.isometric.controller.cursor.modes {
         public override void UpdateCursors(Vector2 mousePosition) {
             Vector2Int coords = IsometricTransformer.ScreenToCoord(mousePosition);
 
-            // TODO: Check if should remove duplicate from wallbuildmode and move it to defaultmode
             if (level.IsTileInBounds(coords.x, coords.y)) {
                 mainCursorSr.enabled = true;
-                mainCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder(coords.x, coords.y) + mainCursorSortingOrderOffset; // Only for tiles?
-                mainCursorGo.transform.position = IsometricTransformer.CoordToWorld(coords); // Only for tiles
+                mainCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder(coords.x, coords.y, FloorSubLayer.Cursor);
+                mainCursorGo.transform.position = IsometricTransformer.CoordToWorld(coords);
 
-                mainCursorSr.sprite = GetCursorSprite(coords); // Only for tiles
+                mainCursorSr.sprite = GetCursorSprite(coords);
             }
             else {
                 mainCursorSr.enabled = false;
             }
+
+            return;
         }
 
         protected Sprite GetCursorSprite(Vector2Int coords) {

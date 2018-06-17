@@ -8,6 +8,7 @@ using com.gStudios.isometric.controller.spriteObservers;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
+using com.gStudios.isometric.model.world.wall;
 
 namespace com.gStudios.isometric.controller.cursor.modes {
 
@@ -20,11 +21,26 @@ namespace com.gStudios.isometric.controller.cursor.modes {
             activeStaticCursors = new Stack<GameObject>();
 
             mainCursorSr.sortingLayerName = "Tiles";
-            mainCursorSr.sprite = DataManager.cursorSpriteData.wallMainSprite;
         }
 
         protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
-            return NullCommand.instance;
+            int selectedIndex = Input.GetButton("InverseFunction") ? WallIndex.EmptyWallIndex : WallIndex.NewWallIndex;
+            Vector2Int vertexCoords = IsometricTransformer.ScreenToVertex(mousePosition);
+
+            Vector2Int diff = new Vector2Int(Mathf.Abs(vertexCoords.x - dragStartVertexCoords.x), Mathf.Abs(vertexCoords.y - dragStartVertexCoords.y));
+            Vector2Int endDragCoords = vertexCoords;
+
+            int posZ;
+            if (diff.x > diff.y) {
+                endDragCoords.y = dragStartVertexCoords.y;
+                posZ = 0;
+            }
+            else {
+                endDragCoords.x = dragStartVertexCoords.x;
+                posZ = 1;
+            }
+
+            return new BuildWallLineCmd(level, dragStartVertexCoords.x, dragStartVertexCoords.y, endDragCoords.x, endDragCoords.y, posZ, selectedIndex);
         }
 
         public override void ClickStart(Vector2 mousePosition) {
@@ -39,7 +55,8 @@ namespace com.gStudios.isometric.controller.cursor.modes {
             // Main cursor
             if (level.IsVertexInBounds(vertexCoords.x, vertexCoords.y)) {
                 mainCursorSr.enabled = true;
-                mainCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder(vertexCoords.x, vertexCoords.y) + mainCursorSortingOrderOffset; // Only for tiles?
+                mainCursorSr.sortingOrder = WallSpriteObserver.GetSortingOrder(vertexCoords.x, vertexCoords.y, 0, TileSubLayer.SecondWallCursor);
+                mainCursorSr.sprite = Input.GetButton("InverseFunction") ? DataManager.cursorSpriteData.wallBulldozeSprite : DataManager.cursorSpriteData.wallBuildSprite;
 
                 Vector3 pos = IsometricTransformer.VertexToWorld(vertexCoords);
                 mainCursorGo.transform.position = new Vector3(pos.x, pos.y, 0f);
@@ -55,15 +72,33 @@ namespace com.gStudios.isometric.controller.cursor.modes {
             if (!validClickStart)
                 return;
 
+            Vector2Int diff = new Vector2Int(Mathf.Abs(vertexCoords.x - dragStartVertexCoords.x), Mathf.Abs(vertexCoords.y - dragStartVertexCoords.y));
+            Vector2Int endDragCoords = vertexCoords;
+            if (diff.x > diff.y) {
+                endDragCoords.y = dragStartVertexCoords.y;
+            }
+            else {
+                endDragCoords.x = dragStartVertexCoords.x;
+            }
+
             GameObject cursorPrefab = Resources.Load<GameObject>(GamePaths.CursorPrefab);
-            GameObject staticCursorGo = SimplePool.Spawn(cursorPrefab, IsometricTransformer.VertexToWorld(dragStartVertexCoords), Quaternion.identity);
 
-            SpriteRenderer staticCursorSr = staticCursorGo.GetComponent<SpriteRenderer>();
-            staticCursorSr.sprite = DataManager.cursorSpriteData.wallMainSprite;
-            staticCursorSr.sortingLayerName = mainCursorSr.sortingLayerName;
-            staticCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder(dragStartVertexCoords.x, dragStartVertexCoords.y) + mainCursorSortingOrderOffset;
+            for (int x = Mathf.Min(dragStartVertexCoords.x, endDragCoords.x); x <= Mathf.Max(dragStartVertexCoords.x, endDragCoords.x); x++) {
+                for (int y = Mathf.Min(dragStartVertexCoords.y, endDragCoords.y); y <= Mathf.Max(dragStartVertexCoords.y, endDragCoords.y); y++) {
+                    Vector2Int currentCoord = new Vector2Int(x, y);
 
-            activeStaticCursors.Push(staticCursorGo);
+                    GameObject staticCursorGo = SimplePool.Spawn(cursorPrefab, IsometricTransformer.VertexToWorld(currentCoord), Quaternion.identity);
+
+                    SpriteRenderer staticCursorSr = staticCursorGo.GetComponent<SpriteRenderer>();
+                    staticCursorSr.sprite = Input.GetButton("InverseFunction") ? DataManager.cursorSpriteData.wallBulldozeSprite : DataManager.cursorSpriteData.wallBuildSprite;
+                    staticCursorSr.sortingLayerName = mainCursorSr.sortingLayerName;
+                    staticCursorSr.sortingOrder = WallSpriteObserver.GetSortingOrder(currentCoord.x, currentCoord.y, 0, TileSubLayer.FirstWallCursor);
+
+                    activeStaticCursors.Push(staticCursorGo);
+                }
+            }
+
+            return;
         }
     }
 

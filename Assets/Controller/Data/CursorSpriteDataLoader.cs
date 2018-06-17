@@ -17,6 +17,8 @@ namespace com.gStudios.isometric.controller.data {
 		public Sprite tileRemoveOnEmptySprite;
 
         public Sprite wallMainSprite;
+        public Sprite wallBuildSprite;
+        public Sprite wallBulldozeSprite;
 
 		public CursorSpriteDataLoader() {
 			defaultSprite = Resources.Load<Sprite> (GamePaths.CursorSprite ("Default"));
@@ -28,7 +30,9 @@ namespace com.gStudios.isometric.controller.data {
             tileRemoveOnEmptySprite = Resources.Load<Sprite> (GamePaths.TileCursorSprite ("BuildInverseOnEmpty"));
 
             wallMainSprite = Resources.Load<Sprite>(GamePaths.WallCursorSprite("Main"));
-		}
+            wallBuildSprite = Resources.Load<Sprite>(GamePaths.WallCursorSprite("Build"));
+            wallBulldozeSprite = Resources.Load<Sprite>(GamePaths.WallCursorSprite("Bulldoze"));
+        }
 		
 	}
 

@@ -12,9 +12,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
     /// Base abstract class for all cursor modes.
     /// Provides basic functionality.
     /// </summary>
-	public abstract class DefaultMode : CursorMode {
-
-		protected int mainCursorSortingOrderOffset = 3;
+	public abstract class DefaultMode : ICursorMode {
 
 		protected Level level;
 		protected int index = -1;   // The current index of the mode (May be the wall painting index, 0 for removing and 1 for bulding, etc.)
@@ -56,7 +54,7 @@ namespace com.gStudios.isometric.controller.cursor.modes {
 
         protected abstract CursorCommand GetActionCommand(Vector2 mousePosition);
 
-        public abstract void UpdateCursors(Vector2 mousePosition);
+        public virtual void UpdateCursors(Vector2 mousePosition) { }
 
 		public virtual void SetIndex(int index) {
 			this.index = index;

@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.cursor;
-using com.gStudios.isometric.controller.spriteObservers;
+using com.gStudios.isometric.controller.data;
+using com.gStudios.isometric.controller.data.structs;
+
 using com.gStudios.isometric.model.data.structures;
+using com.gStudios.isometric.model.world.wall;
 
 namespace com.gStudios.isometric.controller.ui {
 
@@ -22,7 +23,7 @@ namespace com.gStudios.isometric.controller.ui {
 			childs = new List<GameObject>();
 
 			cursorController = levelController.GetCursorController ();
-		}
+        }
 
 		public void ShowFloorButtons() {
 			RemoveChilds ();
@@ -33,10 +34,33 @@ namespace com.gStudios.isometric.controller.ui {
 				childs.Add (button);
 				button.transform.SetParent (transform);
 
-				SelectionButton sb = button.GetComponent<SelectionButton> ();
+				TileSelectionButton sb = button.AddComponent<TileSelectionButton> ();
 				sb.Init (fd, DataManager.tileSpriteData.GetDataById(fd.id), cursorController);
 			}
 		}
+
+        public void ShowWallButtons() {
+            RemoveChilds();
+
+            int i = 1;
+            while(true) {
+                try {
+                    IWallSprite wallSprite = DataManager.wallSpriteData.GetDataById(i);
+
+                    GameObject button = GameObject.Instantiate(buttonPrefab);
+                    childs.Add(button);
+                    button.transform.SetParent(transform);
+
+                    GenericSelectionButton gsb = button.AddComponent<GenericSelectionButton>();
+                    gsb.Init(cursorController, i, wallSprite.GetThumbnail());
+                }
+                catch (ArgumentOutOfRangeException e) when (e.ParamName == "index") {
+                    break;
+                }
+                
+                i++;
+            }
+        }
 
 		public void RemoveChilds() {
 			while (childs.Count > 0) {

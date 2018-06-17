@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using com.gStudios.isometric.model.world.tile;
+﻿using com.gStudios.isometric.model.world.tile;
 
 namespace com.gStudios.isometric.model.world.commands {
 

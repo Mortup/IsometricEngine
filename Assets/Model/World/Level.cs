@@ -83,7 +83,6 @@ namespace com.gStudios.isometric.model.world {
 		}
 
         public void Save(LevelSerializer levelSerializer) {
-            UnityEngine.Debug.Log("Hi there!");
             levelSerializer.SaveLevel(this, tiles, walls);
         }
 

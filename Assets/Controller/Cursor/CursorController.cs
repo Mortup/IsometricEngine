@@ -24,7 +24,7 @@ namespace com.gStudios.isometric.controller.cursor {
 		/// </summary>
 		Level level;
 
-		modes.CursorMode currentMode;
+		modes.ICursorMode currentMode;
 
 		const int mouseButton = 0;
 
@@ -54,6 +54,9 @@ namespace com.gStudios.isometric.controller.cursor {
 			}
             else if (mode == "buildWalls") {
                 currentMode = new WallBuildMode(level);
+            }
+            else if (mode == "paintWalls") {
+                currentMode = new WallPaintMode(level);
             }
 			else {
 				Debug.LogError ("Trying to set an unkown mode " + mode);

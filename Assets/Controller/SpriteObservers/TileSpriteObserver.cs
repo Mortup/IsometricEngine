@@ -33,7 +33,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
 			SpriteRenderer sr = tile_go.AddComponent<SpriteRenderer> ();
 			sr.sortingLayerName = "Floor";
-			sr.sortingOrder = GetSortingOrder(tile.X, tile.Y);
+			sr.sortingOrder = GetSortingOrder(tile.X, tile.Y, FloorSubLayer.FloorTile);
 			UpdateSprite (tile, tile_go);
 
 			tile.Subscribe (this);
@@ -68,8 +68,8 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			}
 		}
 
-		public static int GetSortingOrder(int x, int y) {
-			return (x + y) * 10;
+		public static int GetSortingOrder(int x, int y, FloorSubLayer layer) {
+            return ((x + y) * 10) + (int) layer;
 		}
 	}
 

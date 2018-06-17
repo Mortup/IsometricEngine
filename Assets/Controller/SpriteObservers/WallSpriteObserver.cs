@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 using com.gStudios.isometric.controller.data;
@@ -30,19 +29,38 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
 			SpriteRenderer sr = wall_go.AddComponent<SpriteRenderer> ();
 			sr.sortingLayerName = "Tiles";
-			sr.sortingOrder = GetSortingOrder(wall.X, wall.Y, wall.Z);
-			UpdateSprite (wall, wall_go);
+			sr.sortingOrder = GetSortingOrder(wall.X, wall.Y, wall.Z, TileSubLayer.Wall);
 
 			wall.Subscribe (this);
 			gameobjects.Add (wall, wall_go);
-			return wall_go;
+
+            UpdateSprite(wall);
+            return wall_go;
 		}
 
 		public void NotifyWallTypeChanged(IWall wall) {
-			UpdateSprite (wall, gameobjects [wall]);
-		}
+            // Update wall
+			UpdateSprite (wall);
 
-		public void UpdateSprite(IWall wall, GameObject wall_go) {
+            // Update neighbors
+            UpdateSprite(wall.GetNeighbor(0, 0, 0));
+            UpdateSprite(wall.GetNeighbor(0, 0, 1));
+            UpdateSprite(wall.GetNeighbor(0, 1, 0));
+            UpdateSprite(wall.GetNeighbor(0, 1, 1));
+            UpdateSprite(wall.GetNeighbor(0, -1, 1));
+            UpdateSprite(wall.GetNeighbor(1, 0, 0));
+            UpdateSprite(wall.GetNeighbor(1, 0, 1));
+            UpdateSprite(wall.GetNeighbor(1, -1, 1));
+            UpdateSprite(wall.GetNeighbor(-1, 0, 0));
+            UpdateSprite(wall.GetNeighbor(-1, 1, 0));
+        }
+
+		public void UpdateSprite(IWall wall) {
+            if (gameobjects.ContainsKey(wall) == false)
+                return;
+
+            GameObject wall_go = gameobjects[wall];
+
 			SpriteRenderer sr = wall_go.GetComponent<SpriteRenderer> ();
 
 			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type).GetSprite(wall, isCurrentlyClipping);
@@ -51,7 +69,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 		public void UpdateAllSprites() {
 			foreach(KeyValuePair<IWall, GameObject> entry in gameobjects)
 			{
-				UpdateSprite (entry.Key, entry.Value);
+				UpdateSprite (entry.Key);
 			}
 		}
 
@@ -83,8 +101,8 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
 		}
 
-		public static int GetSortingOrder(int x, int y, int z) {
-			return TileSpriteObserver.GetSortingOrder (x, y) + 1 - z;
+		public static int GetSortingOrder(int x, int y, int z, TileSubLayer layer) {
+			return (x+y)*20 + ((int)layer * 2) + 1 - z;
 		}
 	}
 

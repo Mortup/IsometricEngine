@@ -50,6 +50,10 @@ namespace com.gStudios.isometric.controller.data.structs {
             }
             return sprites[index];
         }
-	}
+
+        public Sprite GetThumbnail() {
+            return sprites[0];
+        }
+    }
 
 }
