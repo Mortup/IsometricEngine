@@ -31,6 +31,11 @@ namespace com.gStudios.isometric.controller.cursor.modes {
             arrowCursorSr.sortingLayerName = "Tiles";
         }
 
+        public override void Deactivate() {
+            base.Deactivate();
+            GameObject.Destroy(arrowCursor);
+        }
+
         public override void UpdateCursors(Vector2 mousePosition) {
             base.UpdateCursors(mousePosition);
 
