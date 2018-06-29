@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 using com.gStudios.isometric.model.data.structures;
 
-using com.gStudios.isometric.controller.cursor;
+using com.gStudios.levelEditor.controller.cursor;
 
-namespace com.gStudios.isometric.controller.ui {
+namespace com.gStudios.levelEditor.controller.ui {
 
 	public class TileSelectionButton : MonoBehaviour {
 

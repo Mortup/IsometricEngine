@@ -1,11 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 using com.gStudios.isometric.controller.data;
-using com.gStudios.isometric.controller.cursor;
 using com.gStudios.isometric.controller.spriteObservers;
 
 using com.gStudios.isometric.model.saving;
@@ -13,15 +8,15 @@ using com.gStudios.isometric.model.world;
 
 namespace com.gStudios.isometric.controller {
 
-	public class LevelController : MonoBehaviour {
+	public class CoreLevelController : MonoBehaviour {
 
 		[SerializeField] int levelWidth;
 		[SerializeField] int levelHeight;
+        [SerializeField] MonoBehaviour[] customControllers;
 
         [SerializeField] bool debugLoadLevel;
 
 		Level level;
-		CursorController cursorController;
 
         LevelSerializer levelSerializer;
 
@@ -31,7 +26,6 @@ namespace com.gStudios.isometric.controller {
 		void Start () {
 			DataManager.Init ();
 
-			cursorController = GetComponent<CursorController> ();
 			tileSpriteObserver = new TileSpriteObserver ();
 			wallSpriteObserver = new WallSpriteObserver ();
 
@@ -71,17 +65,21 @@ namespace com.gStudios.isometric.controller {
                 level = new Level(levelWidth, levelHeight);
             }
 
-			cursorController.Init (level);
+            foreach (MonoBehaviour ccGO in customControllers) {
+                ILevelController lc = ccGO.GetComponent<ILevelController>();
+                if (lc == null)
+                    Debug.LogError("Trying to init a custom controller that doesn't inherits ILevelController");
+
+                lc.Init(level);
+            }
 
 			tileSpriteObserver.BindLevel (level);
 			wallSpriteObserver.BindLevel (level);
+
+
 		}
 
 		// CONTROLLER GETTERS
-		public CursorController GetCursorController() {
-			return cursorController;
-		}
-
 		public TileSpriteObserver GetTileSpriteManager() {
 			return tileSpriteObserver;
 		}

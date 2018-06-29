@@ -3,10 +3,11 @@
 using com.gStudios.isometric.controller.spriteObservers;
 
 using com.gStudios.isometric.model.world;
-using com.gStudios.isometric.model.world.commands;
 using com.gStudios.isometric.model.world.tile;
 
-namespace com.gStudios.isometric.controller.cursor.modes {
+using com.gStudios.isometric.controller;
+
+namespace com.gStudios.levelEditor.controller.cursor.modes {
 
 	public abstract class TileMode : DefaultMode{
 

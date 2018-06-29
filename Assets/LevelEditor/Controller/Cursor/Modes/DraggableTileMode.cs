@@ -2,13 +2,13 @@
 using UnityEngine;
 
 using com.gStudios.isometric.model.world;
-using com.gStudios.isometric.model.world.commands;
 
+using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.spriteObservers;
 using com.gStudios.utils;
 
-namespace com.gStudios.isometric.controller.cursor.modes {
+namespace com.gStudios.levelEditor.controller.cursor.modes {
 
 	public abstract class DraggableTileMode : TileMode {
 

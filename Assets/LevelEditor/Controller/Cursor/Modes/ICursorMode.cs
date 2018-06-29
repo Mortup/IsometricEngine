@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using com.gStudios.isometric.model.world.commands;
 
-namespace com.gStudios.isometric.controller.cursor.modes {
+namespace com.gStudios.levelEditor.controller.cursor.modes {
 
 	/// <summary>
 	/// The state of the cursor. Determines which actions will

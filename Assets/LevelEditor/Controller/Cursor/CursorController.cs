@@ -1,23 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
 
-using com.gStudios.isometric.controller.cursor.modes;
+using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.config;
 
 using com.gStudios.utils.structs;
 
-namespace com.gStudios.isometric.controller.cursor {
+using com.gStudios.levelEditor.controller.cursor.modes;
+
+namespace com.gStudios.levelEditor.controller.cursor {
 
 	/// <summary>
 	/// This class takes care of the user click actions and the
 	/// instantiation of cursors.
 	/// </summary>
-	public class CursorController : MonoBehaviour {
+	public class CursorController : MonoBehaviour, ILevelController {
 
 		/// <summary>
 		/// A reference to the current level.

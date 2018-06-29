@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.commands;
 
-using com.gStudios.utils;
-
+using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.data;
-using com.gStudios.isometric.controller.config;
 
-namespace com.gStudios.isometric.controller.cursor.modes {
+namespace com.gStudios.levelEditor.controller.cursor.modes {
 
 	public class BuildMode : DraggableTileMode {
 

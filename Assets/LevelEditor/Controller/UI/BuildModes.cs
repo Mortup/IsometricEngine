@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace com.gStudios.isometric.controller.ui {
+namespace com.gStudios.levelEditor.controller.ui {
 
 	public class BuildModes : MonoBehaviour {
 

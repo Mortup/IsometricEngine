@@ -15,7 +15,7 @@ namespace com.gStudios.isometric.controller.config {
 
 		public static readonly string CursorPrefab = Path.Combine("Prefabs", "Cursor");
 
-        public static readonly string ResourcesBase = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("Assets", "Resources"));
+        public static readonly string ResourcesBase = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("Assets", "CoreEngine", "Resources"));
 
         public static string CursorSprite(string name) {
             return Path.Combine(CursorSprites, name);

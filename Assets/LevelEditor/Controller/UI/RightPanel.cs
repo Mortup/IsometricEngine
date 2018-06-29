@@ -2,27 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using com.gStudios.isometric.controller.cursor;
+using com.gStudios.levelEditor.controller.cursor;
 using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.data.structs;
 
 using com.gStudios.isometric.model.data.structures;
-using com.gStudios.isometric.model.world.wall;
 
-namespace com.gStudios.isometric.controller.ui {
+namespace com.gStudios.levelEditor.controller.ui {
 
 	public class RightPanel : MonoBehaviour {
 
-		[SerializeField] LevelController levelController;
-		[SerializeField] GameObject buttonPrefab;
+		[SerializeField] CursorController cursorController;
+        [SerializeField] GameObject buttonPrefab;
 
-		CursorController cursorController;
+		
 		List<GameObject> childs;
 
 		void Awake() {
 			childs = new List<GameObject>();
-
-			cursorController = levelController.GetCursorController ();
         }
 
 		public void ShowFloorButtons() {
