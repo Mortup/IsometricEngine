@@ -60,6 +60,7 @@ namespace com.gStudios.isometric.controller.data {
 				return _cursorSpriteData;
 			}
 		}
+        // END GETTERS
 
 	}
 }
