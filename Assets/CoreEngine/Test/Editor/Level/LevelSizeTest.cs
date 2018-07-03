@@ -6,25 +6,22 @@ using System.Collections;
 
 using com.gStudios.isometric.model.world;
 
-public class LevelTest {
+public class LevelSizeTest {
 
 	Level level;
 
-	[Test]
+    [SetUp]
+    public void Setup() {
+        level = new Level(10, 5);
+    }
+
+    [Test]
 	public void LevelTestWidthStaysPasses() {
-		Level level = new Level (10, 5);
 		Assert.AreEqual (level.Width, 10);
 	}
 
 	[Test]
 	public void LevelTestHeightStaysPasses() {
-		Level level = new Level (10, 5);
 		Assert.AreEqual (level.Height, 5);
-	}
-
-	[Test]
-	public void LevelTestBoundsPasses() {
-		Level level = new Level (10, 5);
-		//level.IsInBounds
 	}
 }

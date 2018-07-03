@@ -217,6 +217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelWidth: 10
   levelHeight: 10
+  customControllers:
+  - {fileID: 317608091}
   debugLoadLevel: 1
 --- !u!4 &317608090
 Transform:
@@ -826,7 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2eee3dda2a652549a13d64eebb5972f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelController: {fileID: 317608089}
+  cursorController: {fileID: 317608091}
   buttonPrefab: {fileID: 1132366607608058, guid: 41dd94f8aa43dd14eba29dd0590e260e,
     type: 2}
 --- !u!114 &944000958
