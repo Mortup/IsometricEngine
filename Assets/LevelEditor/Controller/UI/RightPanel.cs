@@ -25,37 +25,30 @@ namespace com.gStudios.levelEditor.controller.ui {
 		public void ShowFloorButtons() {
 			RemoveChilds ();
 
-			List<TileData> floorDatas = DataManager.tileData.GetData ();
-			foreach (TileData fd in floorDatas) {
-				GameObject button = GameObject.Instantiate (buttonPrefab);
-				childs.Add (button);
-				button.transform.SetParent (transform);
+            for (int i = 2; i < DataManager.tileSpriteData.GetLength(); i++) {
+                Sprite sprite = DataManager.tileSpriteData.GetDataById(i);
 
-				TileSelectionButton sb = button.AddComponent<TileSelectionButton> ();
-				sb.Init (fd, DataManager.tileSpriteData.GetDataById(fd.id), cursorController);
-			}
+                GameObject button = GameObject.Instantiate(buttonPrefab);
+                childs.Add(button);
+                button.transform.SetParent(transform);
+
+                GenericSelectionButton gsb = button.AddComponent<GenericSelectionButton>();
+                gsb.Init(cursorController, i, sprite);
+            }
 		}
 
         public void ShowWallButtons() {
             RemoveChilds();
 
-            int i = 1;
-            while(true) {
-                try {
-                    IWallSprite wallSprite = DataManager.wallSpriteData.GetDataById(i);
+            for (int i = 1; i < DataManager.wallSpriteData.GetLength(); i++) {
+                IWallSprite wallSprite = DataManager.wallSpriteData.GetDataById(i);
 
-                    GameObject button = GameObject.Instantiate(buttonPrefab);
-                    childs.Add(button);
-                    button.transform.SetParent(transform);
+                GameObject button = GameObject.Instantiate(buttonPrefab);
+                childs.Add(button);
+                button.transform.SetParent(transform);
 
-                    GenericSelectionButton gsb = button.AddComponent<GenericSelectionButton>();
-                    gsb.Init(cursorController, i, wallSprite.GetThumbnail());
-                }
-                catch (ArgumentOutOfRangeException e) when (e.ParamName == "index") {
-                    break;
-                }
-                
-                i++;
+                GenericSelectionButton gsb = button.AddComponent<GenericSelectionButton>();
+                gsb.Init(cursorController, i, wallSprite.GetThumbnail());
             }
         }
 

@@ -32,6 +32,10 @@ namespace com.gStudios.isometric.controller.data {
 		public IWallSprite GetDataById(int id) {
 			return sprites[id];
 		}
+
+        public int GetLength() {
+            return sprites.Count;
+        }
 		
 	}
 

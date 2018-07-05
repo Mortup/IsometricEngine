@@ -8,7 +8,6 @@ namespace com.gStudios.isometric.controller.data {
 
 	public static class DataManager {
 
-		static TileDataLoader _tileData;
 		static TileSpriteDataLoader _tileSpriteData;
 		static WallSpriteDataLoader _wallSpriteData;
 		static CursorSpriteDataLoader _cursorSpriteData;
@@ -19,7 +18,6 @@ namespace com.gStudios.isometric.controller.data {
 			if (initialized)
 				Debug.LogError ("Trying to initialize DataManager when it's already initialized.");
 
-			_tileData = new TileDataLoader ();
 			_tileSpriteData = new TileSpriteDataLoader ();
 			_wallSpriteData = new WallSpriteDataLoader ();
 			_cursorSpriteData = new CursorSpriteDataLoader ();
@@ -33,13 +31,6 @@ namespace com.gStudios.isometric.controller.data {
 		}
 
 		// GETTERS
-		public static TileDataLoader tileData {
-			get {
-				CheckInitialization ();
-				return _tileData;
-			}
-		}
-
 		public static TileSpriteDataLoader tileSpriteData {
 			get {
 				CheckInitialization ();

@@ -30,6 +30,10 @@ namespace com.gStudios.isometric.controller.data {
 
 			return GetDataById (td.id);
 		}
+
+        public int GetLength() {
+            return sprites.Length;
+        }
 		
 	}
 
