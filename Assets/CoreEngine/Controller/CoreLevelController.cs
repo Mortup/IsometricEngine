@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using com.gStudios.isometric.controller.data;
+using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.controller.spriteObservers;
 
 using com.gStudios.isometric.model.saving;
@@ -52,6 +53,13 @@ namespace com.gStudios.isometric.controller {
 			if (Input.GetKeyDown(KeyCode.O)) {
 				wallSpriteObserver.SetClipping (false);
 			}
+
+            if (Input.GetKeyDown(KeyCode.E)) {
+                OrientationManager.RotateClockwise();
+            }
+            if (Input.GetKeyDown(KeyCode.Q)) {
+                OrientationManager.RotateCounterClockwise();
+            }
 		}
 
 		void LoadLevel() {

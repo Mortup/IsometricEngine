@@ -12,7 +12,7 @@ using com.gStudios.isometric.model.world.tile;
 
 namespace com.gStudios.isometric.controller.spriteObservers {
 
-	public class TileSpriteObserver : ITileObserver {
+	public class TileSpriteObserver : ITileObserver, IOrientationObserver {
 
 		GameObject tileHolder;
 
@@ -22,33 +22,57 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			tileHolder = new GameObject ("Tiles");
 
 			gameobjects = new Dictionary<ITile, GameObject> ();
+
+            OrientationManager.RegisterObserver(this);
 		}
+
+        ~TileSpriteObserver() {
+            OrientationManager.UnregisterObserver(this);
+        }
 
 		GameObject CreateSprite(ITile tile) {
 			GameObject tile_go = new GameObject ();
 			tile_go.name = "Tile [" + tile.X.ToString () + "," + tile.Y.ToString () + "]";
-			tile_go.transform.position = (Vector3)TileTransformer.CoordToWorld (tile.X, tile.Y);
 			tile_go.transform.SetParent (tileHolder.transform, true);
 
 			SpriteRenderer sr = tile_go.AddComponent<SpriteRenderer> ();
 			sr.sortingLayerName = "Floor";
-			sr.sortingOrder = GetSortingOrder(tile.X, tile.Y, FloorSubLayer.FloorTile);
-			UpdateSprite (tile, tile_go);
 
-			tile.Subscribe (this);
-			gameobjects.Add (tile, tile_go);
-			return tile_go;
+            gameobjects.Add(tile, tile_go);
+            tile.Subscribe (this);
+            UpdateSprite(tile);
+
+            return tile_go;
 		}
 
 		public void NotifyTileTypeChanged(ITile tile) {
-			UpdateSprite (tile, gameobjects [tile]);
+			UpdateSprite (tile);
 		}
 
-		public void UpdateSprite(ITile tile, GameObject tile_go) {
-			SpriteRenderer sr = tile_go.GetComponent<SpriteRenderer> ();				
+        public void NotifyOrientationChanged(Orientation newOrientation) {
+            UpdateAllSprites();
+        }
 
+		void UpdateSprite(ITile tile) {
+            if (gameobjects.ContainsKey(tile) == false) {
+                Debug.LogError("Trying to update a tile without a gameobject created.");
+                return;
+            }
+
+            GameObject tile_go = gameobjects[tile];
+
+            tile_go.transform.position = (Vector3)TileTransformer.CoordToWorld(tile.X, tile.Y);
+            
+            SpriteRenderer sr = tile_go.GetComponent<SpriteRenderer>();
 			sr.sprite = DataManager.tileSpriteData.GetDataById(tile.Type);
-		}
+            sr.sortingOrder = GetSortingOrder(tile.X, tile.Y, FloorSubLayer.FloorTile);
+        }
+
+        void UpdateAllSprites() {
+            foreach (KeyValuePair<ITile, GameObject> entry in gameobjects) {
+                UpdateSprite(entry.Key);
+            }
+        }
 
 		public void RemoveTiles() {
 
@@ -68,7 +92,8 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 		}
 
 		public static int GetSortingOrder(int x, int y, FloorSubLayer layer) {
-            return ((x + y) * 10) + (int) layer;
+            Vector2Int rotatedCoords = TileTransformer.RotateCoord(new Vector2Int(x, y));
+            return ((rotatedCoords.x + rotatedCoords.y) * 10) + (int) layer;
 		}
 	}
 

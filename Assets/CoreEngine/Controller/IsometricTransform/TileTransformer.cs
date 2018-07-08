@@ -11,12 +11,16 @@ namespace com.gStudios.isometric.controller.isometricTransform {
 		/// Converts isometric tile coordinates to a world position.
 		/// </summary>
 		/// <returns>The world position.</returns>
-		/// <param name="x">The x isometric coordinate.</param>
-		/// <param name="y">The y isometric coordinate.</param>
+		/// <param name="rotatedX">The x isometric coordinate.</param>
+		/// <param name="rotatedY">The y isometric coordinate.</param>
 		public static Vector2 CoordToWorld(int x, int y) {
+            Vector2Int rotatedCoords = RotateCoord(new Vector2Int(x,y));
+            int rotatedX = rotatedCoords.x;
+            int rotatedY = rotatedCoords.y;
+
             Vector2 world = new Vector2(
-                (y - x) * Settings.TILE_WIDTH_HALF,
-                -(x + y) * Settings.TILE_HEIGHT_HALF);
+                (rotatedY - rotatedX)  * Settings.TILE_WIDTH_HALF,
+                -(rotatedX + rotatedY) * Settings.TILE_HEIGHT_HALF);
 
             Vector2 offset = new Vector2(Settings.TILE_WIDTH_HALF, 0f);
             return world - offset;
@@ -40,11 +44,11 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             world.x = -world.x;
             world.y = -world.y;
 
-            Vector2Int map = Vector2Int.zero;
-            map.x = Mathf.RoundToInt((world.x / Settings.TILE_WIDTH_HALF + world.y / Settings.TILE_HEIGHT_HALF) / 2);
-            map.y = Mathf.RoundToInt((world.y / Settings.TILE_HEIGHT_HALF - (world.x / Settings.TILE_WIDTH_HALF)) / 2);
+            Vector2Int coord = new Vector2Int(
+                Mathf.RoundToInt((world.x / Settings.TILE_WIDTH_HALF + world.y / Settings.TILE_HEIGHT_HALF) / 2)
+                ,Mathf.RoundToInt((world.y / Settings.TILE_HEIGHT_HALF - (world.x / Settings.TILE_WIDTH_HALF)) / 2));
 
-            return map;
+            return InverseRotateCoord(coord);
         }
 
         /// <summary>
@@ -57,6 +61,37 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             return WorldToCoord(world);
         }
 
+        public static Vector2Int RotateCoord(Vector2Int original) {
+            switch (OrientationManager.currentOrientation) {
+                case Orientation.North:
+                    return original;
+                case Orientation.West:
+                    return new Vector2Int(original.y, -original.x);
+                case Orientation.South:
+                    return new Vector2Int(-original.x, -original.y);
+                case Orientation.East:
+                    return new Vector2Int(-original.y, original.x);
+            }
+
+            Debug.Log("Trying to rotate to an unknown orientation.");
+            return Vector2Int.zero;
+        }
+
+        public static Vector2Int InverseRotateCoord(Vector2Int original) {
+            switch (OrientationManager.currentOrientation) {
+                case Orientation.North:
+                    return original;
+                case Orientation.West:
+                    return new Vector2Int(-original.y, original.x);
+                case Orientation.South:
+                    return new Vector2Int(-original.x, -original.y);
+                case Orientation.East:
+                    return new Vector2Int(original.y, -original.x);
+            }
+
+            Debug.Log("Trying to rotate to an unknown orientation.");
+            return Vector2Int.zero;
+        }
     }
 
 }

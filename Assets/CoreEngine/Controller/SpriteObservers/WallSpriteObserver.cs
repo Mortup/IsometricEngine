@@ -57,7 +57,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             UpdateSprite(wall.GetNeighbor(-1, 1, 0));
         }
 
-		public void UpdateSprite(IWall wall) {
+        void UpdateSprite(IWall wall) {
             if (gameobjects.ContainsKey(wall) == false)
                 return;
 
@@ -68,7 +68,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type).GetSprite(wall, isCurrentlyClipping);
 		}
 
-		public void UpdateAllSprites() {
+		void UpdateAllSprites() {
 			foreach(KeyValuePair<IWall, GameObject> entry in gameobjects)
 			{
 				UpdateSprite (entry.Key);
