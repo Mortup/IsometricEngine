@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using com.gStudios.isometric.controller;
-using com.gStudios.isometric.controller.config;
+using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.controller.data;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.tile;
-using com.gStudios.isometric.model.data.structures;
 
 namespace com.gStudios.isometric.controller.spriteObservers {
 
@@ -25,10 +24,10 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			gameobjects = new Dictionary<ITile, GameObject> ();
 		}
 
-		public GameObject CreateSprite(ITile tile) {
+		GameObject CreateSprite(ITile tile) {
 			GameObject tile_go = new GameObject ();
 			tile_go.name = "Tile [" + tile.X.ToString () + "," + tile.Y.ToString () + "]";
-			tile_go.transform.position = (Vector3)IsometricTransformer.CoordToWorld (tile.X, tile.Y);
+			tile_go.transform.position = (Vector3)TileTransformer.CoordToWorld (tile.X, tile.Y);
 			tile_go.transform.SetParent (tileHolder.transform, true);
 
 			SpriteRenderer sr = tile_go.AddComponent<SpriteRenderer> ();

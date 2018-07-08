@@ -2,6 +2,8 @@
 using UnityEngine;
 
 using com.gStudios.isometric.controller.data;
+using com.gStudios.isometric.controller.isometricTransform;
+
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.wall;
 
@@ -21,10 +23,10 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			gameobjects = new Dictionary<IWall, GameObject> ();
 		}
 
-		public GameObject CreateSprite(IWall wall) {
+		GameObject CreateSprite(IWall wall) {
 			GameObject wall_go = new GameObject ();
 			wall_go.name = "Wall [" + wall.X.ToString () + "," + wall.Y.ToString () + "," + wall.Z.ToString () + "]";
-			wall_go.transform.position = (Vector3)IsometricTransformer.WallPosToWorld(wall.X, wall.Y, wall.Z);
+			wall_go.transform.position = (Vector3)WallTransformer.CoordToWorld(wall.X, wall.Y, wall.Z);
 			wall_go.transform.SetParent (wallHolder.transform, true);
 
 			SpriteRenderer sr = wall_go.AddComponent<SpriteRenderer> ();

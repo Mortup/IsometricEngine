@@ -6,6 +6,7 @@ using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.spriteObservers;
+using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.utils;
 
 namespace com.gStudios.levelEditor.controller.cursor.modes {
@@ -24,7 +25,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 		{
 			base.ClickStart (mousePosition);
 
-			dragStartCoords = IsometricTransformer.ScreenToCoord(mousePosition);
+			dragStartCoords = TileTransformer.ScreenToCoord(mousePosition);
         }
 
 		public override void UpdateCursors (Vector2 mousePosition)
@@ -38,7 +39,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 				return;
 
             Vector2Int startCoords = dragStartCoords;
-			Vector2Int endCoords = IsometricTransformer.ScreenToCoord (mousePosition);
+			Vector2Int endCoords = TileTransformer.ScreenToCoord (mousePosition);
 
 			Vector2Int minCoords = CoordUtil.MinCoords (startCoords, endCoords);
 			Vector2Int maxCoords = CoordUtil.MaxCoords (startCoords, endCoords);
@@ -47,7 +48,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 
 			for (int x = minCoords.x; x <= maxCoords.x; x++) {
 				for (int y = minCoords.y; y <= maxCoords.y; y++) {
-					Vector3 pos = IsometricTransformer.CoordToWorld (x, y);
+					Vector3 pos = TileTransformer.CoordToWorld (x, y);
 					GameObject staticCursorGo = SimplePool.Spawn (cursorPrefab, pos, Quaternion.identity);
 
 					SpriteRenderer staticCursorSr = staticCursorGo.GetComponent<SpriteRenderer> ();

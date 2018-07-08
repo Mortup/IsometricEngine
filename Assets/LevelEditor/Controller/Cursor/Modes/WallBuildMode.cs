@@ -2,9 +2,9 @@
 
 using UnityEngine;
 
-using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.data;
+using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.controller.spriteObservers;
 
 using com.gStudios.isometric.model.world;
@@ -26,7 +26,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 
         protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
             int selectedIndex = Input.GetButton("InverseFunction") ? WallIndex.EmptyWallIndex : WallIndex.NewWallIndex;
-            Vector2Int vertexCoords = IsometricTransformer.ScreenToVertex(mousePosition);
+            Vector2Int vertexCoords = VertexTransfomer.ScreenToVertex(mousePosition);
 
             Vector2Int diff = new Vector2Int(Mathf.Abs(vertexCoords.x - dragStartVertexCoords.x), Mathf.Abs(vertexCoords.y - dragStartVertexCoords.y));
             Vector2Int endDragCoords = vertexCoords;
@@ -47,11 +47,11 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
         public override void ClickStart(Vector2 mousePosition) {
             base.ClickStart(mousePosition);
 
-            dragStartVertexCoords = IsometricTransformer.ScreenToVertex(mousePosition);
+            dragStartVertexCoords = VertexTransfomer.ScreenToVertex(mousePosition);
         }
 
         public override void UpdateCursors(Vector2 mousePosition) {
-            Vector2Int vertexCoords = IsometricTransformer.ScreenToVertex(mousePosition);
+            Vector2Int vertexCoords = VertexTransfomer.ScreenToVertex(mousePosition);
 
             // Main cursor
             if (level.IsVertexInBounds(vertexCoords.x, vertexCoords.y)) {
@@ -59,7 +59,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
                 mainCursorSr.sortingOrder = WallSpriteObserver.GetSortingOrder(vertexCoords.x, vertexCoords.y, 0, TileSubLayer.SecondWallCursor);
                 mainCursorSr.sprite = Input.GetButton("InverseFunction") ? DataManager.cursorSpriteData.wallBulldozeSprite : DataManager.cursorSpriteData.wallBuildSprite;
 
-                Vector3 pos = IsometricTransformer.VertexToWorld(vertexCoords);
+                Vector3 pos = VertexTransfomer.VertexToWorld(vertexCoords);
                 mainCursorGo.transform.position = new Vector3(pos.x, pos.y, 0f);
             }
             else {
@@ -88,7 +88,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
                 for (int y = Mathf.Min(dragStartVertexCoords.y, endDragCoords.y); y <= Mathf.Max(dragStartVertexCoords.y, endDragCoords.y); y++) {
                     Vector2Int currentCoord = new Vector2Int(x, y);
 
-                    GameObject staticCursorGo = SimplePool.Spawn(cursorPrefab, IsometricTransformer.VertexToWorld(currentCoord), Quaternion.identity);
+                    GameObject staticCursorGo = SimplePool.Spawn(cursorPrefab, VertexTransfomer.VertexToWorld(currentCoord), Quaternion.identity);
 
                     SpriteRenderer staticCursorSr = staticCursorGo.GetComponent<SpriteRenderer>();
                     staticCursorSr.sprite = Input.GetButton("InverseFunction") ? DataManager.cursorSpriteData.wallBulldozeSprite : DataManager.cursorSpriteData.wallBuildSprite;

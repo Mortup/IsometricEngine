@@ -6,6 +6,7 @@ using com.gStudios.isometric.model.world.commands;
 
 using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.data;
+using com.gStudios.isometric.controller.isometricTransform;
 
 namespace com.gStudios.levelEditor.controller.cursor.modes {
 
@@ -20,7 +21,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 
         protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
             int selectedIndex = Input.GetButton("InverseFunction") ? TileIndex.EmptyTileIndex : TileIndex.NewTileIndex;
-            Vector2Int endCoords = IsometricTransformer.ScreenToCoord(mousePosition);
+            Vector2Int endCoords = TileTransformer.ScreenToCoord(mousePosition);
 
             return new BuildAreaCmd(level, dragStartCoords.x, endCoords.x, dragStartCoords.y, endCoords.y, selectedIndex);
         }

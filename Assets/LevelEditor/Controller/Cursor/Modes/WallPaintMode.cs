@@ -2,10 +2,10 @@
 
 using UnityEngine;
 
-using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.data.structs;
+using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.controller.spriteObservers;
 
 using com.gStudios.isometric.model.world;
@@ -40,8 +40,8 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
         public override void UpdateCursors(Vector2 mousePosition) {
             base.UpdateCursors(mousePosition);
 
-            Vector3Int currentWallPos = IsometricTransformer.ScreenToWallPos(mousePosition);
-            Vector2 worldPos = IsometricTransformer.WallPosToWorld(currentWallPos);
+            Vector3Int currentWallPos = WallTransformer.ScreenToCoord(mousePosition);
+            Vector2 worldPos = WallTransformer.CoordToWorld(currentWallPos);
 
             // Static cursors
             if (validClickStart) {               
@@ -74,7 +74,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
             }
 
             // Arrow cursor
-            arrowCursor.transform.position = IsometricTransformer.WallPosToWorld(currentWallPos) + new Vector2(IsometricTransformer.TILE_WIDTH / 4, IsometricTransformer.TILE_HEIGHT / 4);
+            arrowCursor.transform.position = WallTransformer.CoordToWorld(currentWallPos) + new Vector2(Settings.TILE_WIDTH / 4, Settings.TILE_HEIGHT / 4);
             arrowCursor.GetComponent<SpriteRenderer>().sortingOrder = WallSpriteObserver.GetSortingOrder(currentWallPos.x, currentWallPos.y, currentWallPos.z, TileSubLayer.SecondWallCursor);
         }
 
