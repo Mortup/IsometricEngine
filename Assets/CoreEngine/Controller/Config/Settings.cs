@@ -17,6 +17,8 @@ namespace com.gStudios.isometric.controller.config {
 
         public const int PPU = 64;
         public const bool mipmapEnabled = false;
+        public const FilterMode filterMode = FilterMode.Point;
+        public const TextureWrapMode wrapMode = TextureWrapMode.Clamp;
 
         public static readonly Vector2 tilePivot = new Vector2(0, ((float)26 / 42));
         public static readonly Vector2 wallPivot = new Vector2(((float)2 / 38), ((float)2 / 130));

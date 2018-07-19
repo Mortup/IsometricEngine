@@ -16,9 +16,10 @@ public class SpritePostProcessor : AssetPostprocessor
 		textureImporter.ReadTextureSettings (tis);
 
 		tis.spritePixelsPerUnit = PPU;
-		tis.filterMode = FilterMode.Point;
+		tis.filterMode = Settings.filterMode;
 		tis.mipmapEnabled = Settings.mipmapEnabled;
         tis.spriteMode = (int)SpriteImportMode.Single;
+        tis.wrapMode = Settings.wrapMode;
 
         if (assetPath.Contains("Tiles") || assetPath.Contains("TileCursors")) {
 			tis.spriteAlignment = (int)SpriteAlignment.Custom;
