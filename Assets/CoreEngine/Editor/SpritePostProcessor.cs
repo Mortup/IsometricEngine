@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-using com.gStudios.isometric.controller;
+using com.gStudios.isometric.controller.config;
 
-public class SpriteImportSettings : AssetPostprocessor
+public class SpritePostProcessor : AssetPostprocessor
 {
-	public const int PPU = 64;
+    private int PPU = Settings.PPU;
+    
 
 	void OnPreprocessTexture ()
 	{
@@ -16,25 +17,20 @@ public class SpriteImportSettings : AssetPostprocessor
 
 		tis.spritePixelsPerUnit = PPU;
 		tis.filterMode = FilterMode.Point;
-		tis.mipmapEnabled = false;
+		tis.mipmapEnabled = Settings.mipmapEnabled;
         tis.spriteMode = (int)SpriteImportMode.Single;
 
         if (assetPath.Contains("Tiles") || assetPath.Contains("TileCursors")) {
-			float tileHeightOffset = ((float)26/42);
-
 			tis.spriteAlignment = (int)SpriteAlignment.Custom;
-			tis.spritePivot = new Vector2 (0, tileHeightOffset);
+            tis.spritePivot = Settings.tilePivot;
 		}
 		else if (assetPath.Contains("Walls")) {
-			float tileHeightOffset = ((float)2 / 130);
-			float tileWidthOffset = ((float)2 / 38);
-
 			tis.spriteAlignment = (int)SpriteAlignment.Custom;
-			tis.spritePivot = new Vector2 (tileWidthOffset, tileHeightOffset);
+            tis.spritePivot = Settings.wallPivot;
 		}
         else if (assetPath.Contains("WallCursors")) {
             tis.spriteAlignment = (int)SpriteAlignment.Custom;
-            tis.spritePivot = new Vector2(0.5f, 0.02f);
+            tis.spritePivot = Settings.wallCursorPivot;
         }
 
 		textureImporter.SetTextureSettings (tis);
