@@ -12,7 +12,7 @@ namespace com.gStudios.isometric.model.world.commands {
 
 		public override CursorCommand Excecute ()
 		{
-			if (index == TileIndex.EmptyTileIndex) {
+			if (index == TileIndex.Empty) {
 				// Cannot destroy tiles.
 				return NullCommand.instance;
 			}
@@ -20,7 +20,7 @@ namespace com.gStudios.isometric.model.world.commands {
 			ITile tile = level.GetTileAt (posX, posY);
 			int previousIndex = tile.Type;
 
-			if (previousIndex == TileIndex.EmptyTileIndex)
+			if (previousIndex == TileIndex.Empty)
 				// Cannot paint empty tiles.
 				return NullCommand.instance;
 

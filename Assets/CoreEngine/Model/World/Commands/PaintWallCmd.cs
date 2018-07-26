@@ -14,7 +14,7 @@ namespace com.gStudios.isometric.model.world.commands {
             IWall wall = level.GetWallAt(posX, posY, posZ);
             int previousIndex = wall.Type;
 
-            if (previousIndex == WallIndex.EmptyWallIndex) {
+            if (previousIndex == WallIndex.Empty) {
                 // Cannot paint an empty wall.
                 return NullCommand.instance;
             }

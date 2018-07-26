@@ -8,7 +8,7 @@ namespace com.gStudios.isometric.model.world.wall {
 
 		public override int Type {
 			get {
-				return WallIndex.EmptyWallIndex;
+				return WallIndex.Empty;
 			}
 			set {
 				// Do nothing

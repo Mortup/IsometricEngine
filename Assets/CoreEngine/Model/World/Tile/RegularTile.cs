@@ -52,6 +52,10 @@ namespace com.gStudios.isometric.model.world.tile {
 			observers = new List<ITileObserver> ();
 		}
 
+        public bool IsEmpty() {
+            return Type == TileIndex.Empty;
+        }
+
 		public void Subscribe(ITileObserver observer) {
 			if (observers.Contains (observer))
 				UnityEngine.Debug.LogError ("Trying to add an observer more than once.");

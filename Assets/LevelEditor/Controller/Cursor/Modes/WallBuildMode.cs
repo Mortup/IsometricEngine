@@ -25,7 +25,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
         }
 
         protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
-            int selectedIndex = Input.GetButton("InverseFunction") ? WallIndex.EmptyWallIndex : WallIndex.NewWallIndex;
+            int selectedIndex = Input.GetButton("InverseFunction") ? WallIndex.Empty : WallIndex.New;
             Vector2Int vertexCoords = VertexTransfomer.ScreenToVertex(mousePosition);
 
             Vector2Int diff = new Vector2Int(Mathf.Abs(vertexCoords.x - dragStartVertexCoords.x), Mathf.Abs(vertexCoords.y - dragStartVertexCoords.y));

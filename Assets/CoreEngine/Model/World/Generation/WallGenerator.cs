@@ -28,9 +28,9 @@ namespace com.gStudios.isometric.model.world.generation {
 						walls [x, y, 1] = new RegularWall (level, x,y,1);
 
 					if (x == 0 || x == levelWidth)
-						walls [x, y, 1].Type = WallIndex.NewWallIndex;
+						walls [x, y, 1].Type = WallIndex.New;
 					if (y == 0 || y == levelHeight)
-						walls [x, y, 0].Type = WallIndex.NewWallIndex;
+						walls [x, y, 0].Type = WallIndex.New;
 				}
 			}
 

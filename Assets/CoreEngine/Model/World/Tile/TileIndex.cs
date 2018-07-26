@@ -6,8 +6,8 @@ namespace com.gStudios.isometric.model.world.tile {
 
 	public static class TileIndex {
 
-		public const int EmptyTileIndex = 0;
-		public const int NewTileIndex = 1;
+		public const int Empty = 0;
+		public const int New = 1;
 
 	}
 

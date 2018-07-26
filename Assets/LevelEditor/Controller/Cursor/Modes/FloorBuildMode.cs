@@ -20,7 +20,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 		}
 
         protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
-            int selectedIndex = Input.GetButton("InverseFunction") ? TileIndex.EmptyTileIndex : TileIndex.NewTileIndex;
+            int selectedIndex = Input.GetButton("InverseFunction") ? TileIndex.Empty : TileIndex.New;
             Vector2Int endCoords = TileTransformer.ScreenToCoord(mousePosition);
 
             return new BuildAreaCmd(level, dragStartCoords.x, endCoords.x, dragStartCoords.y, endCoords.y, selectedIndex);

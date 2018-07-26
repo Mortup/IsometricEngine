@@ -15,6 +15,8 @@ namespace com.gStudios.isometric.model.world.wall {
 		void Subscribe (IWallObserver observer);
 
 		IWall GetNeighbor (int xOffset, int yOffset, int z);
+
+        bool IsEmpty();
 	}
 
 }

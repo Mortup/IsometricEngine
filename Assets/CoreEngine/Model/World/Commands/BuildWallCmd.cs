@@ -15,14 +15,14 @@ namespace com.gStudios.isometric.model.world.commands {
             IWall wall = level.GetWallAt(posX, posY, posZ);
             int previousIndex = wall.Type;
 
-            if (index != WallIndex.EmptyWallIndex) {
+            if (index != WallIndex.Empty) {
                 // If is building ignore already built walls.
-                if (previousIndex != WallIndex.EmptyWallIndex)
+                if (previousIndex != WallIndex.Empty)
                     return NullCommand.instance;
             }
             else {
                 // If it's removing ignore empty tiles.
-                if (previousIndex == WallIndex.EmptyWallIndex)
+                if (previousIndex == WallIndex.Empty)
                     return NullCommand.instance;
             }
 

@@ -22,7 +22,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 
         public WallPaintMode(Level level) : base(level) {
             selectedPositions = new Dictionary<Vector3Int, GameObject>();
-            SetIndex(WallIndex.NewWallIndex + 1);
+            SetIndex(WallIndex.New + 1);
 
             mainCursorSr.sortingLayerName = "Tiles";
 
@@ -79,7 +79,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
         }
 
         protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
-            int selectedIndex = Input.GetButton("InverseFunction") ? WallIndex.NewWallIndex : index;
+            int selectedIndex = Input.GetButton("InverseFunction") ? WallIndex.New : index;
 
             List<CursorCommand> commands = new List<CursorCommand>();
             foreach (KeyValuePair<Vector3Int, GameObject> entry in selectedPositions) {
@@ -92,12 +92,12 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 
         private Sprite GetCursorSprite(Vector3Int wallCoords) {
             IWall wallToGetSprite = new NullWall(level, wallCoords.x, wallCoords.y, wallCoords.z);
-            IWallSprite wallSprite = Input.GetButton("InverseFunction") ? DataManager.wallSpriteData.GetDataById(WallIndex.NewWallIndex) : DataManager.wallSpriteData.GetDataById(index);
+            IWallSprite wallSprite = Input.GetButton("InverseFunction") ? DataManager.wallSpriteData.GetDataById(WallIndex.New) : DataManager.wallSpriteData.GetDataById(index);
             return wallSprite.GetSprite(wallToGetSprite, false);
         }
 
         private bool IsWallAt(Vector3Int wallPos) {
-            return level.IsWallInBounds(wallPos.x, wallPos.y, wallPos.z) && level.GetWallAt(wallPos.x, wallPos.y, wallPos.z).Type != WallIndex.EmptyWallIndex;
+            return level.IsWallInBounds(wallPos.x, wallPos.y, wallPos.z) && level.GetWallAt(wallPos.x, wallPos.y, wallPos.z).Type != WallIndex.Empty;
         }
 
         private void CleanCursors() {

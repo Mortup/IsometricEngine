@@ -12,7 +12,7 @@ namespace com.gStudios.isometric.model.world.commands {
 			ITile tile = level.GetTileAt (posX, posY);
 			int previousIndex = tile.Type;
 
-			if (previousIndex == TileIndex.EmptyTileIndex) {
+			if (previousIndex == TileIndex.Empty) {
 				// Cannot paint an empty tile.
 				return NullCommand.instance;
 			}

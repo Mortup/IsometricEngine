@@ -44,10 +44,10 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
                 return null;
 
             if (invertedSprite != null && Input.GetButton("InverseFunction")) {
-                if (invertedOnEmptySprite != null && tile.Type == TileIndex.EmptyTileIndex) {
+                if (invertedOnEmptySprite != null && tile.Type == TileIndex.Empty) {
                     return invertedOnEmptySprite;
                 }
-                else if (invertedOnTileSprite != null && tile.Type != TileIndex.EmptyTileIndex) {
+                else if (invertedOnTileSprite != null && tile.Type != TileIndex.Empty) {
                     return invertedOnTileSprite;
                 }
                 else {
@@ -55,10 +55,10 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
                 }
             }
             else {
-                if (onEmptySprite != null && tile.Type == TileIndex.EmptyTileIndex) {
+                if (onEmptySprite != null && tile.Type == TileIndex.Empty) {
                     return onEmptySprite;
                 }
-                else if (onTileSprite != null && tile.Type != TileIndex.EmptyTileIndex) {
+                else if (onTileSprite != null && tile.Type != TileIndex.Empty) {
                     return onTileSprite;
                 }
                 else {

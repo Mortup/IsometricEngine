@@ -15,9 +15,9 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 		public FloorPaintMode(Level level) : base(level) {
 			defaultSprite = DataManager.cursorSpriteData.defaultSprite;
 			onEmptySprite = DataManager.cursorSpriteData.emptySprite;
-			invertedSprite = DataManager.tileSpriteData.GetDataById (TileIndex.NewTileIndex);
+			invertedSprite = DataManager.tileSpriteData.GetDataById (TileIndex.New);
 			invertedOnEmptySprite = DataManager.cursorSpriteData.emptySprite;
-			SetIndex (TileIndex.NewTileIndex + 1);
+			SetIndex (TileIndex.New + 1);
 		}
 
 		public override void SetIndex (int index)
@@ -28,7 +28,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 		}
 
         protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
-			int selectedIndex = Input.GetButton ("InverseFunction") ? TileIndex.NewTileIndex : index;
+			int selectedIndex = Input.GetButton ("InverseFunction") ? TileIndex.New : index;
 			Vector2Int endCoords = TileTransformer.ScreenToCoord (mousePosition);
 
 			return new PaintAreaCmd (level, dragStartCoords.x, endCoords.x, dragStartCoords.y, endCoords.y, selectedIndex);

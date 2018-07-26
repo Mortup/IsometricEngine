@@ -40,7 +40,7 @@ namespace com.gStudios.isometric.model.world.wall {
 			this.y = y;
 			this.z = z;
 
-			this.type = WallIndex.EmptyWallIndex;
+			this.type = WallIndex.Empty;
 		}
 
 		public IWall GetNeighbor(int xOffset, int yOffset, int z) {
@@ -49,6 +49,10 @@ namespace com.gStudios.isometric.model.world.wall {
 
 			return level.GetWallAt (x + xOffset, y + yOffset, z);
 		}
+
+        public bool IsEmpty() {
+            return Type == WallIndex.Empty;
+        }
 
 		public abstract void Subscribe (IWallObserver observer);
 

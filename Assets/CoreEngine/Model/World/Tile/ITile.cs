@@ -12,6 +12,8 @@ namespace com.gStudios.isometric.model.world.tile {
 		int Type {get; set;}
 
 		void Subscribe (ITileObserver observer);
+
+        bool IsEmpty();
 		
 	}
 
