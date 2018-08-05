@@ -13,7 +13,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
 
     public static class OrientationManager {
 
-        public static Orientation currentOrientation { get; private set; } = Orientation.East;
+        public static Orientation currentOrientation { get; private set; } = Orientation.North;
 
         private static List<IOrientationObserver> observers;
 

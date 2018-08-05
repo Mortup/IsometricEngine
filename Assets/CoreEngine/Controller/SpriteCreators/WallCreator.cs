@@ -8,17 +8,19 @@ namespace com.gStudios.isometric.controller.spriteCreators {
 
     public static class WallCreator {
 
-        static Color borderColor = Color.black;
+        private const int cropLength = 90;
+        private const int uncroppableLength = 20;
+        private static Color borderColor = Color.black;
 
-        private static Vector2Int FrontTopZ0 = new Vector2Int(4, 111);
-        private static Vector2Int FrontBottomZ0 = new Vector2Int(4, 0);
-        private static Vector2Int LeftTopZ0 = new Vector2Int(FrontTopZ0.x - 4, FrontTopZ0.y + 2);
-        private static Vector2Int LeftBottomZ0 = new Vector2Int(FrontBottomZ0.x - 4, FrontBottomZ0.y + 2);
-        private static Vector2Int RightTopZ0 = new Vector2Int(37, 127);
-        private static Vector2Int RightBottomZ0 = new Vector2Int(37, 16);
-        private static Vector2Int BackTopZ0 = new Vector2Int(33, 129);
+        private static Vector2Int FrontTop = new Vector2Int(4, 111);
+        private static Vector2Int FrontBottom = new Vector2Int(4, 0);
+        private static Vector2Int LeftTop = new Vector2Int(FrontTop.x - 4, FrontTop.y + 2);
+        private static Vector2Int LeftBottom = new Vector2Int(FrontBottom.x - 4, FrontBottom.y + 2);
+        private static Vector2Int RightTop = new Vector2Int(37, 127);
+        private static Vector2Int RightBottom = new Vector2Int(37, 16);
+        private static Vector2Int BackTop = new Vector2Int(33, 129);
 
-        public static Sprite DrawSpriteBorders(Sprite spr, int z, InmediateWallNeighbors neighbors) {
+        public static Sprite DrawSpriteBorders(Sprite spr, int z, InmediateWallNeighbors neighbors, bool isCropped) {
 
             Texture2D tex = new Texture2D(spr.texture.width, spr.texture.height, spr.texture.format, Settings.mipmapEnabled);
             tex.filterMode = Settings.filterMode;
@@ -27,6 +29,9 @@ namespace com.gStudios.isometric.controller.spriteCreators {
             Graphics.CopyTexture(spr.texture, tex);
 
             DrawBorders(tex, z, neighbors);
+
+            if (isCropped)
+                Crop(tex, cropLength);
 
             tex.Apply();
 
@@ -41,48 +46,96 @@ namespace com.gStudios.isometric.controller.spriteCreators {
                 neighbors.FlipSideNeighbors();
             }
 
-            DrawIsoLine(tex, borderColor, FrontBottomZ0, RightBottomZ0);
-            DrawIsoLine(tex, borderColor, FrontTopZ0, RightTopZ0);
-            DrawIsoLine(tex, borderColor, new Vector2Int(LeftTopZ0.x + 2, LeftTopZ0.y + 1), new Vector2Int(BackTopZ0.x - 2, BackTopZ0.y - 1));
+            DrawIsoLine(tex, borderColor, FrontBottom, RightBottom);
+            DrawIsoLine(tex, borderColor, FrontTop, RightTop);
+            DrawIsoLine(tex, borderColor, new Vector2Int(LeftTop.x + 2, LeftTop.y + 1), new Vector2Int(BackTop.x - 2, BackTop.y - 1));
 
             if (neighbors.Bottom.IsEmpty()) {
 
                 if (neighbors.BottomLeft.IsEmpty()) {
-
-                    DrawVerticalLine(tex, borderColor, LeftBottomZ0, LeftTopZ0);
-                    DrawVerticalLine(tex, borderColor, FrontBottomZ0, FrontTopZ0);
+                    DrawVerticalLine(tex, borderColor, LeftBottom, LeftTop);
+                    DrawVerticalLine(tex, borderColor, FrontBottom, FrontTop);
 
                     if (neighbors.BottomRight.IsEmpty()) {
-                        DrawIsoLine(tex, borderColor, new Vector2Int(FrontTopZ0.x + 1, FrontTopZ0.y), LeftTopZ0);
-                        DrawIsoLine(tex, borderColor, new Vector2Int(FrontBottomZ0.x + 1, FrontBottomZ0.y), LeftBottomZ0);
+                        DrawIsoLine(tex, borderColor, new Vector2Int(FrontTop.x + 1, FrontTop.y), LeftTop);
+                        DrawIsoLine(tex, borderColor, new Vector2Int(FrontBottom.x + 1, FrontBottom.y), LeftBottom);
+                    }
+                    else {
+                        tex.SetPixel(LeftTop.x + 1, LeftTop.y - 1, tex.GetPixel(LeftTop.x + 2, LeftTop.y - 1));
                     }
                 }
-                else {
-                }
+            }
+
+            if (neighbors.BottomLeft.IsEmpty() && neighbors.BottomRight.IsEmpty() == false) {
+                DrawIsoLine(tex, borderColor, LeftTop, new Vector2Int(LeftTop.x + 1, LeftTop.y));
             }
 
             if (neighbors.Top.IsEmpty()) {
-                DrawVerticalLine(tex, borderColor, RightBottomZ0, RightTopZ0);
+                DrawVerticalLine(tex, borderColor, RightBottom, RightTop);
             }
 
             if (neighbors.TopLeft.IsEmpty()) {
-                DrawIsoLine(tex, borderColor, BackTopZ0, new Vector2Int(BackTopZ0.x-1, BackTopZ0.y));
+                DrawIsoLine(tex, borderColor, BackTop, new Vector2Int(BackTop.x-1, BackTop.y));
+            }
+            else {
+                DrawIsoLine(tex, Color.clear, new Vector2Int(BackTop.x - 1, BackTop.y), BackTop);
             }
 
             if (neighbors.Top.IsEmpty() && neighbors.TopLeft.IsEmpty() && neighbors.TopRight.IsEmpty()) {
-                DrawIsoLine(tex, borderColor, new Vector2Int(BackTopZ0.x + 1, BackTopZ0.y - 1), new Vector2Int(BackTopZ0.x + 2, BackTopZ0.y - 1));
+                DrawIsoLine(tex, borderColor, new Vector2Int(BackTop.x + 1, BackTop.y - 1), new Vector2Int(BackTop.x + 2, BackTop.y - 1));
             }
 
-            if (neighbors.TopRight.IsEmpty() == false) {
+            if (neighbors.TopRight.IsEmpty() == false && z == 0) {
                 DrawVerticalLine(tex, Color.clear, new Vector2Int(tex.width - 1, 0), new Vector2Int(tex.width - 1, tex.height));
                 DrawVerticalLine(tex, Color.clear, new Vector2Int(tex.width - 2, 0), new Vector2Int(tex.width - 2, tex.height));
                 DrawVerticalLine(tex, Color.clear, new Vector2Int(tex.width - 3, 0), new Vector2Int(tex.width - 3, tex.height));
-                DrawVerticalLine(tex, borderColor, new Vector2Int(RightTopZ0.x - 3, RightTopZ0.y - 2), new Vector2Int(RightBottomZ0.x - 3, RightBottomZ0.y));
+                DrawVerticalLine(tex, borderColor, new Vector2Int(RightTop.x - 3, RightTop.y - 2), new Vector2Int(RightBottom.x - 3, RightBottom.y));
+
+                if (neighbors.Top.IsEmpty() && neighbors.TopLeft.IsEmpty()) {
+                    DrawIsoLine(tex, borderColor, new Vector2Int(BackTop.x + 1, BackTop.y), new Vector2Int(BackTop.x + 2, BackTop.y));
+                }
+            }
+
+            if (neighbors.BottomLeft.IsEmpty() == false) {
+                DrawVerticalLine(tex, Color.clear, new Vector2Int(0, 0), new Vector2Int(0, tex.height));
+                DrawVerticalLine(tex, Color.clear, new Vector2Int(1, 0), new Vector2Int(1, tex.height));
+                DrawVerticalLine(tex, Color.clear, new Vector2Int(2, 0), new Vector2Int(2, tex.height));
+
+                if (neighbors.Bottom.IsEmpty() && neighbors.BottomRight.IsEmpty()) {
+                    int x = FrontTop.x - 1;
+                    tex.SetPixel(x, FrontTop.y, tex.GetPixel(x, FrontTop.y + 1));
+
+                    if (z == 0) {
+                        DrawVerticalLine(tex, borderColor, new Vector2Int(x, FrontTop.y - 1), new Vector2Int(x, FrontBottom.y));
+                    }
+                    else {
+                        for (int y = FrontBottom.y + 1; y < FrontTop.y; y++) {
+                            tex.SetPixel(x, y, tex.GetPixel(x + 1, y + 1));
+                        }
+                        tex.SetPixel(x, FrontBottom.y, borderColor);
+                    }
+                }
             }
 
             if (z == 1) {
                 FlipTex(tex);
                 neighbors.FlipSideNeighbors();
+            }
+        }
+
+        private static void Crop(Texture2D tex, int length) {
+            for (int x = 0; x < tex.width; x++) {
+                for (int y = 0; y < length; y++) {
+                    int sourceY = tex.height - uncroppableLength + y;
+                    int destinationY = sourceY - length;
+
+                    Color sourceColor = (sourceY >= tex.height) ? Color.clear : tex.GetPixel(x, sourceY);
+                    tex.SetPixel(x, destinationY, sourceColor);
+                }
+
+                for (int y = tex.height - uncroppableLength; y < tex.height; y++) {
+                    tex.SetPixel(x, y, Color.clear);
+                }
             }
         }
 

@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+using com.gStudios.isometric.controller.isometricTransform;
+using com.gStudios.isometric.controller.spriteCreators;
 using com.gStudios.isometric.model.world.wall;
 
 namespace com.gStudios.isometric.controller.data.structs {
 
 	public class DefaultWallSprite : IWallSprite {
 
-        const int numberOfSprites = 256;    // Number of sprites on each folder
+        const int numberOfSprites = 2;    // Number of sprites on each folder
 
         Sprite[] sprites;
 
@@ -21,38 +22,22 @@ namespace com.gStudios.isometric.controller.data.structs {
         }
 		
         public Sprite GetSprite(IWall wall, bool isCropped) {
-            List<bool> conditions = new List<bool>();
+            Vector3Int coords = new Vector3Int(wall.X, wall.Y, wall.Z);
+            Vector3Int rotatedCoords = WallTransformer.InverseRotateCoord(coords);
 
-            if (wall.Z == 0) {
-                conditions.Add(wall.GetNeighbor(-1, 0, 0).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(0, 0, 1).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(0, -1, 1).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(1, 0, 0).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(1, 0, 1).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(1, -1, 1).Type != WallIndex.EmptyWallIndex);
-            }
-            else {
-                conditions.Add(wall.GetNeighbor(0, -1, 1).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(-1, 0, 0).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(0, 0, 0).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(0, 1, 1).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(-1, 1, 0).Type != WallIndex.EmptyWallIndex);
-                conditions.Add(wall.GetNeighbor(0, 1, 0).Type != WallIndex.EmptyWallIndex);
-            }
-
-            conditions.Add(wall.Z == 1);
-            conditions.Add(isCropped);
-
-            int index = 0;
-            for (int i = 0; i < conditions.Count; i++) {
-                if (conditions[i])
-                    index += Mathf.RoundToInt(Mathf.Pow(2, i));
-            }
-            return sprites[index];
+            return WallCreator.DrawSpriteBorders(
+                sprites[rotatedCoords.z],
+                rotatedCoords.z,
+                new InmediateWallNeighbors(wall, OrientationManager.currentOrientation),
+                isCropped);
         }
 
         public Sprite GetThumbnail() {
             return sprites[0];
+        }
+
+        private bool HasNeighborShortcut(IWall wall, Vector3Int coords) {
+            return wall.GetNeighbor(coords.x, coords.y, coords.z).Type != WallIndex.Empty;
         }
     }
 

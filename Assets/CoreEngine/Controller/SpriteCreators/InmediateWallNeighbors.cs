@@ -25,7 +25,7 @@ namespace com.gStudios.isometric.controller.spriteCreators {
                 TopRight = sourceWall.GetNeighbor(-1, 0, 0);
                 Bottom = sourceWall.GetNeighbor(0, 1, 1);
                 BottomLeft = sourceWall.GetNeighbor(0, 1, 0);
-                BottomRight = sourceWall.GetNeighbor(1, 1, 0);
+                BottomRight = sourceWall.GetNeighbor(-1, 1, 0);
             }
         }
 

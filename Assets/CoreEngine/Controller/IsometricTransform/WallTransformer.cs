@@ -4,23 +4,28 @@ using com.gStudios.isometric.controller.config;
 
 namespace com.gStudios.isometric.controller.isometricTransform {
 
-	public static class WallTransformer {
+    public static class WallTransformer {
         // Based on the algorithms found on http://clintbellanger.net/articles/isometric_math/
 
         /// <summary>
         /// Converts wall coordinates into a world position.
         /// </summary>
-        /// <param name="x">The x wall coordinate.</param>
-        /// <param name="y">The y wall coordinate.</param>
-        /// <param name="z">The z wall coordinate.</param>
+        /// <param name="rotatedX">The x wall coordinate.</param>
+        /// <param name="rotatedY">The y wall coordinate.</param>
+        /// <param name="rotatedZ">The z wall coordinate.</param>
         /// <returns>The world position.</returns>
         public static Vector2 CoordToWorld(int x, int y, int z) {
+            Vector3Int rotatedCoords = RotateCoord(new Vector3Int(x, y, z));
+            int rotatedX = rotatedCoords.x;
+            int rotatedY = rotatedCoords.y;
+            int rotatedZ = rotatedCoords.z;
+
             Vector2 world = new Vector2(
-                (y - x) * Settings.TILE_WIDTH_HALF,
-                -(x + y) * Settings.TILE_HEIGHT_HALF);
+                (rotatedY - rotatedX) * Settings.TILE_WIDTH_HALF,
+                -(rotatedX + rotatedY) * Settings.TILE_HEIGHT_HALF);
             Vector2 offset = Vector2.zero;
 
-            if (z == 0)
+            if (rotatedZ == 0)
                 offset += new Vector2(Settings.TILE_WIDTH_HALF, 0f);
 
             return world - offset;
@@ -48,7 +53,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             int y = Mathf.FloorToInt((gridX / 2f) + (gridY / 2f));
             int z = Mathf.Abs(Mathf.Abs(gridX % 2) - Mathf.Abs(gridY % 2));
 
-            return new Vector3Int(x, y, z);
+            return InverseRotateCoord(new Vector3Int(x, y, z));
         }
 
         /// <summary>
@@ -61,6 +66,76 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             return WorldToCoord(world);
         }
 
-    }
+        public static Vector3Int RotateCoord(Vector3Int original) {
+            Vector2Int vec2rotated = TileTransformer.RotateCoord(new Vector2Int(original.x, original.y));
+            Vector3Int rotated = new Vector3Int(vec2rotated.x, vec2rotated.y, original.z);
 
+            switch(OrientationManager.currentOrientation) {
+                case Orientation.West:
+                    if (rotated.z == 0) {
+                        rotated.z = 1;
+                    }
+                    else {
+                        rotated.z = 0;
+                        rotated.y += 1;
+                    }
+                    break;
+                case Orientation.South:
+                    if (rotated.z == 0) {
+                        rotated.y += 1;
+                    }
+                    else {
+                        rotated.x += 1;
+                    }
+                    break;
+                case Orientation.East:
+                    if (rotated.z == 0) {
+                        rotated.z = 1;
+                        rotated.x += 1;
+                    }
+                    else {
+                        rotated.z = 0;
+                    }
+                    break;
+            }
+
+            return rotated;
+        }
+
+        public static Vector3Int InverseRotateCoord(Vector3Int original) {
+            Vector2Int vec2rotated = TileTransformer.InverseRotateCoord(new Vector2Int(original.x, original.y));
+            Vector3Int rotated = new Vector3Int(vec2rotated.x, vec2rotated.y, original.z);
+
+            switch (OrientationManager.currentOrientation) {
+                case Orientation.West:
+                    if (rotated.z == 0) {
+                        rotated.z = 1;
+                    }
+                    else {
+                        rotated.z = 0;
+                        rotated.y -= 1;
+                    }
+                    break;
+                case Orientation.South:
+                    if (rotated.z == 0) {
+                        rotated.y -= 1;
+                    }
+                    else {
+                        rotated.x -= 1;
+                    }
+                    break;
+                case Orientation.East:
+                    if (rotated.z == 0) {
+                        rotated.z = 1;
+                    }
+                    else {
+                        rotated.z = 0;
+                        rotated.x -= 1;
+                    }
+                    break;
+            }
+
+            return rotated;
+        }
+    }
 }

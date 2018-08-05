@@ -219,7 +219,7 @@ MonoBehaviour:
   levelHeight: 10
   customControllers:
   - {fileID: 317608091}
-  debugLoadLevel: 1
+  debugLoadLevel: 0
 --- !u!4 &317608090
 Transform:
   m_ObjectHideFlags: 0

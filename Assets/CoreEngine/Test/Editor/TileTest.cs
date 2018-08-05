@@ -24,7 +24,7 @@ public class TileTest {
 
 	[Test]
 	public void TileTypeInit() {
-		Assert.AreEqual (tile.Type, TileIndex.EmptyTileIndex);
+		Assert.AreEqual (tile.Type, TileIndex.Empty);
 	}
 
 	[Test]
@@ -35,16 +35,16 @@ public class TileTest {
 
         Assert.AreEqual(callsCount, 0);
 
-        tile.Type = TileIndex.NewTileIndex;
+        tile.Type = TileIndex.New;
         Assert.AreEqual(callsCount, 0);
 
         tile.Subscribe(observer);
 
-        tile.Type = TileIndex.NewTileIndex;
+        tile.Type = TileIndex.New;
         Assert.AreEqual(callsCount, 1);
 
-        tile.Type = TileIndex.EmptyTileIndex;
-        tile.Type = TileIndex.NewTileIndex;
+        tile.Type = TileIndex.Empty;
+        tile.Type = TileIndex.New;
         Assert.AreEqual(callsCount, 3);
     }
 }

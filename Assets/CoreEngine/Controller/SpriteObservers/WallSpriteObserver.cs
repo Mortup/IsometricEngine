@@ -9,7 +9,7 @@ using com.gStudios.isometric.model.world.wall;
 
 namespace com.gStudios.isometric.controller.spriteObservers {
 
-	public class WallSpriteObserver : IWallObserver {
+	public class WallSpriteObserver : IWallObserver, IOrientationObserver {
 
 		GameObject wallHolder;
 
@@ -21,17 +21,23 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			wallHolder = new GameObject ("Walls");
 
 			gameobjects = new Dictionary<IWall, GameObject> ();
+
+            OrientationManager.RegisterObserver(this);
 		}
 
-		GameObject CreateSprite(IWall wall) {
-			GameObject wall_go = new GameObject ();
-			wall_go.name = "Wall [" + wall.X.ToString () + "," + wall.Y.ToString () + "," + wall.Z.ToString () + "]";
-			wall_go.transform.position = (Vector3)WallTransformer.CoordToWorld(wall.X, wall.Y, wall.Z);
+        ~WallSpriteObserver() {
+            OrientationManager.UnregisterObserver(this);
+        }
+
+        GameObject CreateSprite(IWall wall) {
+            GameObject wall_go = new GameObject {
+                name = "Wall [" + wall.X.ToString() + "," + wall.Y.ToString() + "," + wall.Z.ToString() + "]"
+            };
+			
 			wall_go.transform.SetParent (wallHolder.transform, true);
 
 			SpriteRenderer sr = wall_go.AddComponent<SpriteRenderer> ();
 			sr.sortingLayerName = "Tiles";
-			sr.sortingOrder = GetSortingOrder(wall.X, wall.Y, wall.Z, TileSubLayer.Wall);
 
 			wall.Subscribe (this);
 			gameobjects.Add (wall, wall_go);
@@ -63,10 +69,15 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
             GameObject wall_go = gameobjects[wall];
 
-			SpriteRenderer sr = wall_go.GetComponent<SpriteRenderer> ();
+            wall_go.transform.position = (Vector3)WallTransformer.CoordToWorld(wall.X, wall.Y, wall.Z);
+
+            SpriteRenderer sr = wall_go.GetComponent<SpriteRenderer> ();
 
 			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type).GetSprite(wall, isCurrentlyClipping);
-		}
+            sr.sortingOrder = GetSortingOrder(wall.X, wall.Y, wall.Z, TileSubLayer.Wall);
+
+            sr.color = Random.ColorHSV(0, 1, 0, 1, 0.4f, 1);
+        }
 
 		void UpdateAllSprites() {
 			foreach(KeyValuePair<IWall, GameObject> entry in gameobjects)
@@ -104,8 +115,13 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 		}
 
 		public static int GetSortingOrder(int x, int y, int z, TileSubLayer layer) {
-			return (x+y)*20 + ((int)layer * 2) + 1 - z;
+            Vector3Int rotatedCoords = WallTransformer.RotateCoord(new Vector3Int(x, y, z));
+            return (rotatedCoords.x + rotatedCoords.y)*20 + ((int)layer * 2) + 1 - rotatedCoords.z;
 		}
-	}
+
+        public void NotifyOrientationChanged(Orientation newOrientation) {
+            UpdateAllSprites();
+        }
+    }
 
 }

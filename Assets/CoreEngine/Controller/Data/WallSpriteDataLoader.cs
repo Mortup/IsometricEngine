@@ -22,7 +22,7 @@ namespace com.gStudios.isometric.controller.data {
             foreach (string folder in directories.OrderBy(x => x, new TrailingNumberComparer())) {
                 Sprite[] currentSpritePack = Resources.LoadAll<Sprite>(folder.Remove(0, GamePaths.ResourcesBase.Length + 1));
 
-                if (sprites.Count == WallIndex.EmptyWallIndex)
+                if (sprites.Count == WallIndex.Empty)
                     sprites.Add(new EmptySprite(currentSpritePack[0]));
                 else
                     sprites.Add(new DefaultWallSprite(currentSpritePack));
