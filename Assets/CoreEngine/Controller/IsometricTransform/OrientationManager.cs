@@ -35,6 +35,8 @@ namespace com.gStudios.isometric.controller.isometricTransform {
         }
 
         public static void RotateClockwise() {
+            Orientation previousOrientation = currentOrientation;
+
             switch (currentOrientation) {
                 case Orientation.North:
                     currentOrientation = Orientation.West;
@@ -50,10 +52,12 @@ namespace com.gStudios.isometric.controller.isometricTransform {
                     break;
             }
 
-            UpdateObservers();
+            UpdateObservers(previousOrientation);
         }
 
         public static void RotateCounterClockwise() {
+            Orientation previousOrientation = currentOrientation;
+
             switch (currentOrientation) {
                 case Orientation.North:
                     currentOrientation = Orientation.East;
@@ -69,15 +73,15 @@ namespace com.gStudios.isometric.controller.isometricTransform {
                     break;
             }
 
-            UpdateObservers();
+            UpdateObservers(previousOrientation);
         }
 
-        private static void UpdateObservers() {
+        private static void UpdateObservers(Orientation previousOrientation) {
             if (observers == null)
                 return;
 
             foreach(IOrientationObserver observer in observers) {
-                observer.NotifyOrientationChanged(currentOrientation);
+                observer.NotifyOrientationChanged(previousOrientation);
             }
         }
     }
