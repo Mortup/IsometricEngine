@@ -76,7 +76,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type).GetSprite(wall, isCurrentlyClipping);
             sr.sortingOrder = GetSortingOrder(wall.X, wall.Y, wall.Z, TileSubLayer.Wall);
 
-            sr.color = Random.ColorHSV(0, 1, 0, 1, 0.4f, 1);
+            //sr.color = Random.ColorHSV(0, 1, 0, 1, 0.4f, 1);
         }
 
 		void UpdateAllSprites() {

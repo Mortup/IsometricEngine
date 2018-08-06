@@ -9,8 +9,7 @@ namespace com.gStudios.isometric.controller.spriteCreators {
     public static class WallCreator {
 
         private const int cropLength = 90;
-        private const int uncroppableLength = 20;
-        private static Color borderColor = Color.black;
+        private const int uncroppableLength = 19;
 
         private static Vector2Int FrontTop = new Vector2Int(4, 111);
         private static Vector2Int FrontBottom = new Vector2Int(4, 0);
@@ -22,16 +21,17 @@ namespace com.gStudios.isometric.controller.spriteCreators {
 
         public static Sprite DrawSpriteBorders(Sprite spr, int z, InmediateWallNeighbors neighbors, bool isCropped) {
 
-            Texture2D tex = new Texture2D(spr.texture.width, spr.texture.height, spr.texture.format, Settings.mipmapEnabled);
-            tex.filterMode = Settings.filterMode;
-            tex.wrapMode = Settings.wrapMode;
+            Texture2D tex = new Texture2D(spr.texture.width, spr.texture.height, spr.texture.format, Settings.mipmapEnabled) {
+                filterMode = Settings.filterMode,
+                wrapMode = Settings.wrapMode
+            };
 
             Graphics.CopyTexture(spr.texture, tex);
 
             DrawBorders(tex, z, neighbors);
 
             if (isCropped)
-                Crop(tex, cropLength);
+                Crop(tex, cropLength, z);
 
             tex.Apply();
 
@@ -41,6 +41,9 @@ namespace com.gStudios.isometric.controller.spriteCreators {
         }
 
         private static void DrawBorders(Texture2D tex, int z, InmediateWallNeighbors neighbors) {
+            Color borderColor = tex.GetPixel(0, 0);
+            tex.SetPixel(0, 0, Color.clear);
+
             if (z == 1) {
                 FlipTex(tex);
                 neighbors.FlipSideNeighbors();
@@ -59,9 +62,6 @@ namespace com.gStudios.isometric.controller.spriteCreators {
                     if (neighbors.BottomRight.IsEmpty()) {
                         DrawIsoLine(tex, borderColor, new Vector2Int(FrontTop.x + 1, FrontTop.y), LeftTop);
                         DrawIsoLine(tex, borderColor, new Vector2Int(FrontBottom.x + 1, FrontBottom.y), LeftBottom);
-                    }
-                    else {
-                        tex.SetPixel(LeftTop.x + 1, LeftTop.y - 1, tex.GetPixel(LeftTop.x + 2, LeftTop.y - 1));
                     }
                 }
             }
@@ -96,6 +96,10 @@ namespace com.gStudios.isometric.controller.spriteCreators {
                 }
             }
 
+            if (neighbors.TopLeft.IsEmpty() == false && neighbors.Top.IsEmpty() && neighbors.TopRight.IsEmpty()) {
+                tex.SetPixel(RightTop.x - 1, RightTop.y + 1, tex.GetPixel(RightTop.x - 2, RightTop.y + 1));
+            }
+
             if (neighbors.BottomLeft.IsEmpty() == false) {
                 DrawVerticalLine(tex, Color.clear, new Vector2Int(0, 0), new Vector2Int(0, tex.height));
                 DrawVerticalLine(tex, Color.clear, new Vector2Int(1, 0), new Vector2Int(1, tex.height));
@@ -123,10 +127,13 @@ namespace com.gStudios.isometric.controller.spriteCreators {
             }
         }
 
-        private static void Crop(Texture2D tex, int length) {
+        private static void Crop(Texture2D tex, int length, int z) {
+            if (z == 1)
+                FlipTex(tex);
+
             for (int x = 0; x < tex.width; x++) {
-                for (int y = 0; y < length; y++) {
-                    int sourceY = tex.height - uncroppableLength + y;
+                for (int y = (x-4)/2; y < length; y++) {
+                    int sourceY = tex.height - uncroppableLength + Mathf.Max(y, 0);
                     int destinationY = sourceY - length;
 
                     Color sourceColor = (sourceY >= tex.height) ? Color.clear : tex.GetPixel(x, sourceY);
@@ -137,6 +144,9 @@ namespace com.gStudios.isometric.controller.spriteCreators {
                     tex.SetPixel(x, y, Color.clear);
                 }
             }
+
+            if (z == 1)
+                FlipTex(tex);
         }
 
         private static void DrawIsoLine(Texture2D srcTex, Color color, Vector2Int start, Vector2Int end) {
