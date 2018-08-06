@@ -50,6 +50,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
                     break;
             }
 
+            Debug.Log(currentOrientation);
             UpdateObservers();
         }
 
