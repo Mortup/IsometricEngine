@@ -18,6 +18,7 @@ namespace com.gStudios.isometric.controller.camera {
 
             if (!subscribedToOrientationManager) {
                 OrientationManager.RegisterObserver(this);
+                subscribedToOrientationManager = true;
             }
         }
 
