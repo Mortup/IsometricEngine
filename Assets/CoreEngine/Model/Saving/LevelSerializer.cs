@@ -43,6 +43,7 @@ namespace com.gStudios.isometric.model.saving {
                 }
 			}
 
+            saveFile.Close();
 			return level;
 		}
 
