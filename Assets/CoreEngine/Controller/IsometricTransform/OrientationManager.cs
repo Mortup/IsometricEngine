@@ -29,7 +29,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
                 observers = new List<IOrientationObserver>();
 
             if (observers.Contains(aObserver))
-                Debug.LogError("Adding a observer more than once.");
+                Debug.LogError("Adding a observer more than once: " + aObserver.ToString());
 
             observers.Add(aObserver);
         }
