@@ -2,7 +2,7 @@
 
 	public interface IOrientationObserver {
 
-        void NotifyOrientationChanged(Orientation previousOrientation);	
+        void NotifyOrientationChanged(Orientation previousOrientation, Orientation newOrientation);	
 		
 	}
 

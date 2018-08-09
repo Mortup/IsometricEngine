@@ -73,12 +73,8 @@ namespace com.gStudios.isometric.controller {
                 level = new Level(levelWidth, levelHeight);
             }
 
-            foreach (MonoBehaviour ccGO in customControllers) {
-                ILevelController lc = ccGO.GetComponent<ILevelController>();
-                if (lc == null)
-                    Debug.LogError("Trying to init a custom controller that doesn't inherits ILevelController");
-
-                lc.Init(level);
+            foreach (ILevelController levelController in customControllers) {
+                levelController.Init(level);
             }
 
 			tileSpriteObserver.BindLevel (level);

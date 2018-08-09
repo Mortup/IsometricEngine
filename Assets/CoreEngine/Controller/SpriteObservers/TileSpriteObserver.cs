@@ -49,7 +49,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			UpdateSprite (tile);
 		}
 
-        public void NotifyOrientationChanged(Orientation previousOrientation) {
+        public void NotifyOrientationChanged(Orientation previousOrientation, Orientation newOrientation) {
             UpdateAllSprites();
         }
 

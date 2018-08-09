@@ -119,7 +119,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             return (rotatedCoords.x + rotatedCoords.y)*20 + ((int)layer * 2) + 1 - rotatedCoords.z;
 		}
 
-        public void NotifyOrientationChanged(Orientation previousOrientation) {
+        public void NotifyOrientationChanged(Orientation previousOrientation, Orientation newOrientation) {
             UpdateAllSprites();
         }
     }
