@@ -13,7 +13,6 @@ namespace com.gStudios.isometric.controller.camera {
         private CameraZoom cameraZoom;
 
         public void Init(Level level) {
-            Debug.Log("Being init");
 
             if (cameraDrag == null) {
                 cameraDrag = mainCamera.gameObject.AddComponent<CameraDrag>();
