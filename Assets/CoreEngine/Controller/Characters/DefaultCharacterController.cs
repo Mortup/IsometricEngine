@@ -25,21 +25,33 @@ namespace com.gStudios.isometric.controller.characters {
         public void CreateSprite() {
             GameObject char_go = new GameObject();
             char_go.name = "Character";
-            char_go.transform.position = TileTransformer.CoordToWorld(character.X, character.Y);
             //char_go.transform.SetParent(tileHolder.transform, true);
 
             SpriteRenderer sr = char_go.AddComponent<SpriteRenderer>();
             sr.sortingLayerName = "Tiles";
             sr.sprite = Resources.Load<Sprite>("Sprites/Untitled");
-            sr.sortingOrder = WallSpriteObserver.GetSortingOrder(character.X, character.Y, 0, TileSubLayer.Character);
 
             charGo = char_go;
             //tile.Subscribe(this);
+
+            UpdateSprite();
+        }
+
+        public void UpdateSprite() {
+            charGo.transform.position = TileTransformer.CoordToWorld(character.X, character.Y);
+            SpriteRenderer sr = charGo.GetComponent<SpriteRenderer>();
+            sr.sortingOrder = WallSpriteObserver.GetSortingOrder(character.X, character.Y, 0, TileSubLayer.Character);
         }
 
         public void Update() {
-            Debug.Log("Controller being updated...");
-            Debug.Log(initializated);
+            if (Input.GetKeyDown(KeyCode.UpArrow)) {
+                character.Walk(1, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow)) {
+                character.Walk(-1, 0);
+            }
+
+            UpdateSprite();
         }
 
     }

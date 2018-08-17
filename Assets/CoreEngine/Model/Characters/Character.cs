@@ -7,9 +7,14 @@
             this.Y = y;
         }
 
-        public int X { get; }
+        public int X { get; protected set; }
 
-        public int Y { get; }
+        public int Y { get; protected set; }
+
+        public void Walk(int xOffset, int yOffset) {
+            this.X += xOffset;
+            this.Y += yOffset;
+        }
 
     }
 
