@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+using com.gStudios.isometric.model.characters;
 using com.gStudios.isometric.model.saving;
 using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.wall;
@@ -12,6 +12,7 @@ namespace com.gStudios.isometric.model.world {
 
 		ITile[,] tiles;
 		IWall[,,] walls;
+        List<ICharacter> characters;
 
 		int width;
 
@@ -35,11 +36,15 @@ namespace com.gStudios.isometric.model.world {
 
 			tiles = TileGenerator.Generate(width, height);
 			walls = WallGenerator.Generate(this, width, height);
+            characters = new List<ICharacter>();
+
+            characters.Add(new Character(2, 2));
 
 			RandomizeTiles ();
             RandomizeWalls();
 		}
 
+        // Tiles
 		public bool IsTileInBounds(int x, int y) {
 			return (x < width && x >= 0 && y < height && y >= 0);
 		}
@@ -53,6 +58,7 @@ namespace com.gStudios.isometric.model.world {
 			return tiles [x, y];
 		}
 
+        // Walls
 		public bool IsWallInBounds(int x, int y, int z) {
             if (z != 0 && z != 1)
                 return false;
@@ -65,27 +71,42 @@ namespace com.gStudios.isometric.model.world {
             return true;
 		}
 
-        public bool IsVertexInBounds(int x, int y) {
-            return IsWallInBounds(x, y, 0);
+        public IWall GetWallAt(int x, int y, int z) {
+            if (!IsWallInBounds(x, y, z)) {
+                UnityEngine.Debug.LogError("Wall (" + x + "," + y + "," + z + ") is out of range.");
+                return null;
+            }
+            if (z != 0 && z != 1) {
+                UnityEngine.Debug.LogError("Wall (" + x + "," + y + "," + z + ") is out of range.");
+                return null;
+            }
+
+            return walls[x, y, z];
         }
 
-		public IWall GetWallAt(int x, int y, int z) {
-			if (!IsWallInBounds(x,y,z)) {
-				UnityEngine.Debug.LogError("Wall ("+x+","+y+","+z+") is out of range.");
-				return null;
-			}
-			if (z != 0 && z != 1) {
-				UnityEngine.Debug.LogError("Wall ("+x+","+y+","+z+") is out of range.");
-				return null;
-			}
+        // Vertex
+        public bool IsVertexInBounds(int x, int y) {
+            return IsWallInBounds(x, y, 0);
+        }		
 
-			return walls [x, y, z];
-		}
+        // Characters
+        public void AddCharacter(ICharacter character) {
+            characters.Add(character);
+        }
 
+        public void RemoveCharacter(ICharacter character) {
+            if (characters.Contains(character) == false)
+                UnityEngine.Debug.LogError("Trying to remove a character that's not on the level.");
+
+            characters.Remove(character);
+        }
+
+        // Serialization
         public void Save(LevelSerializer levelSerializer) {
             levelSerializer.SaveLevel(this, tiles, walls);
         }
 
+        // Randomization
 		public void RandomizeTiles() {
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {

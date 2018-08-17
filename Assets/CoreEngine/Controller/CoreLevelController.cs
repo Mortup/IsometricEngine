@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+using com.gStudios.isometric.controller.characters;
 using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.controller.spriteObservers;
@@ -60,6 +61,15 @@ namespace com.gStudios.isometric.controller {
             if (Input.GetKeyDown(KeyCode.Q)) {
                 OrientationManager.RotateCounterClockwise();
             }
+
+            if (Input.GetKeyDown(KeyCode.A)) {
+                model.characters.Character character = new model.characters.Character(Random.Range(0, level.Width), Random.Range(0, level.Height));
+                level.AddCharacter(character);
+                Debug.Log("Agregando personaje");
+                GameObject cont = new GameObject();
+                DefaultCharacterController cc = cont.AddComponent<DefaultCharacterController>();
+                cc.Init(character);
+            }
 		}
 
 		void LoadLevel() {
@@ -79,8 +89,6 @@ namespace com.gStudios.isometric.controller {
 
 			tileSpriteObserver.BindLevel (level);
 			wallSpriteObserver.BindLevel (level);
-
-
 		}
 
 		// CONTROLLER GETTERS

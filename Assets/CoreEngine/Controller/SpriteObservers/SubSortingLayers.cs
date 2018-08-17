@@ -9,7 +9,8 @@
         Wall = 0,
         FirstWallCursor = 1,
         SecondWallCursor = 2,
-        ThirdWallCursor = 3
+        ThirdWallCursor = 3,
+        Character = 4,
     }
 
 }
