@@ -40,10 +40,13 @@ namespace com.gStudios.isometric.controller.characters {
         public void UpdateSprite() {
             charGo.transform.position = TileTransformer.CoordToWorld(character.X, character.Y);
             SpriteRenderer sr = charGo.GetComponent<SpriteRenderer>();
-            sr.sortingOrder = WallSpriteObserver.GetSortingOrder(character.X, character.Y, 0, TileSubLayer.Character);
+            sr.sortingOrder = SortingOrders.GetSortingOrder(character.X, character.Y, 0, TileSubLayer.Character);
         }
 
         public void Update() {
+            if (!initializated)
+                Debug.LogError("Character controllers must be initializated inmediately!");
+
             if (Input.GetKeyDown(KeyCode.UpArrow)) {
                 character.Walk(1, 0);
             }

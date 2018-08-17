@@ -54,7 +54,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 					SpriteRenderer staticCursorSr = staticCursorGo.GetComponent<SpriteRenderer> ();
 					staticCursorSr.sprite = GetCursorSprite (new Vector2Int(x,y));
 					staticCursorSr.sortingLayerName = mainCursorSr.sortingLayerName;
-					staticCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder (x, y, FloorSubLayer.Cursor);
+					staticCursorSr.sortingOrder = SortingOrders.FloorOrder (x, y, FloorSubLayer.Cursor);
 
 					activeStaticCursors.Push (staticCursorGo);
 				}

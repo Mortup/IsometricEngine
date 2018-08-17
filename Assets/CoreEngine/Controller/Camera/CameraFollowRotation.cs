@@ -37,7 +37,7 @@ namespace com.gStudios.isometric.controller.camera {
 
         private void RotateClockwise(Orientation startingOrientation) {
             Vector3 rotation = Vector3.zero;
-            Debug.Log(startingOrientation);
+
             switch (startingOrientation) {
                 case Orientation.North:
                     rotation.x = -xDiff;
@@ -62,7 +62,7 @@ namespace com.gStudios.isometric.controller.camera {
 
         private void RotateCounterClockwise(Orientation startingOrientation) {
             Vector3 rotation = Vector3.zero;
-            Debug.Log(startingOrientation);
+            
             switch (startingOrientation) {
                 case Orientation.South:
                     rotation.x = -xDiff;

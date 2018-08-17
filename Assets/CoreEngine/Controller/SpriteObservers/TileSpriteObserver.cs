@@ -65,7 +65,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             
             SpriteRenderer sr = tile_go.GetComponent<SpriteRenderer>();
 			sr.sprite = DataManager.tileSpriteData.GetDataById(tile.Type);
-            sr.sortingOrder = GetSortingOrder(tile.X, tile.Y, FloorSubLayer.FloorTile);
+            sr.sortingOrder = SortingOrders.FloorOrder(tile.X, tile.Y, FloorSubLayer.FloorTile);
         }
 
         void UpdateAllSprites() {
@@ -89,11 +89,6 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 					CreateSprite (level.GetTileAt(x,y));
 				}
 			}
-		}
-
-		public static int GetSortingOrder(int x, int y, FloorSubLayer layer) {
-            Vector2Int rotatedCoords = TileTransformer.RotateCoord(new Vector2Int(x, y));
-            return ((rotatedCoords.x + rotatedCoords.y) * 10) + (int) layer;
 		}
 	}
 

@@ -74,7 +74,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             SpriteRenderer sr = wall_go.GetComponent<SpriteRenderer> ();
 
 			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type).GetSprite(wall, isCurrentlyClipping);
-            sr.sortingOrder = GetSortingOrder(wall.X, wall.Y, wall.Z, TileSubLayer.Wall);
+            sr.sortingOrder = SortingOrders.GetSortingOrder(wall.X, wall.Y, wall.Z, TileSubLayer.Wall);
 
             //sr.color = Random.ColorHSV(0, 1, 0, 1, 0.4f, 1);
         }
@@ -112,11 +112,6 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 				}
 			}
 
-		}
-
-		public static int GetSortingOrder(int x, int y, int z, TileSubLayer layer) {
-            Vector3Int rotatedCoords = WallTransformer.RotateCoord(new Vector3Int(x, y, z));
-            return (rotatedCoords.x + rotatedCoords.y)*20 + ((int)layer * 2) + 1 - rotatedCoords.z;
 		}
 
         public void NotifyOrientationChanged(Orientation previousOrientation, Orientation newOrientation) {

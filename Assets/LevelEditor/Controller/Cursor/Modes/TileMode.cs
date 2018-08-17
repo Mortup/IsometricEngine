@@ -26,7 +26,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 
             if (level.IsTileInBounds(coords.x, coords.y)) {
                 mainCursorSr.enabled = true;
-                mainCursorSr.sortingOrder = TileSpriteObserver.GetSortingOrder(coords.x, coords.y, FloorSubLayer.Cursor);
+                mainCursorSr.sortingOrder = SortingOrders.FloorOrder(coords.x, coords.y, FloorSubLayer.Cursor);
                 mainCursorGo.transform.position = TileTransformer.CoordToWorld(coords);
 
                 mainCursorSr.sprite = GetCursorSprite(coords);
