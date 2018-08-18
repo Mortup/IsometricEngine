@@ -40,7 +40,7 @@ namespace com.gStudios.isometric.controller.characters {
         public void UpdateSprite() {
             charGo.transform.position = TileTransformer.CoordToWorld(character.X, character.Y);
             SpriteRenderer sr = charGo.GetComponent<SpriteRenderer>();
-            sr.sortingOrder = SortingOrders.GetSortingOrder(character.X, character.Y, 0, TileSubLayer.Character);
+            sr.sortingOrder = SortingOrders.TileOrder(character.X, character.Y, TileSubLayer.Character);
         }
 
         public void Update() {

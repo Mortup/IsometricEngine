@@ -53,7 +53,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
                     SpriteRenderer staticCursorSr = staticCursor.GetComponent<SpriteRenderer>();
                     staticCursorSr.sprite = GetCursorSprite(currentWallPos);
                     staticCursorSr.sortingLayerName = mainCursorSr.sortingLayerName;
-                    staticCursorSr.sortingOrder = SortingOrders.GetSortingOrder(currentWallPos.x, currentWallPos.y, currentWallPos.z, TileSubLayer.FirstWallCursor);
+                    staticCursorSr.sortingOrder = SortingOrders.WallOrder(currentWallPos.x, currentWallPos.y, currentWallPos.z, TileSubLayer.FirstWallCursor);
 
                     selectedPositions.Add(currentWallPos, staticCursor);
                 }
@@ -63,7 +63,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
                 if (IsWallAt(currentWallPos)) {
 
                     mainCursorSr.enabled = true;
-                    mainCursorSr.sortingOrder = SortingOrders.GetSortingOrder(currentWallPos.x, currentWallPos.y, currentWallPos.z, TileSubLayer.FirstWallCursor);
+                    mainCursorSr.sortingOrder = SortingOrders.WallOrder(currentWallPos.x, currentWallPos.y, currentWallPos.z, TileSubLayer.FirstWallCursor);
                     mainCursorSr.sprite = GetCursorSprite(currentWallPos);
 
                     mainCursorGo.transform.position = worldPos;
@@ -75,7 +75,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 
             // Arrow cursor
             arrowCursor.transform.position = WallTransformer.CoordToWorld(currentWallPos) + new Vector2(Settings.TILE_WIDTH / 4, Settings.TILE_HEIGHT / 4);
-            arrowCursor.GetComponent<SpriteRenderer>().sortingOrder = SortingOrders.GetSortingOrder(currentWallPos.x, currentWallPos.y, currentWallPos.z, TileSubLayer.SecondWallCursor);
+            arrowCursor.GetComponent<SpriteRenderer>().sortingOrder = SortingOrders.WallOrder(currentWallPos.x, currentWallPos.y, currentWallPos.z, TileSubLayer.SecondWallCursor);
         }
 
         protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
