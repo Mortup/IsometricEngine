@@ -48,10 +48,16 @@ namespace com.gStudios.isometric.controller.characters {
                 Debug.LogError("Character controllers must be initializated inmediately!");
 
             if (Input.GetKeyDown(KeyCode.UpArrow)) {
-                character.Walk(1, 0);
+                character.Walk(-1, 0);
             }
             if (Input.GetKeyDown(KeyCode.DownArrow)) {
-                character.Walk(-1, 0);
+                character.Walk(1, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                character.Walk(0, -1);
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow)) {
+                character.Walk(0, 1);
             }
 
             UpdateSprite();

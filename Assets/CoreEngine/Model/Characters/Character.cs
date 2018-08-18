@@ -1,8 +1,14 @@
-﻿namespace com.gStudios.isometric.model.characters {
+﻿using com.gStudios.isometric.model.world;
+using com.gStudios.isometric.model.world.tile;
+
+namespace com.gStudios.isometric.model.characters {
 
 	public class Character : ICharacter {
 
-        public Character(int x, int y) {
+        protected Level level;
+
+        public Character(Level level, int x, int y) {
+            this.level = level;
             this.X = x;
             this.Y = y;
         }
@@ -12,8 +18,13 @@
         public int Y { get; protected set; }
 
         public void Walk(int xOffset, int yOffset) {
-            this.X += xOffset;
-            this.Y += yOffset;
+            ITile destinationTile = level.GetTileAt(X + xOffset, Y + yOffset);
+
+            if (destinationTile.IsWalkable()) {
+                this.X += xOffset;
+                this.Y += yOffset;
+            }
+            
         }
 
     }

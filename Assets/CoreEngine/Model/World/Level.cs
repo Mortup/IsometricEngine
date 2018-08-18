@@ -38,8 +38,6 @@ namespace com.gStudios.isometric.model.world {
 			walls = WallGenerator.Generate(this, width, height);
             characters = new List<ICharacter>();
 
-            characters.Add(new Character(2, 2));
-
 			RandomizeTiles ();
             RandomizeWalls();
 		}
@@ -51,8 +49,7 @@ namespace com.gStudios.isometric.model.world {
 
 		public ITile GetTileAt(int x, int y) {
 			if (!IsTileInBounds(x, y)) {
-				UnityEngine.Debug.LogError("Tile ("+x+","+y+") is out of range.");
-				return null;
+				return new NullTile();
 			}
 
 			return tiles [x, y];

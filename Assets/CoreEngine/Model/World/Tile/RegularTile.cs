@@ -56,6 +56,10 @@ namespace com.gStudios.isometric.model.world.tile {
             return Type == TileIndex.Empty;
         }
 
+        public bool IsWalkable() {
+            return Type != TileIndex.Empty;
+        }
+
 		public void Subscribe(ITileObserver observer) {
 			if (observers.Contains (observer))
 				UnityEngine.Debug.LogError ("Trying to add an observer more than once.");

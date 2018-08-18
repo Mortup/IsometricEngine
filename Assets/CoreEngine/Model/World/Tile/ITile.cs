@@ -14,6 +14,8 @@ namespace com.gStudios.isometric.model.world.tile {
 		void Subscribe (ITileObserver observer);
 
         bool IsEmpty();
+
+        bool IsWalkable();
 		
 	}
 

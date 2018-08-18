@@ -63,7 +63,7 @@ namespace com.gStudios.isometric.controller {
             }
 
             if (Input.GetKeyDown(KeyCode.A)) {
-                model.characters.Character character = new model.characters.Character(Random.Range(0, level.Width), Random.Range(0, level.Height));
+                model.characters.Character character = new model.characters.Character(level, Random.Range(0, level.Width), Random.Range(0, level.Height)); //TODO: Update level reference on load level.
                 level.AddCharacter(character);
                 Debug.Log("Agregando personaje");
                 GameObject cont = new GameObject();
