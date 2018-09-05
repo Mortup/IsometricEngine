@@ -56,7 +56,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
             // Main cursor
             if (level.IsVertexInBounds(vertexCoords.x, vertexCoords.y)) {
                 mainCursorSr.enabled = true;
-                mainCursorSr.sortingOrder = SortingOrders.WallOrder(vertexCoords.x, vertexCoords.y, 0, TileSubLayer.SecondWallCursor);
+                mainCursorSr.sortingOrder = SortingOrders.VertexOrder(vertexCoords.x, vertexCoords.y, TileSubLayer.SecondWallCursor);
                 mainCursorSr.sprite = Input.GetButton("InverseFunction") ? DataManager.cursorSpriteData.wallBulldozeSprite : DataManager.cursorSpriteData.wallBuildSprite;
 
                 Vector3 pos = VertexTransfomer.VertexToWorld(vertexCoords);
@@ -93,7 +93,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
                     SpriteRenderer staticCursorSr = staticCursorGo.GetComponent<SpriteRenderer>();
                     staticCursorSr.sprite = Input.GetButton("InverseFunction") ? DataManager.cursorSpriteData.wallBulldozeSprite : DataManager.cursorSpriteData.wallBuildSprite;
                     staticCursorSr.sortingLayerName = mainCursorSr.sortingLayerName;
-                    staticCursorSr.sortingOrder = SortingOrders.WallOrder(currentCoord.x, currentCoord.y, 0, TileSubLayer.FirstWallCursor);
+                    staticCursorSr.sortingOrder = SortingOrders.VertexOrder(currentCoord.x, currentCoord.y, TileSubLayer.FirstWallCursor);
 
                     activeStaticCursors.Push(staticCursorGo);
                 }

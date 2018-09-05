@@ -16,6 +16,11 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             return (rotatedCoords.x + rotatedCoords.y) * 20 + ((int)layer * 2) + 1 - rotatedCoords.z;
         }
 
+        public static int VertexOrder(int x, int y, TileSubLayer layer) {
+            Vector2Int rotatedCoords = VertexTransfomer.RotateVertex(new Vector2Int(x, y));
+            return (rotatedCoords.x + rotatedCoords.y) * 20 + ((int)layer * 2) + 1;
+        }
+
         public static int TileOrder(int x, int y, TileSubLayer layer) {
             Vector2Int rotatedCoords = TileTransformer.RotateCoord(new Vector2Int(x, y));
             return (rotatedCoords.x + rotatedCoords.y) * 20 + ((int)layer * 2);

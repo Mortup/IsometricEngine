@@ -68,74 +68,79 @@ namespace com.gStudios.isometric.controller.isometricTransform {
 
         public static Vector3Int RotateCoord(Vector3Int original) {
             Vector2Int vec2rotated = TileTransformer.RotateCoord(new Vector2Int(original.x, original.y));
-            Vector3Int rotated = new Vector3Int(vec2rotated.x, vec2rotated.y, original.z);
+            return RotateInsideTile(new Vector3Int(vec2rotated.x, vec2rotated.y, original.z));
+        }
 
-            switch(OrientationManager.currentOrientation) {
+        public static Vector3Int RotateInsideTile(Vector3Int original) {
+
+            switch (OrientationManager.currentOrientation) {
                 case Orientation.West:
-                    if (rotated.z == 0) {
-                        rotated.z = 1;
+                    if (original.z == 0) {
+                        original.z = 1;
                     }
                     else {
-                        rotated.z = 0;
-                        rotated.y += 1;
+                        original.z = 0;
+                        original.y += 1;
                     }
                     break;
                 case Orientation.South:
-                    if (rotated.z == 0) {
-                        rotated.y += 1;
+                    if (original.z == 0) {
+                        original.y += 1;
                     }
                     else {
-                        rotated.x += 1;
+                        original.x += 1;
                     }
                     break;
                 case Orientation.East:
-                    if (rotated.z == 0) {
-                        rotated.z = 1;
-                        rotated.x += 1;
+                    if (original.z == 0) {
+                        original.z = 1;
+                        original.x += 1;
                     }
                     else {
-                        rotated.z = 0;
+                        original.z = 0;
                     }
                     break;
             }
 
-            return rotated;
+            return original;
         }
 
         public static Vector3Int InverseRotateCoord(Vector3Int original) {
             Vector2Int vec2rotated = TileTransformer.InverseRotateCoord(new Vector2Int(original.x, original.y));
-            Vector3Int rotated = new Vector3Int(vec2rotated.x, vec2rotated.y, original.z);
+            return InverseRotateInsideTile(new Vector3Int(vec2rotated.x, vec2rotated.y, original.z));
+        }
 
+        public static Vector3Int InverseRotateInsideTile(Vector3Int original) {
             switch (OrientationManager.currentOrientation) {
                 case Orientation.West:
-                    if (rotated.z == 0) {
-                        rotated.z = 1;
+                    if (original.z == 0) {
+                        original.z = 1;
                     }
                     else {
-                        rotated.z = 0;
-                        rotated.y -= 1;
+                        original.z = 0;
+                        original.y -= 1;
                     }
                     break;
                 case Orientation.South:
-                    if (rotated.z == 0) {
-                        rotated.y -= 1;
+                    if (original.z == 0) {
+                        original.y -= 1;
                     }
                     else {
-                        rotated.x -= 1;
+                        original.x -= 1;
                     }
                     break;
                 case Orientation.East:
-                    if (rotated.z == 0) {
-                        rotated.z = 1;
+                    if (original.z == 0) {
+                        original.z = 1;
                     }
                     else {
-                        rotated.z = 0;
-                        rotated.x -= 1;
+                        original.z = 0;
+                        original.x -= 1;
                     }
                     break;
             }
 
-            return rotated;
+            return original;
         }
     }
 }

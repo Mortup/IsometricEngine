@@ -14,7 +14,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
         /// <param name="y">The y vertex coordinate.</param>
         /// <returns>The world position.</returns>
         public static Vector2 VertexToWorld(int x, int y) {
-            Vector2 coordWorldPos = TileTransformer.CoordToWorld(x, y);
+            Vector2 coordWorldPos = TileTransformer.CoordToWorld(RemoveRotationOffset(new Vector2Int(x, y)));
             return coordWorldPos + new Vector2(Settings.TILE_WIDTH_HALF, Settings.TILE_HEIGHT_HALF);
         }
 
@@ -33,7 +33,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
         /// <param name="world">The world position.</param>
         /// <returns>The vertex position.</returns>
         public static Vector2Int WorldToVertex(Vector2 world) {
-            return TileTransformer.WorldToCoord(new Vector2(world.x, world.y - Settings.TILE_HEIGHT_HALF));
+            return AddRotationOffset(TileTransformer.WorldToCoord(new Vector2(world.x, world.y - Settings.TILE_HEIGHT_HALF)));
         }
 
         /// <summary>
@@ -46,6 +46,43 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             return WorldToVertex(world);
         }
 
+        public static Vector2Int RotateVertex(Vector2Int original) {
+            return AddRotationOffset(TileTransformer.RotateCoord(original));
+        }
+
+        public static Vector2Int AddRotationOffset(Vector2Int original) {
+            switch (OrientationManager.currentOrientation) {
+                case Orientation.West:
+                    original.x += 1;
+                    break;
+                case Orientation.South:
+                    original.x += 1;
+                    original.y += 1;
+                    break;
+                case Orientation.East:
+                    original.y += 1;
+                    break;
+            }
+
+            return original;
+        }
+
+        public static Vector2Int RemoveRotationOffset(Vector2Int original) {
+            switch (OrientationManager.currentOrientation) {
+                case Orientation.West:
+                    original.x -= 1;
+                    break;
+                case Orientation.South:
+                    original.x -= 1;
+                    original.y -= 1;
+                    break;
+                case Orientation.East:
+                    original.y -= 1;
+                    break;
+            }
+
+            return original;
+        }
     }
 
 }
