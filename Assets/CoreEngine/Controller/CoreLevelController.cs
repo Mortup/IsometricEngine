@@ -16,36 +16,39 @@ namespace com.gStudios.isometric.controller {
 		[SerializeField] int levelHeight;
         [SerializeField] MonoBehaviour[] customControllers;
 
+        [SerializeField] bool debugRandomizeLevel;
         [SerializeField] bool debugLoadLevel;
 
 		Level level;
 
-        LevelSerializer levelSerializer;
-
 		TileSpriteObserver tileSpriteObserver;
 		WallSpriteObserver wallSpriteObserver;
+        FurnitureSpriteObserver furnitureSpriteObserver;
 
 		void Start () {
 			DataManager.Init ();
 
 			tileSpriteObserver = new TileSpriteObserver ();
 			wallSpriteObserver = new WallSpriteObserver ();
+            furnitureSpriteObserver = new FurnitureSpriteObserver();
 
-			levelSerializer = new LevelSerializer ();
-			LoadLevel ();
-		}
+			if (debugLoadLevel) {
+                LoadLevel(new DefaultLevelSerializer());
+            }
+
+            if (debugRandomizeLevel) {
+                level.RandomizeTiles();
+                level.RandomizeWalls();
+            }
+
+            foreach (ILevelController levelController in customControllers) {
+                levelController.Init(this);
+            }
+        }
 		
 		void Update () {
 			if (Input.GetKeyDown(KeyCode.R)) {
 				level.RandomizeWalls ();
-			}
-
-			if (Input.GetKeyDown(KeyCode.S)) {
-                level.Save(levelSerializer);
-			}
-
-			if (Input.GetKeyDown(KeyCode.L)) {
-				LoadLevel ();
 			}
 
 			if (Input.GetKeyDown(KeyCode.P)) {
@@ -72,23 +75,20 @@ namespace com.gStudios.isometric.controller {
             }
 		}
 
-		void LoadLevel() {
+		public void LoadLevel(ILevelSerializer levelSerializer) {
 			tileSpriteObserver.RemoveTiles ();
 			wallSpriteObserver.RemoveWalls ();
+            furnitureSpriteObserver.RemoveFurniture();
 
-            if (debugLoadLevel && levelSerializer.ExistsSavedLevel()) {
-                level = levelSerializer.LoadLevel();
-            }
-            else {
-                level = new Level(levelWidth, levelHeight);
-            }
+            level = levelSerializer.LoadLevel();
 
             foreach (ILevelController levelController in customControllers) {
-                levelController.Init(level);
+                levelController.OnLevelInit(level);
             }
 
 			tileSpriteObserver.BindLevel (level);
 			wallSpriteObserver.BindLevel (level);
+            furnitureSpriteObserver.BindLevel(level);
 		}
 
 		// CONTROLLER GETTERS

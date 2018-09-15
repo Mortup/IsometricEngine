@@ -4,7 +4,9 @@ namespace com.gStudios.isometric.controller {
 
 	public interface ILevelController {
 
-        void Init(Level level);
+        void Init(CoreLevelController clc);
+
+        void OnLevelInit(Level level);
 		
 	}
 

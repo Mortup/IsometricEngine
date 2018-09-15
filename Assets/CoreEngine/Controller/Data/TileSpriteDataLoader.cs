@@ -16,7 +16,7 @@ namespace com.gStudios.isometric.controller.data {
 		}
 
 		public Sprite GetDataById(int id) {
-			if (id > sprites.Length) {
+			if (id >= sprites.Length) {
 				Debug.LogError ("Can't find a sprite for tile with ID: " + id.ToString ());
 			}
 
@@ -24,7 +24,7 @@ namespace com.gStudios.isometric.controller.data {
 		}
 
 		public Sprite GetDataByTileData(TileData td) {
-			if (td.id > sprites.Length) {
+			if (td.id >= sprites.Length) {
 				Debug.LogError ("Can't find a sprite for tile with ID: " + td.id.ToString ());
 			}
 

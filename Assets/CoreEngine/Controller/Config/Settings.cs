@@ -15,7 +15,7 @@ namespace com.gStudios.isometric.controller.config {
         public const float TILE_WIDTH_HALF = TILE_WIDTH / 2f;
         public const float TILE_HEIGHT_HALF = TILE_HEIGHT / 2f;
 
-        public const int PPU = 64;
+        public const int PPU = 16;
         public const bool mipmapEnabled = false;
         public const FilterMode filterMode = FilterMode.Point;
         public const TextureWrapMode wrapMode = TextureWrapMode.Clamp;

@@ -30,11 +30,13 @@ namespace com.gStudios.levelEditor.controller.cursor {
 
 		DropoutStack<CursorCommand> inverseCommands;
 
+        public void Init(CoreLevelController clc) { }
+
 		/// <summary>
 		/// Should be called right after instantiation.
 		/// </summary>
 		/// <param name="level">The level to interact with.</param>
-		public void Init(Level level) {
+		public void OnLevelInit(Level level) {
 			this.level = level;
 			SimplePool.Preload (Resources.Load<GameObject> (GamePaths.CursorPrefab));
 			inverseCommands = new DropoutStack<CursorCommand> (Settings.MaxCursorUndoStackSize);

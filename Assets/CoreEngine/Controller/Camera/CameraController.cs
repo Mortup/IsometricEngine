@@ -12,7 +12,10 @@ namespace com.gStudios.isometric.controller.camera {
         private CameraFollowRotation cameraRotation;
         private CameraZoom cameraZoom;
 
-        public void Init(Level level) {
+        public void Init(CoreLevelController clc) {
+        }
+
+        public void OnLevelInit(Level level) {
 
             if (cameraDrag == null) {
                 cameraDrag = mainCamera.gameObject.AddComponent<CameraDrag>();

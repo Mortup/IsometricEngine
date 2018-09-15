@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Diagnostics;
 
-using com.gStudios.isometric.model.items;
+using com.gStudios.isometric.model.world.furniture;
 
 namespace com.gStudios.isometric.model.world.tile {
 
@@ -16,7 +16,7 @@ namespace com.gStudios.isometric.model.world.tile {
 		int y;
 		int type = EmptyTileIndex;
 
-		PlacedFurniture placedFurniture;
+		IFurniture placedFurniture;
 
 		private List<ITileObserver> observers;
 
@@ -48,6 +48,8 @@ namespace com.gStudios.isometric.model.world.tile {
 		public RegularTile(int x, int y) {
 			this.x = x;
 			this.y = y;
+
+            placedFurniture = new NullFurniture();
 
 			observers = new List<ITileObserver> ();
 		}

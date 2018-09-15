@@ -35,11 +35,8 @@ namespace com.gStudios.isometric.model.world {
 			this.height = height;
 
 			tiles = TileGenerator.Generate(width, height);
-			walls = WallGenerator.Generate(this, width, height);
+			walls = WallGenerator.GenerateNulls(this, width, height);
             characters = new List<ICharacter>();
-
-			RandomizeTiles ();
-            RandomizeWalls();
 		}
 
         // Tiles
@@ -99,7 +96,7 @@ namespace com.gStudios.isometric.model.world {
         }
 
         // Serialization
-        public void Save(LevelSerializer levelSerializer) {
+        public void Save(ILevelSerializer levelSerializer) {
             levelSerializer.SaveLevel(this, tiles, walls);
         }
 
