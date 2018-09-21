@@ -13,13 +13,7 @@ namespace GGEZ
 ]
 	public class PerfectPixelCamera : MonoBehaviour
 	{
-
-		// Set this value to the same value as Pixels Per Unit when importing sprites
-		[
-    Tooltip ("The number of texture pixels that fit in 1.0 world units. Common values are 8, 16, 32 and 64. If you're making a tile-based game, this is your tile size."),
-    Range (1, 64)
-]
-		public int TexturePixelsPerWorldUnit = 16;
+		private int TexturePixelsPerWorldUnit = com.gStudios.isometric.controller.config.Settings.PPU;
 
 		// Reference to the camera on this same GameObject. Found
 		// by the OnEnable function.
