@@ -6,8 +6,9 @@ namespace com.gStudios.isometric.controller.config {
 
         public static readonly string TilesSprites = Path.Combine("Sprites", "Tiles");
         public static readonly string WallSprites = Path.Combine("Sprites", "Walls");
+        public static readonly string FurnitureSprites = Path.Combine("Sprites", "Furniture");
 
-		private static readonly string CursorSprites = Path.Combine("Sprites", "Cursors");
+        private static readonly string CursorSprites = Path.Combine("Sprites", "Cursors");
         private static readonly string TileCursorSprites = Path.Combine(CursorSprites, "TileCursors");
         private static readonly string WallCursorSprites = Path.Combine(CursorSprites, "WallCursors");
 
@@ -27,6 +28,14 @@ namespace com.gStudios.isometric.controller.config {
 
         public static string WallCursorSprite(string name) {
             return Path.Combine(WallCursorSprites, name);
+        }
+
+        public static string FurnitureSprite(string name) {
+            return Path.Combine(FurnitureSprites, name);
+        }
+
+        public static string FurnitureSprite(string name, string variation) {
+            return Path.Combine(FurnitureSprites, name + "_" + variation);
         }
 
 		public static string TileSprite(int index) {

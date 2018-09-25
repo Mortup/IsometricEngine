@@ -7,40 +7,22 @@ using com.gStudios.isometric.model.characters;
 
 namespace com.gStudios.isometric.controller.characters {
 
-	public class DefaultCharacterController : MonoBehaviour {
+	public class SimpleMovementCC : MonoBehaviour {
 
         private bool initializated = false;
 
         ICharacter character;
-        GameObject charGo;
 
         public void Init(ICharacter character) {
             this.character = character;
 
-            CreateSprite();
-
             initializated = true;
+
+            UpdatePosition();
         }
 
-        public void CreateSprite() {
-            GameObject char_go = new GameObject();
-            char_go.name = "Character";
-            //char_go.transform.SetParent(tileHolder.transform, true);
-
-            SpriteRenderer sr = char_go.AddComponent<SpriteRenderer>();
-            sr.sortingLayerName = "Tiles";
-            sr.sprite = Resources.Load<Sprite>("Sprites/Untitled");
-
-            charGo = char_go;
-            //tile.Subscribe(this);
-
-            UpdateSprite();
-        }
-
-        public void UpdateSprite() {
-            charGo.transform.position = TileTransformer.CoordToWorld(character.X, character.Y);
-            SpriteRenderer sr = charGo.GetComponent<SpriteRenderer>();
-            sr.sortingOrder = SortingOrders.TileOrder(character.X, character.Y, TileSubLayer.Character);
+        public void UpdatePosition() {
+            gameObject.transform.position = TileTransformer.CoordToWorld(character.X, character.Y);
         }
 
         public void Update() {
@@ -60,7 +42,7 @@ namespace com.gStudios.isometric.controller.characters {
                 character.Walk(0, 1);
             }
 
-            UpdateSprite();
+            UpdatePosition();
         }
 
     }

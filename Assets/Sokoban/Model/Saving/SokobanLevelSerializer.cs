@@ -1,12 +1,14 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 using UnityEngine;
 
+using com.gStudios.isometric.model.characters;
 using com.gStudios.isometric.model.saving;
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.wall;
+
+using com.gStudios.sokoban.model.world;
 
 namespace com.gStudios.sokoban.model.saving {
 
@@ -47,10 +49,23 @@ namespace com.gStudios.sokoban.model.saving {
 
             for (int x = 0; x < level.Width; x++) {
                 for (int y = 0; y < level.Height; y++) {
+                    ITile currentTile = level.GetTileAt(x, y);
+
                     if (x >= lines[y].Length)
-                        level.GetTileAt(x, y).Type = 0;
-                    else
-                        level.GetTileAt(x, y).Type = GetTileFromChar(lines[y][x]);
+                        currentTile.Type = 0;
+                    else {
+                        currentTile.Type = GetTileFromChar(lines[y][x]);
+
+                        if (lines[y][x] == BOX || lines[y][x] == PLACED_BOX) {
+                            currentTile.PlaceFurniture(new SokobanBox(level, currentTile));
+                        }
+                        else if (lines[y][x] == WALL) {
+                            currentTile.PlaceFurniture(new SokobanWall(level, currentTile));
+                        }
+                        else if (lines[y][x] == PLAYER) {
+                            level.AddCharacter(new Character(level, x, y));
+                        }
+                    }
                 }
             }
 
@@ -72,10 +87,12 @@ namespace com.gStudios.sokoban.model.saving {
 
         private int GetTileFromChar(char c) {
             switch(c) {
-                case WALL:
-                    return 1;
+                case GOAL:
+                    return 2;
+                case PLACED_BOX:
+                    return 2;
                 default:
-                    return 0;
+                    return 1;
             }
         }
     }

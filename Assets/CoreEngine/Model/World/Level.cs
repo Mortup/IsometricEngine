@@ -95,6 +95,10 @@ namespace com.gStudios.isometric.model.world {
             characters.Remove(character);
         }
 
+        public List<ICharacter> GetCharacters() {
+            return characters;
+        }
+
         // Serialization
         public void Save(ILevelSerializer levelSerializer) {
             levelSerializer.SaveLevel(this, tiles, walls);

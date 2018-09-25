@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 
+using com.gStudios.isometric.model.characters;
 using com.gStudios.isometric.model.world.furniture;
 
 namespace com.gStudios.isometric.model.world.tile {
@@ -19,6 +17,7 @@ namespace com.gStudios.isometric.model.world.tile {
 		IFurniture placedFurniture;
 
 		private List<ITileObserver> observers;
+        private List<IFurnitureObserver> furnitureObservers;
 
 		public int Type {
 			get {
@@ -52,14 +51,19 @@ namespace com.gStudios.isometric.model.world.tile {
             placedFurniture = new NullFurniture();
 
 			observers = new List<ITileObserver> ();
+            furnitureObservers = new List<IFurnitureObserver>();
 		}
 
         public bool IsEmpty() {
             return Type == TileIndex.Empty;
         }
 
-        public bool IsWalkable() {
-            return Type != TileIndex.Empty;
+        public bool HasFurniture() {
+            return placedFurniture.IsFurniture();
+        }
+
+        public bool IsWalkable(WalkInfo walkInfo) {
+            return (Type != TileIndex.Empty) && placedFurniture.IsWalkable(walkInfo);
         }
 
 		public void Subscribe(ITileObserver observer) {
@@ -69,6 +73,40 @@ namespace com.gStudios.isometric.model.world.tile {
 			observers.Add (observer);
 		}
 
-	}
+        public void SubscribeToFurniture(IFurnitureObserver furnitureObserver) {
+            if (furnitureObservers.Contains(furnitureObserver))
+                UnityEngine.Debug.LogError("Trying to add an observer more than once.");
+
+            furnitureObservers.Add(furnitureObserver);
+        }
+
+        public IFurniture GetPlacedFurniture() {
+            return placedFurniture;
+        }
+
+        public void PlaceFurniture(IFurniture furniture) {
+            placedFurniture = furniture;
+
+            NotifyFurnitureObservers();
+        }
+
+        public void RemoveFurniture() {
+            PlaceFurniture(new NullFurniture());
+        }
+
+        public void OnStandOver(WalkInfo walkInfo) {
+            placedFurniture.OnStandOver(walkInfo);
+        }
+
+        public void NotifyFurnitureVariationChanged() {
+            NotifyFurnitureObservers();
+        }
+
+        private void NotifyFurnitureObservers() {
+            foreach (IFurnitureObserver furnitureObserver in furnitureObservers) {
+                furnitureObserver.NotifyFurnitureTypeChanged(this);
+            }
+        }
+    }
 
 }

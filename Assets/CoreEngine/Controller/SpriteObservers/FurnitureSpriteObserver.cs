@@ -31,7 +31,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             sr.sortingLayerName = "Tiles";
 
             gameobjects.Add(tile, furniture_go);
-            //tile.Subscribe(this);
+            tile.SubscribeToFurniture(this);
             UpdateSprite(tile);
 
             return furniture_go;
@@ -48,7 +48,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             furni_go.transform.position = (Vector3)TileTransformer.CoordToWorld(tile.X, tile.Y);
 
             SpriteRenderer sr = furni_go.GetComponent<SpriteRenderer>();
-            //sr.sprite = DataManager.tileSpriteData.GetDataById(tile.Type);
+            sr.sprite = DataManager.furnitureSpriteData.GetDataById(tile.GetPlacedFurniture().GetSpriteIndex(), tile.GetPlacedFurniture().GetSpriteVariation());
             sr.sortingOrder = SortingOrders.TileOrder(tile.X, tile.Y, TileSubLayer.Furniture);
         }
 
@@ -74,8 +74,8 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             gameobjects = new Dictionary<ITile, GameObject>();
         }
 
-        public void NotifyFurnitureTypeChanged(IFurniture furniture) {
-            throw new System.NotImplementedException();
+        public void NotifyFurnitureTypeChanged(ITile tile) {
+            UpdateSprite(tile);
         }
     }
 	

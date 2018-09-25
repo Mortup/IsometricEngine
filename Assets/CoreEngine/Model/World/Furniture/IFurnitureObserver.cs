@@ -1,8 +1,10 @@
-﻿namespace com.gStudios.isometric.model.world.furniture {
+﻿using com.gStudios.isometric.model.world.tile;
+
+namespace com.gStudios.isometric.model.world.furniture {
 
 	public interface IFurnitureObserver {
 
-        void NotifyFurnitureTypeChanged(IFurniture furniture);
+        void NotifyFurnitureTypeChanged(ITile tile);
 
 	}
 	

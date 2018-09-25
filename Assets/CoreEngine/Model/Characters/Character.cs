@@ -19,12 +19,16 @@ namespace com.gStudios.isometric.model.characters {
 
         public void Walk(int xOffset, int yOffset) {
             ITile destinationTile = level.GetTileAt(X + xOffset, Y + yOffset);
+            WalkInfo walkInfo = new WalkInfo(xOffset, yOffset);
 
-            if (destinationTile.IsWalkable()) {
+            if (destinationTile.IsWalkable(walkInfo)) {
                 this.X += xOffset;
                 this.Y += yOffset;
+
+                // OnStandOver Callback
+                destinationTile.OnStandOver(walkInfo);
             }
-            
+
         }
 
     }
