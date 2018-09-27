@@ -5,6 +5,7 @@ namespace com.gStudios.isometric.model.world.furniture {
 
     public abstract class BaseFurniture : EmptyCallBacksFurniture {
 
+        protected string tag = "";
         protected Level level;
         protected ITile parent;
 
@@ -15,6 +16,10 @@ namespace com.gStudios.isometric.model.world.furniture {
             this.parent = parent;
 
             _spriteVariation = "";
+        }
+
+        public override string GetTag() {
+            return tag;
         }
 
         public string spriteVariation {

@@ -3,7 +3,11 @@
 namespace com.gStudios.isometric.model.world.furniture {
 
 	public class NullFurniture : EmptyCallBacksFurniture {
-	
+
+        public override string GetTag() {
+            return "NullFurniture";
+        }
+
         public override int GetSpriteIndex() {
             return 0;
         }

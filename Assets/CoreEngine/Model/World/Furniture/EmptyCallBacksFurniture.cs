@@ -5,6 +5,8 @@ namespace com.gStudios.isometric.model.world.furniture {
     public abstract class EmptyCallBacksFurniture : IFurniture {
 
         // For sprite management
+        public abstract string GetTag();
+
         public abstract int GetSpriteIndex();
         public abstract string GetSpriteVariation();
 

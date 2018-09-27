@@ -6,8 +6,10 @@ using com.gStudios.isometric.model.world.tile;
 namespace com.gStudios.sokoban.model.world {
 
     public class SokobanBox : BaseFurniture {
-
+        
         public SokobanBox(Level level, ITile parent) : base(level, parent) {
+            tag = "Box";
+
             UpdateVariation();
         }
 

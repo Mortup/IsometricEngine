@@ -4,6 +4,8 @@ namespace com.gStudios.isometric.model.world.furniture {
 
 	public interface IFurniture {
 
+        string GetTag();
+
         int GetSpriteIndex();
 
         string GetSpriteVariation();
