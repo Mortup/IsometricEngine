@@ -52,6 +52,10 @@ namespace com.gStudios.sokoban.controller {
                 LoadNextLevel();
             }
 
+            if (Input.GetKeyDown(KeyCode.R)) {
+                LoadCurrentLevel();
+            }
+
         }
 
         private bool HasWon() {
@@ -73,8 +77,12 @@ namespace com.gStudios.sokoban.controller {
         }
 
         private void LoadNextLevel() {
-            coreLevelController.LoadLevel(new SokobanLevelSerializer("level" + currentLevelIndex.ToString()));
             currentLevelIndex++;
+            LoadCurrentLevel();
+        }
+
+        private void LoadCurrentLevel() {
+            coreLevelController.LoadLevel(new SokobanLevelSerializer("level" + currentLevelIndex.ToString()));
         }
 
     }
