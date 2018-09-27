@@ -19,12 +19,20 @@ namespace com.gStudios.sokoban.controller {
         private Level level;
 
         private int currentLevelIndex = 1;
-               
+
+        private GameObject playerController;
+        private SimpleMovementCC cc;
+        private FourDirectionsSpriteCC sprCC;
+
         public void Init(CoreLevelController clc) {
             coreLevelController = clc;
 
+            playerController = new GameObject("Player");
+            cc = playerController.AddComponent<SimpleMovementCC>();
+            sprCC = playerController.AddComponent<FourDirectionsSpriteCC>();
+ 
             LoadNextLevel();
-        }
+       }
 
         public void OnLevelInit(Level level) {
             this.level = level;
@@ -33,11 +41,8 @@ namespace com.gStudios.sokoban.controller {
 
             if (chars.Count > 1)
                 Debug.LogError("Sokoban levels cannot have more than one character.");
-
-            GameObject playerController = new GameObject("So what is this?");
-            SimpleMovementCC cc = playerController.AddComponent<SimpleMovementCC>();
+            
             cc.Init(chars[0]);
-            FourDirectionsSpriteCC sprCC = playerController.AddComponent<FourDirectionsSpriteCC>();
             sprCC.Init(chars[0], "Player");
         }
 

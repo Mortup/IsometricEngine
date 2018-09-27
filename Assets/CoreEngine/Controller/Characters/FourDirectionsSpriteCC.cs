@@ -12,10 +12,13 @@ namespace com.gStudios.isometric.controller.characters {
 
         Sprite up, down, left, right;
 
+        public void Awake() {
+            sr = gameObject.AddComponent<SpriteRenderer>();
+        }
+
         public void Init(ICharacter character, string spritesName) {
             this.character = character;
 
-            sr = gameObject.AddComponent<SpriteRenderer>();
             sr.sortingLayerName = "Tiles";
 
             string basePath = "Sprites/Characters/" + spritesName + "/";
