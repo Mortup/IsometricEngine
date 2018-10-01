@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 using com.gStudios.isometric.controller.isometricTransform;
-using com.gStudios.isometric.controller.spriteObservers;
 
 using com.gStudios.isometric.model.characters;
+using com.gStudios.isometric.model.world;
 
 namespace com.gStudios.isometric.controller.characters {
 
@@ -11,10 +11,12 @@ namespace com.gStudios.isometric.controller.characters {
 
         private bool initializated = false;
 
-        ICharacter character;
+        protected Level level;
+        protected ICharacter character;
 
-        public void Init(ICharacter character) {
+        public void Init(ICharacter character, Level level) {
             this.character = character;
+            this.level = level;
 
             initializated = true;
 
