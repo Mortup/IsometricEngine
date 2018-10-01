@@ -42,7 +42,7 @@ namespace com.gStudios.sokoban.controller {
             if (chars.Count > 1)
                 Debug.LogError("Sokoban levels cannot have more than one character.");
             
-            cc.Init(chars[0]);
+            cc.Init(chars[0], level);
             sprCC.Init(chars[0], "Player");
         }
 

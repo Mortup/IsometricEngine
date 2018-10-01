@@ -10,8 +10,8 @@ public class SokobanCharMovement : SimpleMovementCC {
 
     private Stack<Vector2Int> previousPositions;
 
-    public override void Init(ICharacter character) {
-        base.Init(character);
+    public override void Init(ICharacter character, Level level) {
+        base.Init(character, level);
 
         previousPositions = new Stack<Vector2Int>();
         previousPositions.Push(CurrentPos());
