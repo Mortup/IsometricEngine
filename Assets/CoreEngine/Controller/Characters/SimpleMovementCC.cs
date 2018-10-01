@@ -11,9 +11,9 @@ namespace com.gStudios.isometric.controller.characters {
 
         private bool initializated = false;
 
-        ICharacter character;
+        protected ICharacter character;
 
-        public void Init(ICharacter character) {
+        public virtual void Init(ICharacter character) {
             this.character = character;
 
             initializated = true;
@@ -25,7 +25,7 @@ namespace com.gStudios.isometric.controller.characters {
             gameObject.transform.position = TileTransformer.CoordToWorld(character.X, character.Y);
         }
 
-        public void Update() {
+        public virtual void Update() {
             if (!initializated)
                 Debug.LogError("Character controllers must be initializated inmediately!");
 

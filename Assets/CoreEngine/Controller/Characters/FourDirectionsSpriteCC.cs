@@ -5,7 +5,7 @@ using com.gStudios.isometric.controller.spriteObservers;
 
 namespace com.gStudios.isometric.controller.characters {
 
-	public class FourDirectionsSpriteCC : MonoBehaviour {
+	public class FourDirectionsSpriteCC : MonoBehaviour, ICharacterObserver {
 
         ICharacter character;
         SpriteRenderer sr;
@@ -18,6 +18,7 @@ namespace com.gStudios.isometric.controller.characters {
 
         public void Init(ICharacter character, string spritesName) {
             this.character = character;
+            character.Subscribe(this);
 
             sr.sortingLayerName = "Tiles";
 
@@ -29,18 +30,27 @@ namespace com.gStudios.isometric.controller.characters {
             sr.sprite = right;
         }
 
+        public void OnCharMove(int xOffset, int yOffset, bool succesful) {
+            if (xOffset > 0) {
+                sr.sprite = down;
+            }            
+            else if(xOffset < 0) {
+                sr.sprite = up;
+            }
+            else if(yOffset > 0) {
+                sr.sprite = right;
+            }
+            else if (yOffset < 0) {
+                sr.sprite = left;
+            }
+        }
+
         private void Update() {
             sr.sortingOrder = SortingOrders.TileOrder(character.X, character.Y, TileSubLayer.Character);
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-                sr.sprite = right;
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-                sr.sprite = left;
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
-                sr.sprite = up;
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-                sr.sprite = down;
         }
+
+        
 
     }
 	

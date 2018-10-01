@@ -6,7 +6,8 @@
         int Y { get; }
 
         void Walk(int xOffset, int yOffset);
-		
+
+        void Subscribe(ICharacterObserver observer);
 	}
 
 }
