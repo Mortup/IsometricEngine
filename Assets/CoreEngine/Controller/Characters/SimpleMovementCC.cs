@@ -3,7 +3,6 @@
 using com.gStudios.isometric.controller.isometricTransform;
 
 using com.gStudios.isometric.model.characters;
-using com.gStudios.isometric.model.world;
 
 namespace com.gStudios.isometric.controller.characters {
 
@@ -11,12 +10,10 @@ namespace com.gStudios.isometric.controller.characters {
 
         private bool initializated = false;
 
-        protected Level level;
         protected ICharacter character;
 
-        public virtual void Init(ICharacter character, Level level) {
+        public virtual void Init(ICharacter character) {
             this.character = character;
-            this.level = level;
 
             initializated = true;
 
