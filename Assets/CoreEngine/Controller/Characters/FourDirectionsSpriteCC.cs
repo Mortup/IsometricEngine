@@ -25,7 +25,7 @@ namespace com.gStudios.isometric.controller.characters {
             string basePath = "Sprites/Characters/" + spritesName + "/";
             up = Resources.Load<Sprite>(basePath + "up");
             down = Resources.Load<Sprite>(basePath + "down");
-            left = Resources.Load<Sprite>(basePath + "left");
+            left = Resources.Load<Sprite>(basePath + "left"); 
             right = Resources.Load<Sprite>(basePath + "right");
             sr.sprite = right;
         }
