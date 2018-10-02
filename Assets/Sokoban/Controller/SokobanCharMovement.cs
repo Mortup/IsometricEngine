@@ -2,23 +2,52 @@
 
 using UnityEngine;
 
-using com.gStudios.isometric.controller.characters;
+using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.model.characters;
 using com.gStudios.isometric.model.world;
 
-public class SokobanCharMovement : SimpleMovementCC {
+public class SokobanCharMovement : MonoBehaviour {
+
+    private bool initializated = false;
 
     private Stack<Vector2Int> previousPositions;
+    private Stack<bool> previousPushes;
 
-    public override void Init(ICharacter character, Level level) {
-        base.Init(character, level);
+    private ICharacter character;
+    private Level level;
+
+    public void Init(ICharacter character, Level level) {
+        this.character = character;
+        this.level = level;
 
         previousPositions = new Stack<Vector2Int>();
         previousPositions.Push(CurrentPos());
+
+        initializated = true;
     }
 
-    public override void Update() {
-        base.Update();
+    public void UpdatePosition() {
+        gameObject.transform.position = TileTransformer.CoordToWorld(character.X, character.Y);
+    }
+
+    public void Update() {
+        if (!initializated)
+            Debug.LogError("Character controllers must be initializated inmediately!");
+
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
+            character.Walk(-1, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+            character.Walk(1, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+            character.Walk(0, -1);
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) {
+            character.Walk(0, 1);
+        }
+
+        UpdatePosition();
 
         if (CurrentPos() != previousPositions.Peek()) {
             previousPositions.Push(CurrentPos());
@@ -34,8 +63,16 @@ public class SokobanCharMovement : SimpleMovementCC {
             previousPositions.Pop();
 
             Vector2Int previousPosition = previousPositions.Peek();
-            character.Walk(previousPosition.x - character.X, previousPosition.y - character.Y);
-            
+            Vector2Int inverseMovement = new Vector2Int(character.X - previousPosition.x, character.Y - previousPosition.y);
+            Vector2Int pushedBoxPos = new Vector2Int(inverseMovement.x + character.X, inverseMovement.y + character.Y);
+
+            Vector2Int movement = new Vector2Int(previousPosition.x - character.X, previousPosition.y - character.Y);
+
+            character.Walk(movement.x, movement.y);
+            level.GetTileAt(pushedBoxPos.x, pushedBoxPos.y).GetPlacedFurniture().Move(movement.x, movement.y);
+
+
+
         }
     }
 

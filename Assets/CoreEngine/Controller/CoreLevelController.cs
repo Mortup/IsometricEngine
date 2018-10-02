@@ -70,7 +70,7 @@ namespace com.gStudios.isometric.controller {
                 level.AddCharacter(character);
                 Debug.Log("Agregando personaje");
                 GameObject cont = new GameObject();
-                SimpleMovementCC cc = cont.AddComponent<SimpleMovementCC>();
+                SokobanCharMovement cc = cont.AddComponent<SokobanCharMovement>();
                 cc.Init(character, level);
             }
 		}
