@@ -21,6 +21,7 @@ public class SokobanCharMovement : MonoBehaviour {
         this.level = level;
 
         previousPositions = new Stack<Vector2Int>();
+        previousPushes = new Stack<bool>();
         previousPositions.Push(CurrentPos());
 
         initializated = true;
@@ -34,16 +35,26 @@ public class SokobanCharMovement : MonoBehaviour {
         if (!initializated)
             Debug.LogError("Character controllers must be initializated inmediately!");
 
+        bool pushedSomething = false;
+
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
+            if (level.GetTileAt(character.X - 1, character.Y).HasFurniture())
+                pushedSomething = true;
             character.Walk(-1, 0);
         }
         if (Input.GetKeyDown(KeyCode.DownArrow)) {
+            if (level.GetTileAt(character.X + 1, character.Y).HasFurniture())
+                pushedSomething = true;
             character.Walk(1, 0);
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+            if (level.GetTileAt(character.X, character.Y - 1).HasFurniture())
+                pushedSomething = true;
             character.Walk(0, -1);
         }
         if (Input.GetKeyDown(KeyCode.RightArrow)) {
+            if (level.GetTileAt(character.X, character.Y + 1).HasFurniture())
+                pushedSomething = true;
             character.Walk(0, 1);
         }
 
@@ -51,6 +62,7 @@ public class SokobanCharMovement : MonoBehaviour {
 
         if (CurrentPos() != previousPositions.Peek()) {
             previousPositions.Push(CurrentPos());
+            previousPushes.Push(pushedSomething);
         }
 
         if (Input.GetKeyDown(KeyCode.U)) {
@@ -61,6 +73,7 @@ public class SokobanCharMovement : MonoBehaviour {
     private void UndoLastMovement() {
         if (previousPositions.Count > 1) {
             previousPositions.Pop();
+            
 
             Vector2Int previousPosition = previousPositions.Peek();
             Vector2Int inverseMovement = new Vector2Int(character.X - previousPosition.x, character.Y - previousPosition.y);
@@ -69,7 +82,9 @@ public class SokobanCharMovement : MonoBehaviour {
             Vector2Int movement = new Vector2Int(previousPosition.x - character.X, previousPosition.y - character.Y);
 
             character.Walk(movement.x, movement.y);
-            level.GetTileAt(pushedBoxPos.x, pushedBoxPos.y).GetPlacedFurniture().Move(movement.x, movement.y);
+
+            if (previousPushes.Pop())
+                level.GetTileAt(pushedBoxPos.x, pushedBoxPos.y).GetPlacedFurniture().Move(movement.x, movement.y);
 
 
 
