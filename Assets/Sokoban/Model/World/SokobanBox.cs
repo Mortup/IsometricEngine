@@ -31,6 +31,9 @@ namespace com.gStudios.sokoban.model.world {
         public override void OnStandOver(WalkInfo walkInfo) {
 
             Move(walkInfo.xDirection, walkInfo.yDirection);
+        }
+
+        public override void OnMove(int xOffset, int yOffset) {
             UpdateVariation();
         }
 

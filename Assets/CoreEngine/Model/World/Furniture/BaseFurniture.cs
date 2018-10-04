@@ -51,7 +51,11 @@ namespace com.gStudios.isometric.model.world.furniture {
                 destination.PlaceFurniture(this);
                 parent = destination;
             }
+
+            OnMove(xOffset, yOffset);
         }
+
+        public virtual void OnMove(int xOffset, int yOffset) { }
 
         public override sealed bool IsFurniture() {
             return true;
