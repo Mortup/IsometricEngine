@@ -3,6 +3,7 @@
 using UnityEngine;
 
 using com.gStudios.isometric.controller;
+using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.controller.characters;
 
 using com.gStudios.isometric.model.characters;
@@ -41,9 +42,15 @@ namespace com.gStudios.sokoban.controller {
 
             if (chars.Count > 1)
                 Debug.LogError("Sokoban levels cannot have more than one character.");
-            
+
             cc.Init(chars[0], level);
             sprCC.Init(chars[0], "Player");
+
+            Vector2Int centerCoords = new Vector2Int(level.Width/2, level.Height/2);
+            Vector2 centerPos = TileTransformer.CoordToWorld(centerCoords);
+
+            Camera mainCam = Camera.main;
+            mainCam.transform.position = new Vector3(centerPos.x, centerPos.y, mainCam.transform.position.z);
         }
 
         public void Update() {
