@@ -3,6 +3,7 @@
 using UnityEngine;
 
 using com.gStudios.isometric.controller;
+using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.controller.characters;
 
@@ -48,6 +49,7 @@ namespace com.gStudios.sokoban.controller {
 
             Vector2Int centerCoords = new Vector2Int(level.Width/2, level.Height/2);
             Vector2 centerPos = TileTransformer.CoordToWorld(centerCoords);
+            centerPos.x += Settings.TILE_WIDTH_HALF;
 
             Camera mainCam = Camera.main;
             mainCam.transform.position = new Vector3(centerPos.x, centerPos.y, mainCam.transform.position.z);
