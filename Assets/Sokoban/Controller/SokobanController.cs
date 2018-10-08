@@ -20,7 +20,7 @@ namespace com.gStudios.sokoban.controller {
         private CoreLevelController coreLevelController;
         private Level level;
 
-        private int currentLevelIndex = 1;
+        private int currentLevelIndex = 30;
 
         private GameObject playerController;
         private SokobanCharMovement cc;
@@ -56,7 +56,7 @@ namespace com.gStudios.sokoban.controller {
         }
 
         public void Update() {
-            if (HasWon()) {
+            if (HasWon() || Input.GetKeyDown(KeyCode.N)) {
                 Debug.Log("You Win!");
                 LoadNextLevel();
             }
@@ -88,6 +88,7 @@ namespace com.gStudios.sokoban.controller {
         private void LoadNextLevel() {
             currentLevelIndex++;
             LoadCurrentLevel();
+            Debug.Log("Loading level " + currentLevelIndex.ToString() + "...");
         }
 
         private void LoadCurrentLevel() {
