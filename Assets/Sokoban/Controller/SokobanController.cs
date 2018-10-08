@@ -24,14 +24,14 @@ namespace com.gStudios.sokoban.controller {
 
         private GameObject playerController;
         private SokobanCharMovement cc;
-        private FourDirectionsSpriteCC sprCC;
+        private SokobanCharSprites sprCC;
 
         public void Init(CoreLevelController clc) {
             coreLevelController = clc;
 
             playerController = new GameObject("Player");
             cc = playerController.AddComponent<SokobanCharMovement>();
-            sprCC = playerController.AddComponent<FourDirectionsSpriteCC>();
+            sprCC = playerController.AddComponent<SokobanCharSprites>();
  
             LoadNextLevel();
        }
