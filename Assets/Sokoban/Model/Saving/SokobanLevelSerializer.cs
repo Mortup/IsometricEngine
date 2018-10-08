@@ -16,7 +16,7 @@ namespace com.gStudios.sokoban.model.saving {
 
         const char WALL = '#';
         const char PLAYER = '@';
-        const char PLAYER_OVER_BOX = '+';
+        const char PLAYER_OVER_GOAL = '+';
         const char BOX = '$';
         const char PLACED_BOX = '*';
         const char GOAL = '.';
@@ -63,7 +63,7 @@ namespace com.gStudios.sokoban.model.saving {
                         else if (lines[y][x] == WALL) {
                             currentTile.PlaceFurniture(new SokobanWall(level, currentTile));
                         }
-                        else if (lines[y][x] == PLAYER || lines[y][x] == PLAYER_OVER_BOX) {
+                        else if (lines[y][x] == PLAYER || lines[y][x] == PLAYER_OVER_GOAL) {
                             level.AddCharacter(new Character(level, x, y));
                         }
                     }
@@ -92,7 +92,7 @@ namespace com.gStudios.sokoban.model.saving {
                     return 2;
                 case PLACED_BOX:
                     return 2;
-                case PLAYER_OVER_BOX:
+                case PLAYER_OVER_GOAL:
                     return 2;
                 default:
                     return 1;
