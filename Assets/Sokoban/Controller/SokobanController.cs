@@ -20,7 +20,7 @@ namespace com.gStudios.sokoban.controller {
         private CoreLevelController coreLevelController;
         private Level level;
 
-        private int currentLevelIndex = 30;
+        private int currentLevelIndex = 0;
 
         private GameObject playerController;
         private SokobanCharMovement cc;
