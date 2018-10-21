@@ -67,6 +67,26 @@ namespace com.gStudios.sokoban.controller {
 
         }
 
+        public void MovePlayer(string direction) {
+            switch(direction) {
+                case "up":
+                    cc.MoveUp();
+                    break;
+                case "down":
+                    cc.MoveDown();
+                    break;
+                case "left":
+                    cc.MoveLeft();
+                    break;
+                case "right":
+                    cc.MoveRight();
+                    break;
+                default:
+                    Debug.LogError("Unknown move direction.");
+                    break;
+            }
+        }
+
         private bool HasWon() {
             bool hasWon = true;
 

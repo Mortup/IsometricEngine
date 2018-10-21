@@ -37,25 +37,20 @@ public class SokobanCharMovement : MonoBehaviour {
 
         bool pushedSomething = false;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            if (level.GetTileAt(character.X - 1, character.Y).HasFurniture())
-                pushedSomething = true;
-            character.Walk(-1, 0);
-        }
         if (Input.GetKeyDown(KeyCode.DownArrow)) {
             if (level.GetTileAt(character.X + 1, character.Y).HasFurniture())
                 pushedSomething = true;
-            character.Walk(1, 0);
+            
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow)) {
             if (level.GetTileAt(character.X, character.Y - 1).HasFurniture())
                 pushedSomething = true;
-            character.Walk(0, -1);
+            
         }
         if (Input.GetKeyDown(KeyCode.RightArrow)) {
             if (level.GetTileAt(character.X, character.Y + 1).HasFurniture())
                 pushedSomething = true;
-            character.Walk(0, 1);
+            
         }
 
         UpdatePosition();
@@ -68,6 +63,22 @@ public class SokobanCharMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.U)) {
             UndoLastMovement();
         }
+    }
+
+    public void MoveUp() {
+        character.Walk(-1, 0);
+    }
+
+    public void MoveDown() {
+        character.Walk(1, 0);
+    }
+
+    public void MoveLeft() {
+        character.Walk(0, -1);
+    }
+
+    public void MoveRight() {
+        character.Walk(0, 1);
     }
 
     private void UndoLastMovement() {
