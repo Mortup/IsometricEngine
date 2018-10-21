@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-using com.gStudios.isometric.controller.characters;
 using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.controller.spriteObservers;
@@ -63,15 +62,6 @@ namespace com.gStudios.isometric.controller {
             }
             if (Input.GetKeyDown(KeyCode.Q)) {
                 OrientationManager.RotateCounterClockwise();
-            }
-
-            if (Input.GetKeyDown(KeyCode.A)) {
-                model.characters.Character character = new model.characters.Character(level, Random.Range(0, level.Width), Random.Range(0, level.Height)); //TODO: Update level reference on load level.
-                level.AddCharacter(character);
-                Debug.Log("Agregando personaje");
-                GameObject cont = new GameObject();
-                SokobanCharMovement cc = cont.AddComponent<SokobanCharMovement>();
-                cc.Init(character, level);
             }
 		}
 

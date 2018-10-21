@@ -5,12 +5,12 @@ using UnityEngine;
 using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.isometricTransform;
-using com.gStudios.isometric.controller.characters;
 
 using com.gStudios.isometric.model.characters;
 using com.gStudios.isometric.model.world;
 
 using com.gStudios.sokoban.model.saving;
+using com.gStudios.sokoban.controller.characters;
 using com.gStudios.isometric.model.world.tile;
 
 namespace com.gStudios.sokoban.controller {
@@ -44,7 +44,7 @@ namespace com.gStudios.sokoban.controller {
             if (chars.Count > 1)
                 Debug.LogError("Sokoban levels cannot have more than one character.");
 
-            cc.Init(chars[0], level);
+            cc.Init(chars[0], level, sprCC);
             sprCC.Init(chars[0], "Player");
 
             Vector2Int centerCoords = new Vector2Int(level.Width/2, level.Height/2);
@@ -61,30 +61,18 @@ namespace com.gStudios.sokoban.controller {
                 LoadNextLevel();
             }
 
-            if (Input.GetKeyDown(KeyCode.R)) {
-                LoadCurrentLevel();
-            }
-
         }
 
         public void MovePlayer(string direction) {
-            switch(direction) {
-                case "up":
-                    cc.MoveUp();
-                    break;
-                case "down":
-                    cc.MoveDown();
-                    break;
-                case "left":
-                    cc.MoveLeft();
-                    break;
-                case "right":
-                    cc.MoveRight();
-                    break;
-                default:
-                    Debug.LogError("Unknown move direction.");
-                    break;
-            }
+            cc.Move(direction);
+        }
+
+        public void UndoMovement() {
+            cc.Undo();
+        }
+
+        public void RestartLevel() {
+            LoadCurrentLevel();
         }
 
         private bool HasWon() {

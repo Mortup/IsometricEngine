@@ -3,9 +3,9 @@
 using com.gStudios.isometric.model.characters;
 using com.gStudios.isometric.controller.spriteObservers;
 
-namespace com.gStudios.isometric.controller.characters {
+namespace com.gStudios.sokoban.controller.characters {
 
-	public class SokobanCharSprites : MonoBehaviour, ICharacterObserver {
+	public class SokobanCharSprites : MonoBehaviour {
 
         ICharacter character;
         SpriteRenderer sr;
@@ -18,7 +18,6 @@ namespace com.gStudios.isometric.controller.characters {
 
         public void Init(ICharacter character, string spritesName) {
             this.character = character;
-            character.Subscribe(this);
 
             sr.sortingLayerName = "Tiles";
 
@@ -30,8 +29,7 @@ namespace com.gStudios.isometric.controller.characters {
             sr.sprite = right;
         }
 
-        public void OnCharMove(int xOffset, int yOffset, bool succesful) {
-            bool undoing = Input.GetKey(KeyCode.U);
+        public void UpdateSprite(int xOffset, int yOffset, bool undoing) {
             if (xOffset > 0) {
                 if (!undoing)
                     sr.sprite = down;
@@ -60,7 +58,6 @@ namespace com.gStudios.isometric.controller.characters {
 
         private void Update() {
             sr.sortingOrder = SortingOrders.TileOrder(character.X, character.Y, TileSubLayer.Character);
-
         }
 
         
