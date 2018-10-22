@@ -27,10 +27,6 @@ namespace com.gStudios.isometric.controller.config {
             return Path.Combine(WallCursorSprites, name);
         }
 
-		public static string TileSprite(int index) {
-			return Path.Combine(TilesSprites, "Floor" + index.ToString ());
-		}
-
 		public static string JsonData(string name) {
 			return Path.Combine(JsonDatas, name + "Data");
 		}
