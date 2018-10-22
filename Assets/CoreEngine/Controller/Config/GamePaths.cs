@@ -4,18 +4,16 @@ namespace com.gStudios.isometric.controller.config {
 
 	public static class GamePaths {
 
-        public static readonly string TilesSprites = Path.Combine("Sprites", "Tiles");
-        public static readonly string WallSprites = Path.Combine("Sprites", "Walls");
+        public static readonly string TilesSprites = "Sprites/Tiles";
+        public static readonly string WallSprites = "Sprites/Walls";
 
-		private static readonly string CursorSprites = Path.Combine("Sprites", "Cursors");
-        private static readonly string TileCursorSprites = Path.Combine(CursorSprites, "TileCursors");
-        private static readonly string WallCursorSprites = Path.Combine(CursorSprites, "WallCursors");
+        private static readonly string CursorSprites = "Sprites/Cursors";
+        private static readonly string TileCursorSprites = CursorSprites + "/TileCursors";
+        private static readonly string WallCursorSprites = CursorSprites + "/WallCursors";
 
 		private static readonly string JsonDatas = "Data";
 
-		public static readonly string CursorPrefab = Path.Combine("Prefabs", "Cursor");
-
-        public static readonly string ResourcesBase = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("Assets", "CoreEngine", "Resources"));
+        public static readonly string CursorPrefab = "Prefabs/Cursor";
 
         public static string CursorSprite(string name) {
             return Path.Combine(CursorSprites, name);
