@@ -17,7 +17,7 @@ namespace com.gStudios.isometric.controller.data {
 		public WallSpriteDataLoader() {
             sprites = new List<IWallSprite>();
 
-            Sprite[] resLoadedSprites = Resources.LoadAll<Sprite>("Sprites/Walls");
+            Sprite[] resLoadedSprites = Resources.LoadAll<Sprite>(GamePaths.WallSprites);
             List<List<Sprite>> groupedSprites = resLoadedSprites
                 .GroupBy(x => x.name.Split('_')[1])
                 .Select(grp => grp.ToList())
