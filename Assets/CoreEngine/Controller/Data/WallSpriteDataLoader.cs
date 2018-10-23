@@ -17,10 +17,15 @@ namespace com.gStudios.isometric.controller.data {
 		public WallSpriteDataLoader() {
             sprites = new List<IWallSprite>();
 
-            string wallSpritesFullPath = Path.Combine(GamePaths.ResourcesBase, GamePaths.WallSprites);
-            string[] directories = Directory.GetDirectories(wallSpritesFullPath);
-            foreach (string folder in directories.OrderBy(x => x, new TrailingNumberComparer())) {
-                Sprite[] currentSpritePack = Resources.LoadAll<Sprite>(folder.Remove(0, GamePaths.ResourcesBase.Length + 1));
+            Sprite[] resLoadedSprites = Resources.LoadAll<Sprite>(GamePaths.WallSprites);
+            List<List<Sprite>> groupedSprites = resLoadedSprites
+                .GroupBy(x => x.name.Split('_')[1])
+                .Select(grp => grp.ToList())
+                .OrderBy(group => group.First().name.Split('_')[1], new TrailingNumberComparer())
+                .ToList();
+            
+            foreach (List<Sprite> sprGroup in groupedSprites) {
+                Sprite[] currentSpritePack = sprGroup.ToArray();
 
                 if (sprites.Count == WallIndex.Empty)
                     sprites.Add(new EmptySprite(currentSpritePack[0]));
