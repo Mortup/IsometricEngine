@@ -13,7 +13,7 @@ public class SoundChooser : MonoBehaviour {
     }
 
     public void Play(string soundName) {
-        source.pitch = Random.Range(0.95f, 1.05f);
+        source.pitch = Random.Range(0.98f, 1.02f);
 
         switch(soundName) {
             case "movement":

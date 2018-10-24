@@ -4,4 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Sokoban/Scenes/MainMenu.unity
+    guid: 7998d797431bbbb4eb954a69d8b1d495
+  - enabled: 1
+    path: Assets/Sokoban/Scenes/GameScene.unity
+    guid: 356316459b1a2a645a1b993f6526880f
+  m_configObjects: {}
