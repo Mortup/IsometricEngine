@@ -31,14 +31,39 @@ public class TransitionManager : MonoBehaviour {
     }
 
     public void Transition(GameObject newScreen) {
-        StartCoroutine(FadeOut(newScreen, true));
+        StartCoroutine(FadeAndSwitchScreen(newScreen, true));
+    }
+
+    public void Transition(Action endAction) {
+        StartCoroutine(FadeOut(endAction));
     }
 
     public void UndoTransition() {
-        StartCoroutine(FadeOut(previousScreens.Pop(), false));
+        StartCoroutine(FadeAndSwitchScreen(previousScreens.Pop(), false));
     }
 
-    public IEnumerator FadeOut(GameObject newScreen, bool addToTransitionStack) {
+    private IEnumerator FadeOut(Action endAction) {
+        transitionImage.gameObject.SetActive(true);
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeOutTime) {
+            elapsedTime += Time.deltaTime;
+
+            Color originalColor = transitionImage.color;
+            transitionImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, Mathf.InverseLerp(0f, fadeOutTime, elapsedTime));
+
+            yield return null;
+        }
+
+        transitionImage.color = new Color(transitionImage.color.r, transitionImage.color.g, transitionImage.color.b, 1f);
+
+        endAction();
+
+        StartCoroutine(FadeIn());
+        yield return null;
+    }
+
+    private IEnumerator FadeAndSwitchScreen(GameObject newScreen, bool addToTransitionStack) {
 
         transitionImage.gameObject.SetActive(true);
         float elapsedTime = 0f;
@@ -66,7 +91,7 @@ public class TransitionManager : MonoBehaviour {
         yield return null;
     }
 
-    public IEnumerator FadeIn() {
+    private IEnumerator FadeIn() {
 
         float elapsedTime = 0f;
 

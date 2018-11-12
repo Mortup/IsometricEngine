@@ -13,7 +13,7 @@ namespace com.gStudios.isometric.controller.camera {
 		}
 
 		void Start() {
-			cam.orthographicSize = 8f;
+			cam.orthographicSize = 12f;
 		}
 
 		void Update() {
