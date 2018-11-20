@@ -21,6 +21,7 @@ public class TransitionManager : MonoBehaviour {
 
     public void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
+
             if (previousScreens.Count == 0) {
                 Debug.Log("Quiting");
                 Application.Quit();

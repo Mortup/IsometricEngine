@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 using UnityEngine.SceneManagement;
+
+using com.gStudios.sokoban.controller;
 
 public class LevelSelectionButton : MonoBehaviour {
 
@@ -9,9 +10,6 @@ public class LevelSelectionButton : MonoBehaviour {
 
     private int index;
     private Button btn;
-
-    private Vector3 startDragPos;
-    private float currentXDelta;
 
     public void Init(int index) {
         this.index = index;
@@ -21,26 +19,10 @@ public class LevelSelectionButton : MonoBehaviour {
         btn.onClick.AddListener(OnButtonPressed);
     }
 
-    private void Update() {
-        if (Input.touchCount > 0) {
-            if (Input.GetTouch(0).phase == TouchPhase.Began) {
-                startDragPos = Input.GetTouch(0).position;
-            }
-
-            if (Input.GetTouch(0).phase == TouchPhase.Moved) {
-                Vector3 currentPos;
-                currentPos = Input.GetTouch(0).position;
-                Vector3 touchDelta = currentPos - startDragPos;
-                currentXDelta = touchDelta.x;
-            }
-        }
-    }
-
     public void OnButtonPressed() {
-        Debug.Log("Apretaito");
-        if (Mathf.Abs(currentXDelta) < 10f) {
+        if (Input.touchCount > 0 && Mathf.Abs(Input.GetTouch(0).deltaPosition.x) < 3f) {
             TransitionManager tm = FindObjectOfType<TransitionManager>();
-            Debug.Log(tm);
+            SokobanController.currentLevelIndex = index - 1;
             tm.Transition(LoadLevel);            
         }
     }
