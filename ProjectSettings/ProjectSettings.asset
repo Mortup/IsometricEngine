@@ -13,14 +13,14 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: gStudios
-  productName: IsometricEngine
+  productName: Just Sokoban
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
-  m_SplashScreenAnimation: 1
+  m_SplashScreenAnimation: 0
   m_SplashScreenLogoStyle: 1
   m_SplashScreenDrawMode: 0
   m_SplashScreenBackgroundAnimationZoom: 1
@@ -32,14 +32,16 @@ PlayerSettings:
     x: 0
     y: 0
     width: 1
-    height: 1
+    height: 0.99999994
   m_SplashScreenBackgroundPortraitUvs:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 21300000, guid: af36d1760605a6b43a57b687854fd60e, type: 3}
+    duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
@@ -51,7 +53,7 @@ PlayerSettings:
   m_MTRendering: 1
   m_StackTraceTypes: 010000000100000001000000010000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
-  androidShowActivityIndicatorOnLoading: 2
+  androidShowActivityIndicatorOnLoading: 0
   iosAppInBackgroundBehavior: 0
   displayResolutionDialog: 1
   iosAllowHTTPDownload: 1
@@ -250,7 +252,7 @@ PlayerSettings:
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   AndroidEnableTango: 0
-  androidEnableBanner: 1
+  androidEnableBanner: 0
   androidUseLowAccuracyLocation: 0
   m_AndroidBanners:
   - width: 320
@@ -262,37 +264,81 @@ PlayerSettings:
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: Android
     m_Icons:
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 192
+      m_Height: 192
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 144
+      m_Height: 144
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 96
+      m_Height: 96
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 72
+      m_Height: 72
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 48
+      m_Height: 48
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 36
+      m_Height: 36
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 2800000, guid: 56123f20a5d77fc4493a2357bc2067e3, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 144
       m_Height: 144
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 96
       m_Height: 96
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 72
       m_Height: 72
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 48
       m_Height: 48
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 0}
       m_Width: 36
       m_Height: 36
       m_Kind: 0
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 23ff9992e1f0e954bbc5d0bb0b5ddd1e, type: 3}
+      - {fileID: 2800000, guid: 23ff9992e1f0e954bbc5d0bb0b5ddd1e, type: 3}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
@@ -321,42 +367,6 @@ PlayerSettings:
       m_Width: 81
       m_Height: 81
       m_Kind: 2
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 192
-      m_Height: 192
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 144
-      m_Height: 144
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 96
-      m_Height: 96
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 72
-      m_Height: 72
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 48
-      m_Height: 48
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 36
-      m_Height: 36
-      m_Kind: 1
       m_SubKind: 
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []

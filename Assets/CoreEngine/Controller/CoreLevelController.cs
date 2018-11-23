@@ -24,8 +24,12 @@ namespace com.gStudios.isometric.controller {
 		WallSpriteObserver wallSpriteObserver;
         FurnitureSpriteObserver furnitureSpriteObserver;
 
-		void Start () {
-			DataManager.Init ();
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void OnBeforeSceneLoadRuntimeMethod() {
+            DataManager.Init();
+        }
+
+        void Start () {
 
 			tileSpriteObserver = new TileSpriteObserver ();
 			wallSpriteObserver = new WallSpriteObserver ();

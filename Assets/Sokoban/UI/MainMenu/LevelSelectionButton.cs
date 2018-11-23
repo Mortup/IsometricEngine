@@ -22,12 +22,12 @@ public class LevelSelectionButton : MonoBehaviour {
     public void OnButtonPressed() {
         if (Input.touchCount > 0 && Mathf.Abs(Input.GetTouch(0).deltaPosition.x) < 3f) {
             TransitionManager tm = FindObjectOfType<TransitionManager>();
-            SokobanController.currentLevelIndex = index - 1;
             tm.Transition(LoadLevel);            
         }
     }
 
     public void LoadLevel() {
+        SokobanController.currentLevelIndex = index - 1;
         SceneManager.LoadScene("GameScene");
     }
     
