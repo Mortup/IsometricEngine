@@ -3,15 +3,11 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class MovementButton : Button {
+public class MovementButton : MonoBehaviour, IPointerDownHandler {
 
-    [SerializeField] private UnityEvent onPressed;
+    [SerializeField] private UnityEvent onPressedDown;
 
-    public override void OnPointerDown(PointerEventData eventData) {
-        base.OnPointerDown(eventData);
-
-        onPressed.Invoke();
+    public void OnPointerDown(PointerEventData eventData) {
+        onPressedDown.Invoke();
     }
-
-
 }

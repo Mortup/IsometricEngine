@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SoundChooser : MonoBehaviour {
 
+    public static bool soundOn = true;
+
     [SerializeField] AudioClip movement;
 
     AudioSource source;
@@ -13,6 +15,9 @@ public class SoundChooser : MonoBehaviour {
     }
 
     public void Play(string soundName) {
+        if (!soundOn)
+            return;
+
         source.pitch = Random.Range(0.98f, 1.02f);
 
         switch(soundName) {
