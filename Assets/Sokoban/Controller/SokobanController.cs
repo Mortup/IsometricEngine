@@ -17,10 +17,13 @@ namespace com.gStudios.sokoban.controller {
 
     public class SokobanController : MonoBehaviour, ILevelController {
 
+        [SerializeField] private GameObject winScreen;
+        [SerializeField] private GameObject lastWinScreen;
+
         private CoreLevelController coreLevelController;
         private Level level;
 
-        public static int currentLevelIndex = 9;
+        public static int currentLevelIndex = 0;
 
         private GameObject playerController;
         private SokobanCharMovement cc;
@@ -56,10 +59,16 @@ namespace com.gStudios.sokoban.controller {
         }
 
         public void Update() {
-            if (HasWon() || Input.GetKeyDown(KeyCode.N)) {
-                Debug.Log("You Win!");
+            if (HasWon() && winScreen.activeSelf == false) {
                 SokoPlayerPrefs.CompleteLevel(currentLevelIndex - 1);
-                LoadNextLevel();
+
+                if (currentLevelIndex == SokobanLevelSerializer.LevelsCount()) {
+                    lastWinScreen.SetActive(true);
+                }
+                else {
+                    winScreen.SetActive(true);
+                }
+                
             }
 
         }
@@ -94,7 +103,7 @@ namespace com.gStudios.sokoban.controller {
 
         }
 
-        private void LoadNextLevel() {
+        public void LoadNextLevel() {
             currentLevelIndex++;
             LoadCurrentLevel();
             Debug.Log("Loading level " + currentLevelIndex.ToString() + "...");

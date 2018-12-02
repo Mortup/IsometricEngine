@@ -14,7 +14,18 @@ public class SoundToggle : MonoBehaviour {
 	}
 
     private void Update() {
+        bool last = SoundChooser.soundOn;
+
         SoundChooser.soundOn = toggle.isOn;
+
+        if (last != SoundChooser.soundOn) {
+            if (SoundChooser.soundOn) {
+                PlayerPrefs.SetInt("SO", 1);
+            }
+            else {
+                PlayerPrefs.SetInt("SO", 0);
+            }
+        }
     }
 
 }

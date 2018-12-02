@@ -6,6 +6,7 @@ namespace com.gStudios.isometric.controller.camera {
 
     public class CameraController : MonoBehaviour, ILevelController {
 
+        [SerializeField] private bool addCameraDrag;
         [SerializeField] private Camera mainCamera;
 
         private CameraDrag cameraDrag;
@@ -17,7 +18,7 @@ namespace com.gStudios.isometric.controller.camera {
 
         public void OnLevelInit(Level level) {
 
-            if (cameraDrag == null) {
+            if (cameraDrag == null && addCameraDrag) {
                 cameraDrag = mainCamera.gameObject.AddComponent<CameraDrag>();
             }
 
