@@ -20,7 +20,7 @@ public class GameBanner : MonoBehaviour {
         bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);
 
         // Create an empty ad request.
-        AdRequest request = new AdRequest.Builder().Build();
+        AdRequest request = new AdRequest.Builder().AddTestDevice("C1A5EF4590CCCEBED8C58972824C3499").Build();
 
         // Load the banner with the request.
         bannerView.LoadAd(request);
