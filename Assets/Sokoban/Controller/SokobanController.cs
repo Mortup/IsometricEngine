@@ -29,6 +29,8 @@ namespace com.gStudios.sokoban.controller {
         private SokobanCharMovement cc;
         private SokobanCharSprites sprCC;
 
+        private bool winScreenStarted = false;
+
         public void Init(CoreLevelController clc) {
             coreLevelController = clc;
 
@@ -41,6 +43,7 @@ namespace com.gStudios.sokoban.controller {
 
         public void OnLevelInit(Level level) {
             this.level = level;
+            winScreenStarted = false;
 
             List<ICharacter> chars = level.GetCharacters();
 
@@ -59,14 +62,15 @@ namespace com.gStudios.sokoban.controller {
         }
 
         public void Update() {
-            if (HasWon() && winScreen.activeSelf == false) {
+            if (HasWon() &&  winScreenStarted == false) {
                 SokoPlayerPrefs.CompleteLevel(currentLevelIndex - 1);
+                winScreenStarted = true;
 
                 if (currentLevelIndex == SokobanLevelSerializer.LevelsCount()) {
-                    lastWinScreen.SetActive(true);
+                    Invoke("ShowLastWinScreen", 0.5f);
                 }
                 else {
-                    winScreen.SetActive(true);
+                    Invoke("ShowWinScreen", 0.5f);
                 }
                 
             }
@@ -83,6 +87,14 @@ namespace com.gStudios.sokoban.controller {
 
         public void RestartLevel() {
             LoadCurrentLevel();
+        }
+
+        private void ShowWinScreen() {
+            winScreen.SetActive(true);
+        }
+
+        private void ShowLastWinScreen() {
+            lastWinScreen.SetActive(true);
         }
 
         private bool HasWon() {
