@@ -11,7 +11,7 @@ public class GameBanner : MonoBehaviour {
 
     private void RequestBanner() {
         #if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/6300978111";
+        string adUnitId = "ca-app-pub-6795630760093369/5180491609";
         #else
         string adUnitId = "unexpected_platform";
         #endif
