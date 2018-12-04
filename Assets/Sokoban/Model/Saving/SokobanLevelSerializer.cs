@@ -65,12 +65,6 @@ namespace com.gStudios.sokoban.model.saving {
             Level level = new Level(width, height);
 
             // Add tiles and items to the level.
-            Debug.Log(level.Width);
-            Debug.Log(level.Height);
-            Debug.Log(mask.GetLength(0));
-            Debug.Log(mask.GetLength(1));
-            Debug.Log(levelTiles.GetLength(0));
-            Debug.Log(levelTiles.GetLength(1));
             for (int x = 0; x < level.Width; x++) {
                 for (int y = 0; y < level.Height; y++) {
 
