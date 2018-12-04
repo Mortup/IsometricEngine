@@ -1,10 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PositionButton : MonoBehaviour {
 
-	public void SetInvertedControls(bool val) {
+    [SerializeField] private bool isLeft;
+    private Button btn;
+
+    public void Awake() {
+        btn = GetComponent<Button>();
+    }
+
+    public void Update() {
+        btn.interactable = isLeft != ButtonsPosition.horizontalInverted;
+    }
+
+    public void SetInvertedControls(bool val) {
         ButtonsPosition.horizontalInverted = val;
 
         if (val) {
