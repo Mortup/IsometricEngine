@@ -10,7 +10,8 @@
         FirstWallCursor = 1,
         SecondWallCursor = 2,
         ThirdWallCursor = 3,
-        Character = 4,
+        Furniture = 4,
+        Character = 5,
     }
 
 }

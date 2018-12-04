@@ -25,10 +25,14 @@ public class SpritePostProcessor : AssetPostprocessor
 			tis.spriteAlignment = (int)SpriteAlignment.Custom;
             tis.spritePivot = Settings.tilePivot;
 		}
-		else if (assetPath.Contains("Walls")) {
-			tis.spriteAlignment = (int)SpriteAlignment.Custom;
+        else if (assetPath.Contains("Walls")) {
+            tis.spriteAlignment = (int)SpriteAlignment.Custom;
             tis.spritePivot = Settings.wallPivot;
-		}
+        }
+        else if (assetPath.Contains("Furniture") || assetPath.Contains("Characters")) {
+            tis.spriteAlignment = (int)SpriteAlignment.Custom;
+            tis.spritePivot = Settings.furniturePivot;
+        }
         else if (assetPath.Contains("WallCursors")) {
             tis.spriteAlignment = (int)SpriteAlignment.Custom;
             tis.spritePivot = Settings.wallCursorPivot;

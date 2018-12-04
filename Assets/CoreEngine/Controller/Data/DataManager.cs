@@ -11,6 +11,7 @@ namespace com.gStudios.isometric.controller.data {
 		static TileSpriteDataLoader _tileSpriteData;
 		static WallSpriteDataLoader _wallSpriteData;
 		static CursorSpriteDataLoader _cursorSpriteData;
+        static FurnitureSpriteDataManager _furnitureSpriteData;
 
 		static bool initialized = false;
 
@@ -21,6 +22,7 @@ namespace com.gStudios.isometric.controller.data {
 			_tileSpriteData = new TileSpriteDataLoader ();
 			_wallSpriteData = new WallSpriteDataLoader ();
 			_cursorSpriteData = new CursorSpriteDataLoader ();
+            _furnitureSpriteData = new FurnitureSpriteDataManager();
 
 			initialized = true;
 		}
@@ -38,14 +40,21 @@ namespace com.gStudios.isometric.controller.data {
 			}
 		}
 
-		public static WallSpriteDataLoader wallSpriteData {
-			get {
-				CheckInitialization ();
-				return _wallSpriteData;
-			}
-		}
+        public static WallSpriteDataLoader wallSpriteData {
+            get {
+                CheckInitialization();
+                return _wallSpriteData;
+            }
+        }
 
-		public static CursorSpriteDataLoader cursorSpriteData {
+        public static FurnitureSpriteDataManager furnitureSpriteData {
+            get {
+                CheckInitialization();
+                return _furnitureSpriteData;
+            }
+        }
+
+        public static CursorSpriteDataLoader cursorSpriteData {
 			get {
 				CheckInitialization ();
 				return _cursorSpriteData;

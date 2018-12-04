@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-using com.gStudios.isometric.controller.characters;
 using com.gStudios.isometric.controller.data;
 using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.controller.spriteObservers;
@@ -16,36 +15,43 @@ namespace com.gStudios.isometric.controller {
 		[SerializeField] int levelHeight;
         [SerializeField] MonoBehaviour[] customControllers;
 
+        [SerializeField] bool debugRandomizeLevel;
         [SerializeField] bool debugLoadLevel;
 
 		Level level;
 
-        LevelSerializer levelSerializer;
-
 		TileSpriteObserver tileSpriteObserver;
 		WallSpriteObserver wallSpriteObserver;
+        FurnitureSpriteObserver furnitureSpriteObserver;
 
-		void Start () {
-			DataManager.Init ();
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void OnBeforeSceneLoadRuntimeMethod() {
+            DataManager.Init();
+        }
+
+        void Start () {
 
 			tileSpriteObserver = new TileSpriteObserver ();
 			wallSpriteObserver = new WallSpriteObserver ();
+            furnitureSpriteObserver = new FurnitureSpriteObserver();
 
-			levelSerializer = new LevelSerializer ();
-			LoadLevel ();
-		}
+			if (debugLoadLevel) {
+                LoadLevel(new DefaultLevelSerializer());
+            }
+
+            if (debugRandomizeLevel) {
+                level.RandomizeTiles();
+                level.RandomizeWalls();
+            }
+
+            foreach (ILevelController levelController in customControllers) {
+                levelController.Init(this);
+            }
+        }
 		
 		void Update () {
 			if (Input.GetKeyDown(KeyCode.R)) {
 				level.RandomizeWalls ();
-			}
-
-			if (Input.GetKeyDown(KeyCode.S)) {
-                level.Save(levelSerializer);
-			}
-
-			if (Input.GetKeyDown(KeyCode.L)) {
-				LoadLevel ();
 			}
 
 			if (Input.GetKeyDown(KeyCode.P)) {
@@ -61,34 +67,22 @@ namespace com.gStudios.isometric.controller {
             if (Input.GetKeyDown(KeyCode.Q)) {
                 OrientationManager.RotateCounterClockwise();
             }
-
-            if (Input.GetKeyDown(KeyCode.A)) {
-                model.characters.Character character = new model.characters.Character(level, Random.Range(0, level.Width), Random.Range(0, level.Height)); //TODO: Update level reference on load level.
-                level.AddCharacter(character);
-                Debug.Log("Agregando personaje");
-                GameObject cont = new GameObject();
-                DefaultCharacterController cc = cont.AddComponent<DefaultCharacterController>();
-                cc.Init(character);
-            }
 		}
 
-		void LoadLevel() {
+		public void LoadLevel(ILevelSerializer levelSerializer) {
 			tileSpriteObserver.RemoveTiles ();
 			wallSpriteObserver.RemoveWalls ();
+            furnitureSpriteObserver.RemoveFurniture();
 
-            if (debugLoadLevel && levelSerializer.ExistsSavedLevel()) {
-                level = levelSerializer.LoadLevel();
-            }
-            else {
-                level = new Level(levelWidth, levelHeight);
-            }
+            level = levelSerializer.LoadLevel();
 
             foreach (ILevelController levelController in customControllers) {
-                levelController.Init(level);
+                levelController.OnLevelInit(level);
             }
 
 			tileSpriteObserver.BindLevel (level);
 			wallSpriteObserver.BindLevel (level);
+            furnitureSpriteObserver.BindLevel(level);
 		}
 
 		// CONTROLLER GETTERS

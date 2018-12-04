@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using com.gStudios.isometric.model.characters;
+using com.gStudios.isometric.model.world.furniture;
 
 namespace com.gStudios.isometric.model.world.tile {
 
@@ -13,9 +12,25 @@ namespace com.gStudios.isometric.model.world.tile {
 
 		void Subscribe (ITileObserver observer);
 
+        void SubscribeToFurniture(IFurnitureObserver furnitureObserver);
+
+        void NotifyFurnitureVariationChanged();
+
         bool IsEmpty();
 
-        bool IsWalkable();
+        bool HasFurniture();
+
+        bool IsWalkable(WalkInfo walkInfo);
+
+        IFurniture GetPlacedFurniture();
+
+        void PlaceFurniture(IFurniture furniture);
+
+        void RemoveFurniture();
+
+        // Callbacks
+
+        void OnStandOver(WalkInfo walkInfo);
 		
 	}
 

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace com.gStudios.isometric.model.world.wall {
 
@@ -14,7 +12,6 @@ namespace com.gStudios.isometric.model.world.wall {
 			}
 			set {
 				type = value;
-
 				foreach (IWallObserver wallObserver in observers) {
 					wallObserver.NotifyWallTypeChanged (this);
 				}
