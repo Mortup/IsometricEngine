@@ -26,6 +26,19 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             return world - offset;
         }
 
+        public static Vector2 CoordToWorld(float x, float y) {
+            Vector2 rotatedCoords = RotateCoord(new Vector2(x, y));
+            float rotatedX = rotatedCoords.x;
+            float rotatedY = rotatedCoords.y;
+
+            Vector2 world = new Vector2(
+                (rotatedY - rotatedX) * Settings.TILE_WIDTH_HALF,
+                -(rotatedX + rotatedY) * Settings.TILE_HEIGHT_HALF);
+
+            Vector2 offset = new Vector2(Settings.TILE_WIDTH_HALF, 0f);
+            return world - offset;
+        }
+
         /// <summary>
         /// Converts isometric tile coordinates to a world position.
         /// </summary>
@@ -77,6 +90,22 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             return Vector2Int.zero;
         }
 
+        public static Vector2 RotateCoord(Vector2 original) {
+            switch (OrientationManager.currentOrientation) {
+                case Orientation.North:
+                    return original;
+                case Orientation.West:
+                    return new Vector2(original.y, -original.x);
+                case Orientation.South:
+                    return new Vector2(-original.x, -original.y);
+                case Orientation.East:
+                    return new Vector2(-original.y, original.x);
+            }
+
+            Debug.Log("Trying to rotate to an unknown orientation.");
+            return Vector2.zero;
+        }
+
         public static Vector2Int InverseRotateCoord(Vector2Int original) {
             switch (OrientationManager.currentOrientation) {
                 case Orientation.North:
@@ -91,6 +120,22 @@ namespace com.gStudios.isometric.controller.isometricTransform {
 
             Debug.Log("Trying to rotate to an unknown orientation.");
             return Vector2Int.zero;
+        }
+
+        public static Vector2 InverseRotateCoord(Vector2 original) {
+            switch (OrientationManager.currentOrientation) {
+                case Orientation.North:
+                    return original;
+                case Orientation.West:
+                    return new Vector2(-original.y, original.x);
+                case Orientation.South:
+                    return new Vector2(-original.x, -original.y);
+                case Orientation.East:
+                    return new Vector2(original.y, -original.x);
+            }
+
+            Debug.Log("Trying to rotate to an unknown orientation.");
+            return Vector2.zero;
         }
     }
 
