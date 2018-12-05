@@ -46,7 +46,7 @@ namespace com.gStudios.isometric.controller.characters {
         }
 
         private void Update() {
-            sr.sortingOrder = SortingOrders.TileOrder(character.X, character.Y, TileSubLayer.Character);
+            sr.sortingOrder = SortingOrders.TileOrder(character.roundedX, character.roundedY, TileSubLayer.Character);
 
         }
 

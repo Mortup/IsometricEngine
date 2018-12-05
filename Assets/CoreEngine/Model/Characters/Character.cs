@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.tile;
@@ -10,19 +11,53 @@ namespace com.gStudios.isometric.model.characters {
         private List<ICharacterObserver> observers;
         protected Level level;
 
+        private float x;
+        private float y;
+
         public Character(Level level, int x, int y) {
             this.level = level;
-            this.X = x;
-            this.Y = y;
+            this.x = x;
+            this.y = y;
 
             observers = new List<ICharacterObserver>();
         }
 
-        public int X { get; protected set; }
+        public Level Level {
+            get {
+                return level;
+            }
+        }
 
-        public int Y { get; protected set; }
+        public float X {
+            get {
+                return x;
+            }
+        }
 
-        public void Walk(int xOffset, int yOffset) {
+        public float Y {
+            get {
+                return y;
+            }
+        }
+
+        public int roundedX {
+            get {
+                return (int)Math.Round(x);
+            }
+        }
+
+        public int roundedY {
+            get {
+                return (int)Math.Round(y);
+            }
+        }
+
+        public void Walk(float xOffset, float yOffset) {
+
+            x += xOffset;
+            y += yOffset;
+            
+            /**
             ITile destinationTile = level.GetTileAt(X + xOffset, Y + yOffset);
             WalkInfo walkInfo = new WalkInfo(xOffset, yOffset);
 
@@ -43,7 +78,7 @@ namespace com.gStudios.isometric.model.characters {
                 foreach (ICharacterObserver charObs in observers) {
                     charObs.OnCharMove(xOffset, yOffset, false);
                 }
-            }
+            }**/
 
         }
 
