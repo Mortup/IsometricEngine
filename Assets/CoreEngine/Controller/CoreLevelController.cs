@@ -67,6 +67,15 @@ namespace com.gStudios.isometric.controller {
             if (Input.GetKeyDown(KeyCode.Q)) {
                 OrientationManager.RotateCounterClockwise();
             }
+
+            // Debug character
+            if (Input.GetKeyDown(KeyCode.N)) {
+                model.characters.Character characterM = new model.characters.Character(level, 6, 6);
+
+                GameObject character = new GameObject("Character");
+                characters.DefaultCharacterController dcc = character.AddComponent<characters.DefaultCharacterController>();
+                dcc.Init(characterM);
+            }
 		}
 
 		public void LoadLevel(ILevelSerializer levelSerializer) {

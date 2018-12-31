@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using com.gStudios.isometric.model.characters;
 using com.gStudios.isometric.model.saving;
@@ -76,6 +77,20 @@ namespace com.gStudios.isometric.model.world {
             }
 
             return walls[x, y, z];
+        }
+
+        public IWall GetWallBetweenTiles(int x0, int y0, int x1, int y1) {
+            float distance = Math.Abs(x0 - x1) + Math.Abs(y0 - y1);
+            if (distance != 1) {
+                UnityEngine.Debug.LogError("Tiles must be at a distance of exactly one.");
+                return null;
+            }
+
+            int x = Math.Max(x0, x1);
+            int y = Math.Max(y0, y1);
+            int z = x0 == x1 ? 0 : 1;
+
+            return GetWallAt(x, y, z);
         }
 
         // Vertex

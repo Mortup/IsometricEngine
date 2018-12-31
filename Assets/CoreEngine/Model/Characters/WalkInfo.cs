@@ -1,11 +1,13 @@
-﻿namespace com.gStudios.isometric.model.characters {
+﻿using System;
+
+namespace com.gStudios.isometric.model.characters {
 
 	public struct WalkInfo {
 
-        public int xDirection;
-        public int yDirection;
+        public float xDirection;
+        public float yDirection;
 
-        public WalkInfo(int xDirection, int yDirection) {
+        public WalkInfo(float xDirection, float yDirection) {
             this.xDirection = xDirection;
             this.yDirection = yDirection;
         }

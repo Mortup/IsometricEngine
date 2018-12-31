@@ -21,7 +21,7 @@ namespace com.gStudios.isometric.controller.characters {
         }
 
         public void UpdatePosition() {
-            gameObject.transform.position = TileTransformer.CoordToWorld(character.X, character.Y);
+            gameObject.transform.position = TileTransformer.CoordToWorld(character.x, character.y);
         }
 
         public virtual void Update() {

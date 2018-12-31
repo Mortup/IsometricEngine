@@ -3,23 +3,27 @@ using System.Collections.Generic;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.tile;
+using com.gStudios.isometric.model.world.wall;
 
 namespace com.gStudios.isometric.model.characters {
 
 	public class Character : ICharacter {
 
+        private CharacterMovement charMovement;
+
         private List<ICharacterObserver> observers;
         protected Level level;
-
-        private float x;
-        private float y;
 
         public Character(Level level, int x, int y) {
             this.level = level;
             this.x = x;
             this.y = y;
 
+            charMovement = new CharacterMovement(this);
             observers = new List<ICharacterObserver>();
+
+            width = 0.25f;
+            height = 0.3f;
         }
 
         public Level Level {
@@ -28,62 +32,35 @@ namespace com.gStudios.isometric.model.characters {
             }
         }
 
-        public float X {
-            get {
-                return x;
-            }
-        }
+        public float x { get; private set; }
+        public float y { get; private set; }
 
-        public float Y {
-            get {
-                return y;
-            }
-        }
+        public int roundedX { get { return (int)Math.Round(x); } }
 
-        public int roundedX {
-            get {
-                return (int)Math.Round(x);
-            }
-        }
+        public int roundedY { get { return (int)Math.Round(y); } }
 
-        public int roundedY {
-            get {
-                return (int)Math.Round(y);
-            }
-        }
+        public float width { get; private set; }
+        public float height { get; private set; }
+
+        public int roundedWestX { get { return (int)Math.Round(x - width); } }
+        public int roundedEastX { get { return (int)Math.Round(x + width); } }
+        public int roundedNorthY { get { return (int)Math.Round(y - height); } }
+        public int roundedSouthY { get { return (int)Math.Round(y + height); } }
+
 
         public void Walk(float xOffset, float yOffset) {
+            float[] allowedOffset = charMovement.Walk(xOffset, yOffset);
 
-            x += xOffset;
-            y += yOffset;
-            
-            /**
-            ITile destinationTile = level.GetTileAt(X + xOffset, Y + yOffset);
-            WalkInfo walkInfo = new WalkInfo(xOffset, yOffset);
-
-            if (destinationTile.IsWalkable(walkInfo)) {
-                this.X += xOffset;
-                this.Y += yOffset;
-
-                // OnStandOver Callback
-                destinationTile.OnStandOver(walkInfo);
-
-                // OnWalk Callback
-                foreach (ICharacterObserver charObs in observers) {
-                    charObs.OnCharMove(xOffset, yOffset, true);
-                }
-            }
-            else {
-                // OnWalk Callback
-                foreach (ICharacterObserver charObs in observers) {
-                    charObs.OnCharMove(xOffset, yOffset, false);
-                }
-            }**/
-
+            x += allowedOffset[0];
+            y += allowedOffset[1];
         }
 
         public void Subscribe(ICharacterObserver observer) {
             observers.Add(observer);
+        }
+
+        public static int ClosestCoord(float c) {
+            return (int)Math.Round(c);
         }
 
     }

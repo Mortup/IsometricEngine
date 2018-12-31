@@ -7,7 +7,7 @@ namespace com.gStudios.isometric.model.world.commands {
 
 		public static readonly NullCommand instance = new NullCommand ();
 
-		public NullCommand() : base(null, -1, -1, -1) {
+		private NullCommand() : base(null, -1, -1, -1) {
 		}
 
 		public override CursorCommand Excecute ()

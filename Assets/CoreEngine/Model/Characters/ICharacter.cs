@@ -6,11 +6,14 @@ namespace com.gStudios.isometric.model.characters {
 
         Level Level { get; }
 
-        float X { get; }
-        float Y { get; }
+        float x { get; }
+        float y { get; }
 
         int roundedX { get; }
         int roundedY { get; }
+
+        float width { get; }
+        float height { get; }
 
         void Walk(float xOffset, float yOffset);
 
