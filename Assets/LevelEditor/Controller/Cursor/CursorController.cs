@@ -60,7 +60,10 @@ namespace com.gStudios.levelEditor.controller.cursor {
             else if (mode == "paintWalls") {
                 currentMode = new WallPaintMode(level);
             }
-			else {
+            else if (mode == "placeFurniture") {
+                currentMode = new FurnitureMode(level);
+            }
+            else {
 				Debug.LogError ("Trying to set an unkown mode " + mode);
 			}
 

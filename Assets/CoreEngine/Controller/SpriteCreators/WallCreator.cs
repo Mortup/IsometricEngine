@@ -28,7 +28,12 @@ namespace com.gStudios.isometric.controller.spriteCreators {
 
             Graphics.CopyTexture(spr.texture, tex);
 
-            DrawBorders(tex, z, neighbors);
+            if (Settings.DRAW_WALL_BORDERS) {
+                DrawBorders(tex, z, neighbors);
+            }
+            else {
+                CutCorners(tex, z, neighbors);
+            }
 
             if (isCropped)
                 Crop(tex, cropLength, z);
@@ -38,6 +43,52 @@ namespace com.gStudios.isometric.controller.spriteCreators {
             Sprite end = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Settings.wallPivot, Settings.PPU);
 
             return end;
+        }
+
+        private static void CutCorners(Texture2D tex, int z, InmediateWallNeighbors neighbors) {
+            // Delete border color pixel
+            tex.SetPixel(0, 0, Color.clear);
+
+            if (z == 1) {
+                FlipTex(tex);
+                neighbors.FlipSideNeighbors();
+            }
+
+            if (!neighbors.TopLeft.IsEmpty()) {
+                DrawIsoLine(tex, Color.clear, BackTop, new Vector2Int(BackTop.x - 1, BackTop.y));
+
+                if (neighbors.Top.IsEmpty() && neighbors.TopRight.IsEmpty()) {
+                    Color topColor = tex.GetPixel(RightTop.x - 2, RightTop.y - 1);
+                    DrawIsoLine(tex, topColor, new Vector2Int(RightTop.x, RightTop.y + 1), new Vector2Int(RightTop.x - 1, RightTop.y + 1));
+                }
+            }
+
+            if (!neighbors.TopRight.IsEmpty()) {
+                DrawVerticalLine(tex, Color.clear, RightTop, RightBottom);
+                DrawVerticalLine(tex, Color.clear, new Vector2Int(RightTop.x - 1, RightTop.y), new Vector2Int(RightBottom.x - 1, RightBottom.y));
+                DrawVerticalLine(tex, Color.clear, new Vector2Int(RightTop.x - 2, RightTop.y + 1), new Vector2Int(RightBottom.x - 2, RightBottom.y - 1));
+
+                Color topColor = tex.GetPixel(RightTop.x - 3, RightTop.y + 1);
+                DrawVerticalLine(tex, topColor, new Vector2Int(RightTop.x - 3, RightTop.y + 2), new Vector2Int(RightTop.x - 3, RightTop.y + 2));
+            }
+
+            if (!neighbors.BottomLeft.IsEmpty()) {
+                DrawVerticalLine(tex, Color.clear, LeftTop, LeftBottom);
+                DrawVerticalLine(tex, Color.clear, new Vector2Int(LeftTop.x + 1, LeftTop.y), new Vector2Int(LeftBottom.x + 1, LeftBottom.y));
+                DrawVerticalLine(tex, Color.clear, new Vector2Int(LeftTop.x + 2, LeftTop.y + 1), new Vector2Int(LeftBottom.x + 2, LeftBottom.y - 1));
+
+                Color topColor = tex.GetPixel(LeftTop.x + 4, LeftTop.y - 2);
+                DrawIsoLine(tex, topColor, new Vector2Int(LeftTop.x + 3, LeftTop.y - 2), new Vector2Int(LeftTop.x + 3, LeftTop.y - 2));
+
+                for (int yi = LeftBottom.y - 3; yi <= LeftTop.y - 3; yi++) {
+                    DrawIsoLine(tex, tex.GetPixel(LeftTop.x + 4, yi), new Vector2Int(LeftTop.x + 3, yi), new Vector2Int(LeftTop.x + 3, yi));
+                }
+            }
+
+            if (z == 1) {
+                FlipTex(tex);
+                neighbors.FlipSideNeighbors();
+            }
         }
 
         private static void DrawBorders(Texture2D tex, int z, InmediateWallNeighbors neighbors) {

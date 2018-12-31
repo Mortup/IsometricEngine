@@ -9,6 +9,11 @@ namespace com.gStudios.isometric.controller.config {
 		public const int MaxCursorUndoStackSize = 20;
 		public const int CursorPoolInitialSize = 200;
 
+        /* ------------------------
+         * GRAPHIC SETTINGS
+         * ------------------------*/
+        public const bool DRAW_WALL_BORDERS = false;
+
         // Sprite sizes on Unity's World units.
         public const float TILE_WIDTH = 1;
         public const float TILE_HEIGHT = 0.5f;
@@ -25,8 +30,8 @@ namespace com.gStudios.isometric.controller.config {
         public const FilterMode filterMode = FilterMode.Point;
         public const TextureWrapMode wrapMode = TextureWrapMode.Clamp;
 
-        public static readonly Vector2 tilePivot = new Vector2(0, ((float) 8 / 12));
-        public static readonly Vector2 furniturePivot = new Vector2(0, ((float)8 / 36));
+        public static readonly Vector2 tilePivot = new Vector2(0, ((float) 26 / 42));
+        public static readonly Vector2 furniturePivot = new Vector2(0, ((float)26 / 132));
         public static readonly Vector2 wallPivot = new Vector2(((float)2 / 38), ((float)2 / 130));
         public static readonly Vector2 wallCursorPivot = new Vector2(0.5f, 0.02f);
     }
