@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace com.gStudios.isometric.model.world.commands {
+﻿namespace com.gStudios.isometric.model.world.commands {
 
 	public abstract class CursorCommand {
 
