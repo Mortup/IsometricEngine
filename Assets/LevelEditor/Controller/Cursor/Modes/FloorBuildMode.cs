@@ -19,7 +19,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 			invertedOnEmptySprite = DataManager.cursorSpriteData.tileRemoveOnEmptySprite;
 		}
 
-        protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
+        protected override IWorldCommand GetActionCommand(Vector2 mousePosition) {
             int selectedIndex = Input.GetButton("InverseFunction") ? TileIndex.Empty : TileIndex.New;
             Vector2Int endCoords = TileTransformer.ScreenToCoord(mousePosition);
 

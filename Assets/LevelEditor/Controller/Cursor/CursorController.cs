@@ -28,7 +28,7 @@ namespace com.gStudios.levelEditor.controller.cursor {
 
 		const int mouseButton = 0;
 
-		DropoutStack<CursorCommand> inverseCommands;
+		DropoutStack<IWorldCommand> inverseCommands;
 
         public void Init(CoreLevelController clc) { }
 
@@ -39,7 +39,7 @@ namespace com.gStudios.levelEditor.controller.cursor {
 		public void OnLevelInit(Level level) {
 			this.level = level;
 			SimplePool.Preload (Resources.Load<GameObject> (GamePaths.CursorPrefab));
-			inverseCommands = new DropoutStack<CursorCommand> (Settings.MaxCursorUndoStackSize);
+			inverseCommands = new DropoutStack<IWorldCommand> (Settings.MaxCursorUndoStackSize);
 
 			SetMode ("buildFloor");
 		}
@@ -94,8 +94,8 @@ namespace com.gStudios.levelEditor.controller.cursor {
 		}
 
 		public void ClickEnd() {
-			CursorCommand cmd = currentMode.ClickEnd (Input.mousePosition);
-			CursorCommand invCmd = cmd.Excecute ();
+			IWorldCommand cmd = currentMode.ClickEnd (Input.mousePosition);
+			IWorldCommand invCmd = cmd.Excecute ();
 			inverseCommands.Push (invCmd);
 		}
 

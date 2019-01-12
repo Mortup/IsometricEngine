@@ -13,8 +13,9 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
             mainCursorSr.sortingLayerName = "Tiles";
         }
 
-        protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
-            Debug.Log("Apretando");
+        protected override IWorldCommand GetActionCommand(Vector2 mousePosition) {
+            Vector2Int tilePos = TileTransformer.ScreenToCoord(mousePosition);
+            level.GetTileAt(tilePos.x, tilePos.y);
 
             return NullCommand.instance;
         }

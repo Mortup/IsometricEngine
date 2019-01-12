@@ -27,7 +27,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 			defaultSprite = DataManager.tileSpriteData.GetDataById(index);
 		}
 
-        protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
+        protected override IWorldCommand GetActionCommand(Vector2 mousePosition) {
 			int selectedIndex = Input.GetButton ("InverseFunction") ? TileIndex.New : index;
 			Vector2Int endCoords = TileTransformer.ScreenToCoord (mousePosition);
 

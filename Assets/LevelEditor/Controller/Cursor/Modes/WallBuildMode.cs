@@ -24,7 +24,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
             mainCursorSr.sortingLayerName = "Tiles";
         }
 
-        protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
+        protected override IWorldCommand GetActionCommand(Vector2 mousePosition) {
             int selectedIndex = Input.GetButton("InverseFunction") ? WallIndex.Empty : WallIndex.New;
             Vector2Int vertexCoords = VertexTransfomer.ScreenToVertex(mousePosition);
 

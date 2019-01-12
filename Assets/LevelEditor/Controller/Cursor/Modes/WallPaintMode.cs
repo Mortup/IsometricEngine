@@ -78,10 +78,10 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
             arrowCursor.GetComponent<SpriteRenderer>().sortingOrder = SortingOrders.WallOrder(currentWallPos.x, currentWallPos.y, currentWallPos.z, TileSubLayer.SecondWallCursor);
         }
 
-        protected override CursorCommand GetActionCommand(Vector2 mousePosition) {
+        protected override IWorldCommand GetActionCommand(Vector2 mousePosition) {
             int selectedIndex = Input.GetButton("InverseFunction") ? WallIndex.New : index;
 
-            List<CursorCommand> commands = new List<CursorCommand>();
+            List<IWorldCommand> commands = new List<IWorldCommand>();
             foreach (KeyValuePair<Vector3Int, GameObject> entry in selectedPositions) {
                 Vector3Int pos = entry.Key;
                 commands.Add(new PaintWallCmd(level, pos.x, pos.y, pos.z, selectedIndex));

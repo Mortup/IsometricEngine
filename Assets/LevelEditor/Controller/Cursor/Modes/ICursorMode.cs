@@ -26,11 +26,11 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 		/// <param name="mousePosition">Mouse position.</param>
 		void ClickStart (Vector2 mousePosition);
 
-		/// <summary>
-		/// Called when the click ends.
-		/// </summary>
-		/// <param name="mousePosition">Mouse position.</param>
-		CursorCommand ClickEnd (Vector2 mousePosition);
+        /// <summary>
+        /// Called when the click ends.
+        /// </summary>
+        /// <param name="mousePosition">Mouse position.</param>
+        IWorldCommand ClickEnd (Vector2 mousePosition);
 
 		/// <summary>
 		/// Updates the cursors.

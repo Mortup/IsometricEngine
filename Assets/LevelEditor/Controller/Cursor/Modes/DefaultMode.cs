@@ -38,18 +38,18 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
             validClickStart = true;
         }
 
-		public CursorCommand ClickEnd (Vector2 mousePosition) {
+		public IWorldCommand ClickEnd (Vector2 mousePosition) {
             if (!validClickStart)
                 return NullCommand.instance;
 
-            CursorCommand action = GetActionCommand(mousePosition);
+            IWorldCommand action = GetActionCommand(mousePosition);
 
             validClickStart = false;
 
             return action;
         }
 
-        protected abstract CursorCommand GetActionCommand(Vector2 mousePosition);
+        protected abstract IWorldCommand GetActionCommand(Vector2 mousePosition);
 
         public virtual void UpdateCursors(Vector2 mousePosition) { }
 
