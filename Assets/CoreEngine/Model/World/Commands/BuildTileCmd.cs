@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using com.gStudios.isometric.model.world.tile;
+﻿using com.gStudios.isometric.model.world.tile;
 
 namespace com.gStudios.isometric.model.world.commands {
 
-	public class BuildTileCmd : CursorCommand {
+	public class BuildTileCmd : AbstractWorldCommand {
 
 		public BuildTileCmd(Level level, int posX, int posY, int index) : base(level, posX, posY, index) {
 		}
 
-		public override CursorCommand Excecute ()
+		public override IWorldCommand Excecute ()
 		{
 			ITile tile = level.GetTileAt (posX, posY);
 			int previousIndex = tile.Type;

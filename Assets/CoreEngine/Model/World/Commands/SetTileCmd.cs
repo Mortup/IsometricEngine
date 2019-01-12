@@ -5,12 +5,12 @@ using com.gStudios.isometric.model.world.tile;
 
 namespace com.gStudios.isometric.model.world.commands {
 
-	public class SetTileCmd : CursorCommand {
+	public class SetTileCmd : AbstractWorldCommand {
 
 		public SetTileCmd(Level level, int posX, int posY, int index) : base(level, posX, posY, index) {
 		}
 
-		public override CursorCommand Excecute ()
+		public override IWorldCommand Excecute ()
 		{
 			if (index == TileIndex.Empty) {
 				// Cannot destroy tiles.

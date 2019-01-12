@@ -1,9 +1,8 @@
-﻿using com.gStudios.isometric.model.world;
-using com.gStudios.isometric.model.world.wall;
+﻿using com.gStudios.isometric.model.world.wall;
 
 namespace com.gStudios.isometric.model.world.commands {
 
-    public class BuildWallCmd : CursorCommand {
+    public class BuildWallCmd : AbstractWorldCommand {
 
         int posZ;
 
@@ -11,7 +10,7 @@ namespace com.gStudios.isometric.model.world.commands {
             this.posZ = posZ;
         }
 
-        public override CursorCommand Excecute() {
+        public override IWorldCommand Excecute() {
             IWall wall = level.GetWallAt(posX, posY, posZ);
             int previousIndex = wall.Type;
 

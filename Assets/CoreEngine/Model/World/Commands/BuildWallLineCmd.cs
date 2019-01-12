@@ -18,7 +18,7 @@ namespace com.gStudios.isometric.model.world.commands {
         public BuildWallLineCmd(Level level, int startX, int startY, int endX, int endY, int posZ, int index) :
             base(level, CreateLine(level, startX, startY, endX, endY, posZ, index)) { }
 
-        static List<CursorCommand> CreateLine(Level level, int startX, int startY, int endX, int endY, int posZ, int index) {
+        static List<IWorldCommand> CreateLine(Level level, int startX, int startY, int endX, int endY, int posZ, int index) {
             int minX = Math.Min(startX, endX);
             int maxX = Math.Max(startX, endX);
             int minY = Math.Min(startY, endY);
@@ -32,7 +32,7 @@ namespace com.gStudios.isometric.model.world.commands {
             else
                 maxY -= 1;
 
-            List<CursorCommand> commands = new List<CursorCommand>();
+            List<IWorldCommand> commands = new List<IWorldCommand>();
             for (int x = minX; x <= maxX; x++) {
                 for (int y = minY; y <= maxY; y++) {
                     commands.Add(new BuildWallCmd(level, x, y, posZ, index));

@@ -1,22 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace com.gStudios.isometric.model.world.commands {
 
-	public class CompositeCommand : CursorCommand {
+	public class CompositeCommand : AbstractWorldCommand {
 
-		List<CursorCommand> commands;
+		List<IWorldCommand> commands;
 
-		public CompositeCommand(Level level, List<CursorCommand> commands) : base(level, -1, -1, -1) {
+		public CompositeCommand(Level level, List<IWorldCommand> commands) : base(level, -1, -1, -1) {
 			this.commands = commands;
 		}
 
-		public override CursorCommand Excecute ()
+		public override IWorldCommand Excecute ()
 		{
-			List<CursorCommand> inverseCommands = new List<CursorCommand> ();
+			List<IWorldCommand> inverseCommands = new List<IWorldCommand> ();
 
-			foreach ( CursorCommand cmd  in commands) {
-				CursorCommand inverseCmd = cmd.Excecute ();
+			foreach (IWorldCommand cmd  in commands) {
+                IWorldCommand inverseCmd = cmd.Excecute ();
 				if (inverseCmd != NullCommand.instance)
 					inverseCommands.Add(inverseCmd);
 			}

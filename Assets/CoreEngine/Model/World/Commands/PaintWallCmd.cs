@@ -2,7 +2,7 @@
 
 namespace com.gStudios.isometric.model.world.commands {
 
-    public class PaintWallCmd : CursorCommand {
+    public class PaintWallCmd : AbstractWorldCommand {
 
         int posZ;
 
@@ -10,7 +10,7 @@ namespace com.gStudios.isometric.model.world.commands {
             this.posZ = posZ;
         }
 
-        public override CursorCommand Excecute() {
+        public override IWorldCommand Excecute() {
             IWall wall = level.GetWallAt(posX, posY, posZ);
             int previousIndex = wall.Type;
 

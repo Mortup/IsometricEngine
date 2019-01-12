@@ -1,16 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿namespace com.gStudios.isometric.model.world.commands {
 
-namespace com.gStudios.isometric.model.world.commands {
-
-	public class NullCommand : CursorCommand {
+	public class NullCommand : IWorldCommand {
 
 		public static readonly NullCommand instance = new NullCommand ();
 
-		private NullCommand() : base(null, -1, -1, -1) {
-		}
-
-		public override CursorCommand Excecute ()
+		public IWorldCommand Excecute ()
 		{
 			return new NullCommand();
 		}
