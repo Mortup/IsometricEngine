@@ -1,9 +1,11 @@
-﻿using com.gStudios.isometric.controller.isometricTransform;
+﻿using UnityEngine;
+using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.controller.spriteObservers;
+
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
-
-using UnityEngine;
+using com.gStudios.isometric.model.world.furniture;
+using com.gStudios.isometric.model.world.tile;
 
 namespace com.gStudios.levelEditor.controller.cursor.modes {
 
@@ -15,9 +17,13 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 
         protected override IWorldCommand GetActionCommand(Vector2 mousePosition) {
             Vector2Int tilePos = TileTransformer.ScreenToCoord(mousePosition);
-            level.GetTileAt(tilePos.x, tilePos.y);
+            ITile tile = level.GetTileAt(tilePos.x, tilePos.y);
 
-            return NullCommand.instance;
+            if (Input.GetButton("InverseFunction"))
+                return new RemoveFurnitureCommand(level, tilePos.x, tilePos.y);
+
+            IFurniture furniture = new DecorationFurniture(level, tile);
+            return new PlaceFurnitureCommand(level, tilePos.x, tilePos.y, furniture);
         }
 
         public override void UpdateCursors(Vector2 mousePosition) {
