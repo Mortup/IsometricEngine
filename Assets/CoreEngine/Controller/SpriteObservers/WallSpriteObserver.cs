@@ -6,6 +6,7 @@ using com.gStudios.isometric.controller.isometricTransform;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.wall;
+using com.gStudios.isometric.model.world.tile;
 
 namespace com.gStudios.isometric.controller.spriteObservers {
 
@@ -120,15 +121,30 @@ namespace com.gStudios.isometric.controller.spriteObservers {
         }
 
         private bool GetClippingForWall(IWall wall) {
-            Vector3Int rotatedPos = WallTransformer.InverseRotateInsideTile(new Vector3Int(wall.X, wall.Y, wall.Z));
 
-            if (wall.IsEmpty() == false) {
-                Vector2Int offset = TileTransformer.RotateCoord(new Vector2Int(0, 0));
-                level.GetTileAt(rotatedPos.x, rotatedPos.y).Type = 0;
-                level.GetTileAt(wall.X, wall.Y).Type = 1;
+            List<ITile> tiles = new List<ITile>();
+
+            if (wall.Z == 1) {
+                tiles.Add(level.GetTileAt(wall.X - 1, wall.Y));
+                tiles.Add(level.GetTileAt(wall.X - 2, wall.Y));
+                tiles.Add(level.GetTileAt(wall.X-1, wall.Y - 1));
             }
+            else
+            {
+                tiles.Add(level.GetTileAt(wall.X, wall.Y-1));
+                tiles.Add(level.GetTileAt(wall.X, wall.Y-2));
+                tiles.Add(level.GetTileAt(wall.X-1, wall.Y-1));
 
-            return true;
+            }
+            foreach (ITile i in tiles)
+            {
+
+                if (i.Type != TileIndex.Empty)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public ClippingMode CurrentClipping {
