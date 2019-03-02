@@ -11,11 +11,18 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
 	public class WallSpriteObserver : IWallObserver, IOrientationObserver {
 
+        Level level;
 		GameObject wallHolder;
 
 		Dictionary<IWall, GameObject> gameobjects;
 
-        bool isCurrentlyClipping = true;
+        public enum ClippingMode {
+            NO_CLIP = 1,
+            FULL_CLIPPING = 2,
+            FRONT_CLIPPING = 3
+        }
+
+        private ClippingMode currentClipping = ClippingMode.FULL_CLIPPING;
 
 		public WallSpriteObserver() {
 			wallHolder = new GameObject ("Walls");
@@ -23,6 +30,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			gameobjects = new Dictionary<IWall, GameObject> ();
 
             OrientationManager.RegisterObserver(this);
+
 		}
 
         ~WallSpriteObserver() {
@@ -69,11 +77,11 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
             GameObject wall_go = gameobjects[wall];
 
-            wall_go.transform.position = (Vector3)WallTransformer.CoordToWorld(wall.X, wall.Y, wall.Z);
+            wall_go.transform.position = WallTransformer.CoordToWorld(wall.X, wall.Y, wall.Z);
 
             SpriteRenderer sr = wall_go.GetComponent<SpriteRenderer> ();
 
-			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type).GetSprite(wall, isCurrentlyClipping);
+			sr.sprite = DataManager.wallSpriteData.GetDataById(wall.Type).GetSprite(wall, GetClippingForWall(wall));
             sr.sortingOrder = SortingOrders.WallOrder(wall.X, wall.Y, wall.Z, TileSubLayer.Wall);
 
             //sr.color = Random.ColorHSV(0, 1, 0, 1, 0.4f, 1);
@@ -86,14 +94,6 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			}
 		}
 
-		public void SetClipping(bool clipping) {
-			bool lastClipping = isCurrentlyClipping;
-			isCurrentlyClipping = clipping;
-
-			if (lastClipping != isCurrentlyClipping)
-				UpdateAllSprites ();
-		}
-
 		public void RemoveWalls() {
 
 			foreach(KeyValuePair<IWall, GameObject> entry in gameobjects)
@@ -104,6 +104,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 		}
 
 		public void BindLevel(Level level) {
+            this.level = level;
 			
 			for (int x = 0; x < level.Width+1; x++) {
 				for (int y = 0; y < level.Height+1; y++) {
@@ -116,6 +117,32 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
         public void NotifyOrientationChanged(Orientation previousOrientation, Orientation newOrientation) {
             UpdateAllSprites();
+        }
+
+        private bool GetClippingForWall(IWall wall) {
+            Vector3Int rotatedPos = WallTransformer.InverseRotateInsideTile(new Vector3Int(wall.X, wall.Y, wall.Z));
+
+            if (wall.IsEmpty() == false) {
+                Vector2Int offset = TileTransformer.RotateCoord(new Vector2Int(0, 0));
+                level.GetTileAt(rotatedPos.x, rotatedPos.y).Type = 0;
+                level.GetTileAt(wall.X, wall.Y).Type = 1;
+            }
+
+            return true;
+        }
+
+        public ClippingMode CurrentClipping {
+            get {
+                return currentClipping;
+            }
+            set {
+                ClippingMode lastMode = currentClipping;
+                currentClipping = value;
+
+                if (lastMode != currentClipping) {
+                    UpdateAllSprites();
+                }
+            }
         }
     }
 
