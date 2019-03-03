@@ -47,7 +47,7 @@ namespace com.gStudios.isometric.model.world {
 
 		public ITile GetTileAt(int x, int y) {
 			if (!IsTileInBounds(x, y)) {
-				return new NullTile();
+				return new NullTile(x, y);
 			}
 
 			return tiles [x, y];
