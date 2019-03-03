@@ -121,25 +121,36 @@ namespace com.gStudios.isometric.controller.spriteObservers {
         }
 
         private bool GetClippingForWall(IWall wall) {
-
+            if(wall.Type == WallIndex.Empty) {
+                return true;
+            }
+            Vector2Int baseTileCoords = WallTransformer.GetRotatedWallBase(new Vector3Int(wall.X, wall.Y, wall.Z));
+            ITile baseTile = level.GetTileAt(baseTileCoords.x, baseTileCoords.y);
             List<ITile> tiles = new List<ITile>();
 
             if (wall.Z == 1) {
-                tiles.Add(level.GetTileAt(wall.X - 1, wall.Y));
-                tiles.Add(level.GetTileAt(wall.X - 2, wall.Y));
-                tiles.Add(level.GetTileAt(wall.X-1, wall.Y - 1));
+                Vector2Int firstRotatedOffset = TileTransformer.InverseRotateCoord(new Vector2Int(-1, 0));
+                Vector2Int secondRotatedOffset = TileTransformer.InverseRotateCoord(new Vector2Int(-2, 0));
+                Vector2Int thirdRotatedOffset = TileTransformer.InverseRotateCoord(new Vector2Int(-1, -1));
+
+                tiles.Add(level.GetTileAt(baseTile.X+firstRotatedOffset.x, baseTile.Y+firstRotatedOffset.y));
+                tiles.Add(level.GetTileAt(baseTile.X+secondRotatedOffset.x, baseTile.Y+secondRotatedOffset.y));
+                tiles.Add(level.GetTileAt(baseTile.X+thirdRotatedOffset.x, baseTile.Y+thirdRotatedOffset.y));
             }
-            else
-            {
-                tiles.Add(level.GetTileAt(wall.X, wall.Y-1));
-                tiles.Add(level.GetTileAt(wall.X, wall.Y-2));
-                tiles.Add(level.GetTileAt(wall.X-1, wall.Y-1));
+            else { 
+                Vector2Int firstRotatedOffset = TileTransformer.InverseRotateCoord(new Vector2Int(0, -1));
+                Vector2Int secondRotatedOffset = TileTransformer.InverseRotateCoord(new Vector2Int(0, -2));
+                Vector2Int thirdRotatedOffset = TileTransformer.InverseRotateCoord(new Vector2Int(-1, -1));
+
+                tiles.Add(level.GetTileAt(baseTile.X + firstRotatedOffset.x, baseTile.Y + firstRotatedOffset.y));
+                tiles.Add(level.GetTileAt(baseTile.X + secondRotatedOffset.x, baseTile.Y + secondRotatedOffset.y));
+                tiles.Add(level.GetTileAt(baseTile.X + thirdRotatedOffset.x, baseTile.Y + thirdRotatedOffset.y));
 
             }
-            foreach (ITile i in tiles)
+            foreach (ITile tile in tiles)
             {
 
-                if (i.Type != TileIndex.Empty)
+                if (tile.Type != TileIndex.Empty)
                 {
                     return true;
                 }
@@ -152,11 +163,22 @@ namespace com.gStudios.isometric.controller.spriteObservers {
                 return currentClipping;
             }
             set {
+                DebugPaintTilesWhite();
                 ClippingMode lastMode = currentClipping;
                 currentClipping = value;
 
                 if (lastMode != currentClipping) {
                     UpdateAllSprites();
+                }
+            }
+        }
+
+        private void DebugPaintTilesWhite() {
+            for (int x = 0; x < level.Width; x++) {
+                for (int y = 0; y < level.Height; y++) {
+                    ITile tile = level.GetTileAt(x, y);
+                    if (tile.Type != 0)
+                        tile.Type = 2;
                 }
             }
         }
