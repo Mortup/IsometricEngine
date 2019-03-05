@@ -26,6 +26,12 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             return world - offset;
         }
 
+        /// <summary>
+		/// Converts isometric tile coordinates to a world position.
+		/// </summary>
+		/// <returns>The world position.</returns>
+		/// <param name="rotatedX">The x isometric coordinate.</param>
+		/// <param name="rotatedY">The y isometric coordinate.</param>
         public static Vector2 CoordToWorld(float x, float y) {
             Vector2 rotatedCoords = RotateCoord(new Vector2(x, y));
             float rotatedX = rotatedCoords.x;
@@ -74,6 +80,11 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             return WorldToCoord(world);
         }
 
+        /// <summary>
+        /// Rotates coords according? to the current orientation.
+        /// </summary>
+        /// <param name="original">The original coords</param>
+        /// <returns></returns>
         public static Vector2Int RotateCoord(Vector2Int original) {
             switch (OrientationManager.currentOrientation) {
                 case Orientation.North:
@@ -90,6 +101,11 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             return Vector2Int.zero;
         }
 
+        /// <summary>
+        /// Rotates coords according? to the current orientation.
+        /// </summary>
+        /// <param name="original">The original coords</param>
+        /// <returns></returns>
         public static Vector2 RotateCoord(Vector2 original) {
             switch (OrientationManager.currentOrientation) {
                 case Orientation.North:
@@ -106,6 +122,11 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             return Vector2.zero;
         }
 
+        /// <summary>
+        /// Rotates coords according? to the current orientation.
+        /// </summary>
+        /// <param name="original">The original coords</param>
+        /// <returns></returns>
         public static Vector2Int InverseRotateCoord(Vector2Int original) {
             switch (OrientationManager.currentOrientation) {
                 case Orientation.North:
@@ -122,6 +143,11 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             return Vector2Int.zero;
         }
 
+        /// <summary>
+        /// Rotates coords according? to the current orientation.
+        /// </summary>
+        /// <param name="original">The original coords</param>
+        /// <returns></returns>
         public static Vector2 InverseRotateCoord(Vector2 original) {
             switch (OrientationManager.currentOrientation) {
                 case Orientation.North:
