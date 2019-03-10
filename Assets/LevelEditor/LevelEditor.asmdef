@@ -1,0 +1,16 @@
+{
+    "name": "LevelEditor",
+    "references": [
+        "CoreEngine",
+        "ThirdParty",
+        "Utils"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

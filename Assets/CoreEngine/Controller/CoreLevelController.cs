@@ -16,7 +16,7 @@ namespace com.gStudios.isometric.controller {
         [SerializeField] MonoBehaviour[] customControllers;
 
         [SerializeField] bool debugRandomizeLevel;
-        [SerializeField] bool debugLoadLevel;
+        [SerializeField] bool debugLoadSavedLevel;
 
 		Level level;
 
@@ -35,9 +35,7 @@ namespace com.gStudios.isometric.controller {
 			wallSpriteObserver = new WallSpriteObserver ();
             furnitureSpriteObserver = new FurnitureSpriteObserver();
 
-			if (debugLoadLevel) {
-                LoadLevel(new DefaultLevelSerializer());
-            }
+            LoadLevel(new DefaultLevelSerializer());
 
             if (debugRandomizeLevel) {
                 level.RandomizeTiles();
@@ -67,6 +65,9 @@ namespace com.gStudios.isometric.controller {
             if (Input.GetKeyDown(KeyCode.Q)) {
                 OrientationManager.RotateCounterClockwise();
             }
+            if (Input.GetKeyDown(KeyCode.S)) {
+                level.Save(new DefaultLevelSerializer());
+            }
 
             // Debug character
             if (Input.GetKeyDown(KeyCode.N)) {
@@ -83,7 +84,12 @@ namespace com.gStudios.isometric.controller {
 			wallSpriteObserver.RemoveWalls ();
             furnitureSpriteObserver.RemoveFurniture();
 
-            level = levelSerializer.LoadLevel();
+            if (debugLoadSavedLevel) {
+                level = levelSerializer.LoadLevel();
+            }
+            else {
+                level = new Level(levelWidth, levelHeight);
+            }
 
             foreach (ILevelController levelController in customControllers) {
                 levelController.OnLevelInit(level);
