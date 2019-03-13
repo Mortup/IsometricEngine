@@ -8,7 +8,7 @@ using com.gStudios.isometric.controller.isometricTransform;
 
 namespace Tests.Controller.IsometricTransformer
 {
-    public class TileTransformerTest
+    public class TileTransformerRotationTest
     {
         [SetUp]
         public void Setup() {
@@ -30,6 +30,18 @@ namespace Tests.Controller.IsometricTransformer
             Assert.AreEqual(coord1, TileTransformer.InverseRotateCoord(coord1));
             Assert.AreEqual(coord2, TileTransformer.InverseRotateCoord(coord2));
             Assert.AreEqual(coord3, TileTransformer.InverseRotateCoord(coord3));
+        }
+
+        [Test]
+        public void FloatRotationsKeepDecimals() {
+            Vector2 coord1 = new Vector2(39.4f, 12.2f);
+
+            Assert.AreEqual(TileTransformer.RotateCoord(coord1), new Vector2(39.4f, 12.2f));
+            Assert.AreEqual(TileTransformer.InverseRotateCoord(coord1), new Vector2(39.4f, 12.2f));
+
+            OrientationManager.SetOrientation(Orientation.West);
+            Assert.AreEqual(TileTransformer.RotateCoord(coord1), new Vector2(12.2f, -39.4f));
+            Assert.AreEqual(TileTransformer.InverseRotateCoord(coord1), new Vector2(-12.2f, 39.4f));
         }
 
         [Test]
