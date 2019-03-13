@@ -22,6 +22,13 @@ namespace com.gStudios.isometric.controller.camera {
             }
         }
 
+        public void OnApplicationQuit() {
+            if (subscribedToOrientationManager) {
+                OrientationManager.UnregisterObserver(this);
+                subscribedToOrientationManager = false;
+            }
+        }
+
         public void NotifyOrientationChanged(Orientation previousOrientation, Orientation newOrientation) {
             RotationDirection dir = OrientationManager.GetDirection(previousOrientation, newOrientation);
             if (dir == RotationDirection.Clockwise) {
