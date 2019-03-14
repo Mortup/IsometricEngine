@@ -88,5 +88,18 @@ namespace Tests.Controller.IsometricTransformer
             Assert.AreEqual(coords2, TileTransformer.WorldToCoord(world2));
             Assert.AreEqual(coords3, TileTransformer.WorldToCoord(world3) + Vector2Int.one);
         }
+
+        [Test]
+        public void WorldToCoordRotates() {
+            OrientationManager.SetOrientation(Orientation.North);
+
+            Vector2Int coords = new Vector2Int(13, -33);
+            Vector2 world = TileTransformer.CoordToWorld(coords) + new Vector2(Settings.TILE_WIDTH_HALF / 2f, 0f);
+
+            Vector2Int invertedCoords = TileTransformer.WorldToCoord(world);
+
+            OrientationManager.SetOrientation(Orientation.West);
+            Assert.AreEqual(TileTransformer.InverseRotateCoord(invertedCoords), TileTransformer.WorldToCoord(world));
+        }
     }
 }
