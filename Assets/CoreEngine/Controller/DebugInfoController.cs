@@ -26,12 +26,13 @@ namespace com.gStudios.isometric.controller {
                 Vector2Int tileCoords = TileTransformer.ScreenToCoord(Input.mousePosition);
                 Vector3Int wallCoords = WallTransformer.ScreenToCoord(Input.mousePosition);
                 debugTextField.text = string.Format(
-                    "Tile Coord: {0}, {1}\nWall Coord: {2}, {3}, {4}",
+                    "Tile Coord: {0}, {1}\nWall Coord: {2}, {3}, {4}\nOrientation: {5}",
                     tileCoords.x,
                     tileCoords.y,
                     wallCoords.x,
                     wallCoords.y,
-                    wallCoords.z);
+                    wallCoords.z,
+                    OrientationManager.currentOrientation);
             }
             else {
                 debugTextField.text = "";
