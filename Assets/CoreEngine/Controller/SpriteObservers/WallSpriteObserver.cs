@@ -125,10 +125,11 @@ namespace com.gStudios.isometric.controller.spriteObservers {
                 return true;
             }
             Vector2Int baseTileCoords = WallTransformer.GetRotatedWallBase(new Vector3Int(wall.X, wall.Y, wall.Z));
+            Vector3Int rotatedWallCoords = WallTransformer.RotateInsideTile(new Vector3Int(wall.X, wall.Y, wall.Z));
             ITile baseTile = level.GetTileAt(baseTileCoords.x, baseTileCoords.y);
             List<ITile> tiles = new List<ITile>();
 
-            if (wall.Z == 1) {
+            if (rotatedWallCoords.z == 1) {
                 Vector2Int firstRotatedOffset = TileTransformer.InverseRotateCoord(new Vector2Int(-1, 0));
                 Vector2Int secondRotatedOffset = TileTransformer.InverseRotateCoord(new Vector2Int(-2, 0));
                 Vector2Int thirdRotatedOffset = TileTransformer.InverseRotateCoord(new Vector2Int(-1, -1));

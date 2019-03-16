@@ -148,14 +148,14 @@ namespace com.gStudios.isometric.controller.isometricTransform {
                 case Orientation.North:
                     return new Vector2Int(wallCoords.x, wallCoords.y);
                 case Orientation.West:
-                    if(wallCoords.z != 1) {
+                    if(wallCoords.z == 0) {
                         return new Vector2Int(wallCoords.x, wallCoords.y);
                     }
                     else {
-                        return new Vector2Int(wallCoords.x - 1, wallCoords.y);
+                        return new Vector2Int(wallCoords.x-1  , wallCoords.y);
                     }
                 case Orientation.East:
-                    if (wallCoords.z != 1) {
+                    if (wallCoords.z == 0) {
                         return new Vector2Int(wallCoords.x, wallCoords.y - 1);
                     }
                     else {
@@ -163,7 +163,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
                     }
 
                 case Orientation.South:
-                    if (wallCoords.z != 1) {
+                    if (wallCoords.z == 0) {
                         return new Vector2Int(wallCoords.x, wallCoords.y - 1);
                     }
                     else {
