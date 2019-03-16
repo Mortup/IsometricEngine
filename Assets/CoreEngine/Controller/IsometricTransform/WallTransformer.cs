@@ -115,18 +115,18 @@ namespace com.gStudios.isometric.controller.isometricTransform {
                 case Orientation.West:
                     if (original.z == 0) {
                         original.z = 1;
+                        original.x += 1;
                     }
                     else {
                         original.z = 0;
-                        original.y -= 1;
                     }
                     break;
                 case Orientation.South:
                     if (original.z == 0) {
-                        original.y -= 1;
+                        original.y += 1;
                     }
                     else {
-                        original.x -= 1;
+                        original.x += 1;
                     }
                     break;
                 case Orientation.East:
@@ -135,7 +135,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
                     }
                     else {
                         original.z = 0;
-                        original.x -= 1;
+                        original.y += 1;
                     }
                     break;
             }

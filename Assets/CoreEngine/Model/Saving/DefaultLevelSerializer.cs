@@ -9,7 +9,7 @@ namespace com.gStudios.isometric.model.saving {
 
 	public class DefaultLevelSerializer : ILevelSerializer {
 		const string savesFolder = "Saves";
-		const string saveName = "save4.binary";
+		const string saveName = "save.binary";
 		const string fullSavePath = savesFolder + "/" + saveName;
 
 		public DefaultLevelSerializer() {
