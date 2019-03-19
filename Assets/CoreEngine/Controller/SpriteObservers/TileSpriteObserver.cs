@@ -24,7 +24,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             OrientationManager.RegisterObserver(this);
 		}
 
-        ~TileSpriteObserver() {
+        public void StopObserving() {
             OrientationManager.UnregisterObserver(this);
         }
 
