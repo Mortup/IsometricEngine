@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 using com.gStudios.isometric.controller.data;
@@ -136,6 +136,8 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             List<ITile> tiles = new List<ITile>();
 
             if (rotatedWallCoords.z == 1) {
+
+                //The tiles checked for wall clipping,
                 Vector2Int rotatedOffset1 = TileTransformer.InverseRotateCoord(new Vector2Int(-1, 0));
                 Vector2Int rotatedOffSet2 = TileTransformer.InverseRotateCoord(new Vector2Int(-1, -1));
                 Vector2Int rotatedOffSet3 = TileTransformer.InverseRotateCoord(new Vector2Int(-2, -1));

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 using com.gStudios.isometric.controller.config;
 
@@ -171,7 +171,6 @@ namespace com.gStudios.isometric.controller.isometricTransform {
                     }
     
             }
-
 
             Debug.Log(OrientationManager.currentOrientation);
 
