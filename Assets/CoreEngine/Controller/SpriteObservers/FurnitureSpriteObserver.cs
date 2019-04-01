@@ -31,7 +31,6 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             sr.sortingLayerName = "Tiles";
 
             gameobjects.Add(tile, furniture_go);
-            tile.SubscribeToFurniture(this);
             UpdateSprite(tile);
 
             return furniture_go;
@@ -64,6 +63,8 @@ namespace com.gStudios.isometric.controller.spriteObservers {
                     CreateSprite(level.GetTileAt(x, y));
                 }
             }
+
+            level.SubscribeToFurnitureChanges(this);
         }
 
         public void RemoveFurniture() {

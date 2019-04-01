@@ -31,6 +31,9 @@ namespace com.gStudios.isometric.model.world.generation {
                         walls[x, y, 1].Type = WallIndex.New;
                     if (y == 0 || y == levelHeight)
                         walls[x, y, 0].Type = WallIndex.New;
+
+                    walls[x, y, 0].Subscribe(level);
+                    walls[x, y, 1].Subscribe(level);
                 }
             }
 

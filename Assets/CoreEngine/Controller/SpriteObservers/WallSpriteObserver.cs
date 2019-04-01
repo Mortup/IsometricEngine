@@ -48,7 +48,6 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			SpriteRenderer sr = wall_go.AddComponent<SpriteRenderer> ();
 			sr.sortingLayerName = "Tiles";
 
-			wall.Subscribe (this);
 			gameobjects.Add (wall, wall_go);
 
             UpdateSprite(wall);
@@ -114,6 +113,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 				}
 			}
 
+            level.SubscribeToWallChanges(this);
 		}
 
         public void NotifyOrientationChanged(Orientation previousOrientation, Orientation newOrientation) {

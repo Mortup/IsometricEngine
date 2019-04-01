@@ -37,7 +37,6 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 			sr.sortingLayerName = "Floor";
 
             gameobjects.Add(tile, tile_go);
-            tile.Subscribe (this);
             UpdateSprite(tile);
 
             return tile_go;
@@ -87,6 +86,8 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 					CreateSprite (level.GetTileAt(x,y));
 				}
 			}
+
+            level.SubscribeToTileChanges(this);
 		}
 	}
 

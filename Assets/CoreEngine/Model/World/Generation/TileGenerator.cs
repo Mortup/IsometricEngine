@@ -16,12 +16,16 @@ namespace com.gStudios.isometric.model.world.generation {
 		/// </summary>
 		/// <param name="levelWidth">Level width.</param>
 		/// <param name="levelHeight">Level height.</param>
-		public static ITile[,] Generate(int levelWidth, int levelHeight) {
+		public static ITile[,] Generate(Level level, int levelWidth, int levelHeight) {
 			ITile[,] tiles = new ITile[levelWidth,levelHeight];
 
 			for (int x = 0; x < levelWidth; x++) {
 				for (int y = 0; y < levelHeight; y++) {
-					tiles [x, y] = new RegularTile (x, y);
+                    ITile tile = new RegularTile(x, y);
+                    tile.Subscribe(level);
+                    tile.SubscribeToFurniture(level);
+
+                    tiles[x, y] = tile;
 				}
 			}
 
