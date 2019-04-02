@@ -10,10 +10,11 @@ using com.gStudios.isometric.model.world.tile;
 
 namespace com.gStudios.isometric.controller.spriteObservers {
 
-	public class WallSpriteObserver : IWallObserver, IOrientationObserver {
+	public class WallSpriteObserver : ITileObserver, IWallObserver, IOrientationObserver {
 
         Level level;
 		GameObject wallHolder;
+        DeferredCaller deferredCaller;
 
 		Dictionary<IWall, GameObject> gameobjects;
 
@@ -32,6 +33,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
             OrientationManager.RegisterObserver(this);
 
+            deferredCaller = GameObject.FindObjectOfType<DeferredCaller>();
 		}
 
         ~WallSpriteObserver() {
@@ -53,6 +55,10 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             UpdateSprite(wall);
             return wall_go;
 		}
+
+        public void NotifyTileTypeChanged(ITile tile) {
+            deferredCaller.CallLimitedToOncePerFrame(UpdateAllSprites);
+        }
 
 		public void NotifyWallTypeChanged(IWall wall) {
             // Update wall
@@ -113,6 +119,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 				}
 			}
 
+            level.SubscribeToTileChanges(this);
             level.SubscribeToWallChanges(this);
 		}
 
