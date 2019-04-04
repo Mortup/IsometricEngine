@@ -5,11 +5,12 @@ using com.gStudios.isometric.model.characters;
 using com.gStudios.isometric.model.saving;
 using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.wall;
+using com.gStudios.isometric.model.world.furniture;
 using com.gStudios.isometric.model.world.generation;
 
 namespace com.gStudios.isometric.model.world {
 
-	public class Level {
+	public class Level : ITileObserver, IWallObserver, IFurnitureObserver {
 
 		ITile[,] tiles;
 		IWall[,,] walls;
@@ -31,13 +32,21 @@ namespace com.gStudios.isometric.model.world {
 			}
 		}
 
+        private List<ITileObserver> tileObservers;
+        private List<IWallObserver> wallObservers;
+        private List<IFurnitureObserver> furnitureObservers;
+
 		public Level(int width, int height) {
 			this.width = width;
 			this.height = height;
 
-			tiles = TileGenerator.Generate(width, height);
+            tileObservers = new List<ITileObserver>();
+            wallObservers = new List<IWallObserver>();
+            furnitureObservers = new List<IFurnitureObserver>();
+
+            tiles = TileGenerator.Generate(this, width, height);
 			walls = WallGenerator.Generate(this, width, height);
-            characters = new List<ICharacter>();
+            characters = new List<ICharacter>();            
 		}
 
         // Tiles
@@ -47,11 +56,24 @@ namespace com.gStudios.isometric.model.world {
 
 		public ITile GetTileAt(int x, int y) {
 			if (!IsTileInBounds(x, y)) {
-				return new NullTile();
+				return new NullTile(x, y);
 			}
 
 			return tiles [x, y];
 		}
+
+        void ITileObserver.NotifyTileTypeChanged(ITile tile) {
+            foreach (ITileObserver observer in tileObservers) {
+                observer.NotifyTileTypeChanged(tile);
+            }
+        }
+
+        public void SubscribeToTileChanges(ITileObserver observer) {
+            if (tileObservers.Contains(observer))
+                UnityEngine.Debug.LogError("Trying to add an observer more than once.");
+
+            tileObservers.Add(observer);
+        }
 
         // Walls
 		public bool IsWallInBounds(int x, int y, int z) {
@@ -91,6 +113,34 @@ namespace com.gStudios.isometric.model.world {
             int z = x0 == x1 ? 0 : 1;
 
             return GetWallAt(x, y, z);
+        }
+
+        void IWallObserver.NotifyWallTypeChanged(IWall wall) {
+            foreach (IWallObserver observer in wallObservers) {
+                observer.NotifyWallTypeChanged(wall);
+            }
+        }
+
+        public void SubscribeToWallChanges(IWallObserver observer) {
+            if (wallObservers.Contains(observer))
+                UnityEngine.Debug.LogError("Trying to add an observer more than once.");
+
+            wallObservers.Add(observer);
+        }
+
+        // Furniture
+        void IFurnitureObserver.NotifyFurnitureTypeChanged(ITile tile) {
+            foreach (IFurnitureObserver observer in furnitureObservers) {
+                observer.NotifyFurnitureTypeChanged(tile);
+            }
+        }
+
+        public void SubscribeToFurnitureChanges(IFurnitureObserver observer) {
+            if (furnitureObservers.Contains(observer)) {
+                UnityEngine.Debug.LogError("Trying to add an observer more than once.");
+            }
+
+            furnitureObservers.Add(observer);
         }
 
         // Vertex
@@ -143,6 +193,7 @@ namespace com.gStudios.isometric.model.world {
 				}
 			}
 		}
-	}
+
+    }
 
 }

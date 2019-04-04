@@ -53,10 +53,10 @@ namespace com.gStudios.isometric.controller {
 			}
 
 			if (Input.GetKeyDown(KeyCode.P)) {
-				wallSpriteObserver.SetClipping (true);
+				wallSpriteObserver.CurrentClipping = WallSpriteObserver.ClippingMode.FULL_CLIPPING;
 			}
 			if (Input.GetKeyDown(KeyCode.O)) {
-				wallSpriteObserver.SetClipping (false);
+				wallSpriteObserver.CurrentClipping = WallSpriteObserver.ClippingMode.NO_CLIP;
 			}
 
             if (Input.GetKeyDown(KeyCode.E)) {
@@ -76,6 +76,12 @@ namespace com.gStudios.isometric.controller {
                 GameObject character = new GameObject("Character");
                 characters.DefaultCharacterController dcc = character.AddComponent<characters.DefaultCharacterController>();
                 dcc.Init(characterM);
+            }
+
+            // Debug save
+            if (Input.GetKeyDown(KeyCode.S)) {
+                LevelSerializer ls = new LevelSerializer();
+                level.Save(new DefaultLevelSerializer());
             }
 		}
 

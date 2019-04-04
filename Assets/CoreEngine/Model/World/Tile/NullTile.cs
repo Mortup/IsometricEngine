@@ -4,15 +4,24 @@ using com.gStudios.isometric.model.world.furniture;
 namespace com.gStudios.isometric.model.world.tile {
 
     public class NullTile : ITile {
+
+        int x;
+        int y;
+
+        public NullTile(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
         public int X {
             get {
-                throw new System.NotImplementedException();
+                return x;
             }
         }
 
         public int Y {
             get {
-                throw new System.NotImplementedException();
+                return y;
             }
         }
 

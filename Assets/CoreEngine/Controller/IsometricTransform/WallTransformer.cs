@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 using com.gStudios.isometric.controller.config;
 
@@ -142,5 +142,38 @@ namespace com.gStudios.isometric.controller.isometricTransform {
 
             return original;
         }
+
+        public static Vector2Int GetRotatedWallBase(Vector3Int wallCoords) {
+            switch (OrientationManager.currentOrientation) {
+                case Orientation.North:
+                    return new Vector2Int(wallCoords.x, wallCoords.y);
+                case Orientation.West:
+                    if(wallCoords.z == 0) {
+                        return new Vector2Int(wallCoords.x, wallCoords.y);
+                    }
+                    else {
+                        return new Vector2Int(wallCoords.x-1  , wallCoords.y);
+                    }
+                case Orientation.East:
+                    if (wallCoords.z == 0) {
+                        return new Vector2Int(wallCoords.x, wallCoords.y - 1);
+                    }
+                    else {
+                        return new Vector2Int(wallCoords.x, wallCoords.y);
+                    }
+
+                case Orientation.South:
+                    if (wallCoords.z == 0) {
+                        return new Vector2Int(wallCoords.x, wallCoords.y - 1);
+                    }
+                    else {
+                        return new Vector2Int(wallCoords.x - 1, wallCoords.y);
+                    }
+    
+            }
+
+            return new Vector2Int(wallCoords.x, wallCoords.y);
+        }
+
     }
 }
