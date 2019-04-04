@@ -172,8 +172,6 @@ namespace com.gStudios.isometric.controller.isometricTransform {
     
             }
 
-            Debug.Log(OrientationManager.currentOrientation);
-
             return new Vector2Int(wallCoords.x, wallCoords.y);
         }
 
