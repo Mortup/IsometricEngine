@@ -36,7 +36,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             deferredCaller = GameObject.FindObjectOfType<DeferredCaller>();
 		}
 
-        ~WallSpriteObserver() {
+        public void StopObserving() {
             OrientationManager.UnregisterObserver(this);
         }
 

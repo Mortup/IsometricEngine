@@ -106,8 +106,13 @@ namespace com.gStudios.isometric.controller {
             furnitureSpriteObserver.BindLevel(level);
 		}
 
-		// CONTROLLER GETTERS
-		public TileSpriteObserver GetTileSpriteManager() {
+        private void OnApplicationQuit() {
+            tileSpriteObserver.StopObserving();
+            wallSpriteObserver.StopObserving();
+        }
+
+        // CONTROLLER GETTERS
+        public TileSpriteObserver GetTileSpriteManager() {
 			return tileSpriteObserver;
 		}
 		// END CONTROLLER GETTERS

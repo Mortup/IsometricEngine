@@ -83,6 +83,12 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             UpdateObservers(previousOrientation, currentOrientation);
         }
 
+        public static void SetOrientation(Orientation newOrientation) {
+            Orientation previousOrientation = currentOrientation;
+            currentOrientation = newOrientation;
+            UpdateObservers(previousOrientation, currentOrientation);
+        }
+
         public static RotationDirection GetDirection(Orientation start, Orientation end) {
             switch (start) {
                 case Orientation.North:
