@@ -48,42 +48,7 @@ namespace com.gStudios.isometric.controller {
         }
 		
 		void Update () {
-			if (Input.GetKeyDown(KeyCode.R)) {
-				level.RandomizeWalls ();
-			}
-
-			if (Input.GetKeyDown(KeyCode.P)) {
-				wallSpriteObserver.CurrentClipping = WallSpriteObserver.ClippingMode.FULL_CLIPPING;
-			}
-			if (Input.GetKeyDown(KeyCode.O)) {
-				wallSpriteObserver.CurrentClipping = WallSpriteObserver.ClippingMode.NO_CLIP;
-			}
-
-            if (Input.GetKeyDown(KeyCode.E)) {
-                OrientationManager.RotateClockwise();
-            }
-            if (Input.GetKeyDown(KeyCode.Q)) {
-                OrientationManager.RotateCounterClockwise();
-            }
-            if (Input.GetKeyDown(KeyCode.S)) {
-                level.Save(new DefaultLevelSerializer());
-            }
-
-            // Debug character
-            if (Input.GetKeyDown(KeyCode.N)) {
-                model.characters.Character characterM = new model.characters.Character(level, 6, 6);
-
-                GameObject character = new GameObject("Character");
-                characters.DefaultCharacterController dcc = character.AddComponent<characters.DefaultCharacterController>();
-                dcc.Init(characterM);
-            }
-
-            // Debug save
-            if (Input.GetKeyDown(KeyCode.S)) {
-                LevelSerializer ls = new LevelSerializer();
-                level.Save(new DefaultLevelSerializer());
-            }
-		}
+					}
 
 		public void LoadLevel(ILevelSerializer levelSerializer) {
 			tileSpriteObserver.RemoveTiles ();
@@ -112,9 +77,13 @@ namespace com.gStudios.isometric.controller {
         }
 
         // CONTROLLER GETTERS
-        public TileSpriteObserver GetTileSpriteManager() {
+        public TileSpriteObserver GetTileSpriteObserver() {
 			return tileSpriteObserver;
 		}
+
+        public WallSpriteObserver GetWallSpriteObserver() {
+            return wallSpriteObserver;
+        }
 		// END CONTROLLER GETTERS
 	}
 
