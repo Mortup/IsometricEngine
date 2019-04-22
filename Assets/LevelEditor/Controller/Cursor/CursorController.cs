@@ -100,6 +100,10 @@ namespace com.gStudios.levelEditor.controller.cursor {
 		}
 
 		void Undo() {
+            if (inverseCommands.Count == 0) {
+                return;
+            }
+
 			inverseCommands.Pop ().Excecute ();
 		}
 	}
