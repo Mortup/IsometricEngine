@@ -27,7 +27,7 @@ namespace com.gStudios.isometric.controller.data {
             foreach (List<Sprite> sprGroup in groupedSprites) {
                 Sprite[] currentSpritePack = sprGroup.ToArray();
 
-                if (sprites.Count == WallIndex.Empty)
+                if (sprites.Count == WallIndex.Empty) // Add an empty sprite at the empty sprite index.
                     sprites.Add(new EmptySprite(currentSpritePack[0]));
                 else
                     sprites.Add(new DefaultWallSprite(currentSpritePack));
