@@ -25,7 +25,12 @@ namespace com.gStudios.isometric.controller.data {
             foreach (List<Sprite> sprGroup in groupedSprites) {
                 Sprite[] currentSpritePack = sprGroup.ToArray();
 
-                sprites.Add(new DefaultFurnitureSprite(currentSpritePack));
+                if (currentSpritePack.Length == 1) {
+                    sprites.Add(new FurnitureSingleSprite(currentSpritePack[0]));
+                }
+                else {
+                    sprites.Add(new DefaultFurnitureSprite(currentSpritePack));
+                }
             }
         }
 
