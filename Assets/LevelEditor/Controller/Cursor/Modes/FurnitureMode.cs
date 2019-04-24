@@ -22,7 +22,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
             if (Input.GetButton("InverseFunction"))
                 return new RemoveFurnitureCommand(level, tilePos.x, tilePos.y);
 
-            IFurniture furniture = new DecorationFurniture(level, tile);
+            IFurniture furniture = new DecorationFurniture(index, level, tile);
             return new PlaceFurnitureCommand(level, tilePos.x, tilePos.y, furniture);
         }
 

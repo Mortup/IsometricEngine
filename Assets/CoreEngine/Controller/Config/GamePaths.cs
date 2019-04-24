@@ -30,14 +30,6 @@ namespace com.gStudios.isometric.controller.config {
             return Path.Combine(WallCursorSprites, name);
         }
 
-        public static string FurnitureSprite(string name) {
-            return Path.Combine(FurnitureSprites, name);
-        }
-
-        public static string FurnitureSprite(string name, string variation) {
-            return Path.Combine(FurnitureSprites, name + "_" + variation);
-        }
-
 		public static string TileSprite(int index) {
 			return Path.Combine(TilesSprites, "Floor" + index.ToString ());
 		}

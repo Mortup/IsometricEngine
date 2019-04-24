@@ -4,11 +4,11 @@ namespace com.gStudios.isometric.model.world.furniture {
 
     public class DecorationFurniture : BaseFurniture {
 
-        public DecorationFurniture (Level level, ITile parent) : base(level, parent) {
+        public DecorationFurniture (int index, Level level, ITile parent) : base(index, level, parent) {
         }
 
         public override int GetSpriteIndex() {
-            return 2;
+            return this.index;
         }
 
     }

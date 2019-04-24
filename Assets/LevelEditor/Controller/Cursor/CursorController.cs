@@ -83,6 +83,10 @@ namespace com.gStudios.levelEditor.controller.cursor {
 			if (Input.GetButtonDown ("Undo"))
 				Undo ();
 
+            if (GetPressedNumber() != -1) {
+                currentMode.SetIndex(GetPressedNumber());
+            }
+
 			currentMode.UpdateCursors (Input.mousePosition);
 		}
 
@@ -106,6 +110,15 @@ namespace com.gStudios.levelEditor.controller.cursor {
 
 			inverseCommands.Pop ().Excecute ();
 		}
-	}
+
+        public int GetPressedNumber() {
+            for (int number = 0; number <= 9; number++) {
+                if (Input.GetKeyDown(number.ToString()))
+                    return number;
+            }
+
+            return -1;
+        }
+    }
 
 }

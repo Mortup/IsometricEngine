@@ -8,12 +8,14 @@ namespace com.gStudios.isometric.model.world.furniture {
         protected string tag = "";
         protected Level level;
         protected ITile parent;
+        protected int index;
 
         private string _spriteVariation;
 
-        public BaseFurniture(Level level, ITile parent) {
+        public BaseFurniture(int index, Level level, ITile parent) {
             this.level = level;
             this.parent = parent;
+            this.index = index;
 
             _spriteVariation = "";
         }
