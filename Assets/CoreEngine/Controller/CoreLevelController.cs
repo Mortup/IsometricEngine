@@ -74,6 +74,7 @@ namespace com.gStudios.isometric.controller {
         private void OnApplicationQuit() {
             tileSpriteObserver.StopObserving();
             wallSpriteObserver.StopObserving();
+            furnitureSpriteObserver.StopObserving();
         }
 
         // CONTROLLER GETTERS
