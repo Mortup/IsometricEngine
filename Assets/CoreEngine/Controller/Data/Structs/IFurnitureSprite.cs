@@ -6,6 +6,7 @@ namespace com.gStudios.isometric.controller.data.structs {
 
     public interface IFurnitureSprite {
 
+        Sprite GetSprite();
         Sprite GetSprite(IFurniture furniture);
         Sprite GetThumbnail();
 

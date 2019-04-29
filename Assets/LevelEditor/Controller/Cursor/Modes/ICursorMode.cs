@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+using com.gStudios.isometric.model.world.orientation;
 using com.gStudios.isometric.model.world.commands;
 
 namespace com.gStudios.levelEditor.controller.cursor.modes {
@@ -45,6 +46,8 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 		/// </summary>
 		/// <param name="index">Index.</param>
 		void SetIndex(int index);
+
+        void Rotate(RotationDirection rotation);
 	}
 
 }

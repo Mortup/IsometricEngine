@@ -7,6 +7,7 @@ using com.gStudios.isometric.controller.isometricTransform;
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.wall;
 using com.gStudios.isometric.model.world.tile;
+using com.gStudios.isometric.model.world.orientation;
 
 namespace com.gStudios.isometric.controller.spriteObservers {
 

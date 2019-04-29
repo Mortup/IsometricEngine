@@ -2,6 +2,7 @@
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
+using com.gStudios.isometric.model.world.orientation;
 
 namespace com.gStudios.levelEditor.controller.cursor.modes {
 
@@ -56,6 +57,8 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 		public virtual void SetIndex(int index) {
 			this.index = index;
 		}
+
+        public virtual void Rotate(RotationDirection rotation) { }
 
 	}
 

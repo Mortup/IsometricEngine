@@ -1,5 +1,6 @@
 using UnityEngine;
 
+using com.gStudios.isometric.model.world.orientation;
 using com.gStudios.isometric.controller.config;
 
 namespace com.gStudios.isometric.controller.isometricTransform {

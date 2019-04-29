@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+using com.gStudios.isometric.model.world.orientation;
 using com.gStudios.isometric.model.world.furniture;
 using com.gStudios.isometric.controller.isometricTransform;
 
@@ -37,7 +38,11 @@ namespace com.gStudios.isometric.controller.data.structs {
         }
 
         public Sprite GetSprite(IFurniture furniture) {
-            switch(OrientationManager.currentOrientation) {
+            return GetSprite();
+        }
+
+        public Sprite GetSprite() {
+            switch (OrientationManager.currentOrientation) {
                 case Orientation.North:
                     return north;
                 case Orientation.South:

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
+using com.gStudios.isometric.model.world.orientation;
 using com.gStudios.isometric.model.world.wall;
+
 using com.gStudios.isometric.controller.isometricTransform;
 
 namespace com.gStudios.isometric.controller.spriteCreators {

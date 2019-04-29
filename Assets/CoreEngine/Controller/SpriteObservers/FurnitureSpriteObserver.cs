@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 
 using com.gStudios.isometric.model.world;
+using com.gStudios.isometric.model.world.orientation;
 using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.furniture;
 using com.gStudios.isometric.controller.isometricTransform;

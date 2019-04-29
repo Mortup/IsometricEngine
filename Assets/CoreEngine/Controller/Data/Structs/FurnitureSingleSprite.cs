@@ -12,6 +12,10 @@ namespace com.gStudios.isometric.controller.data.structs {
             sprite = spr;
         }
 
+        public Sprite GetSprite() {
+            return sprite;
+        }
+
         public Sprite GetSprite(IFurniture furniture) {
             return sprite;
         }

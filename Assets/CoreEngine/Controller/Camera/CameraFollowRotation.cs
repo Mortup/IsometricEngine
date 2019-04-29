@@ -1,5 +1,7 @@
-﻿using com.gStudios.isometric.controller.isometricTransform;
-using UnityEngine;
+﻿using UnityEngine;
+
+using com.gStudios.isometric.model.world.orientation;
+using com.gStudios.isometric.controller.isometricTransform;
 
 namespace com.gStudios.isometric.controller.camera {
 
@@ -30,7 +32,7 @@ namespace com.gStudios.isometric.controller.camera {
         }
 
         public void NotifyOrientationChanged(Orientation previousOrientation, Orientation newOrientation) {
-            RotationDirection dir = OrientationManager.GetDirection(previousOrientation, newOrientation);
+            RotationDirection dir = OrientationMath.GetDirection(previousOrientation, newOrientation);
             if (dir == RotationDirection.Clockwise) {
                 RotateClockwise(previousOrientation);
             }
