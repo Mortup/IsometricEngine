@@ -38,11 +38,34 @@ namespace com.gStudios.isometric.controller.data.structs {
         }
 
         public Sprite GetSprite(IFurniture furniture) {
-            return GetSprite();
+            return GetSprite(furniture.GetOrientation());
         }
 
-        public Sprite GetSprite() {
-            switch (OrientationManager.currentOrientation) {
+        public Sprite GetSprite(Orientation orientation) {
+            Orientation currentOrientation = OrientationManager.currentOrientation;
+            RotationDirection rotation = RotationDirection.NoRotation;
+
+            switch(orientation) {
+                case Orientation.North:
+                    rotation = RotationDirection.NoRotation;
+                    break;
+                case Orientation.South:
+                    rotation = RotationDirection.HalfRotation;
+                    break;
+                case Orientation.East:
+                    rotation = RotationDirection.CounterClockwise;
+                    break;
+                case Orientation.West:
+                    rotation = RotationDirection.Clockwise;
+                    break;
+                default:
+                    Debug.LogError("Unknown rotation");
+                    break;
+            }
+
+            Orientation rotatedOrientation = currentOrientation.GetRotated(rotation);
+
+            switch (rotatedOrientation) {
                 case Orientation.North:
                     return north;
                 case Orientation.South:

@@ -1,4 +1,5 @@
 ﻿using com.gStudios.isometric.model.characters;
+using com.gStudios.isometric.model.world.orientation;
 
 namespace com.gStudios.isometric.model.world.furniture {
 
@@ -8,11 +9,13 @@ namespace com.gStudios.isometric.model.world.furniture {
 
         int GetSpriteIndex();
 
+        Orientation GetOrientation();
+
         string GetSpriteVariation();
 
         bool IsWalkable(WalkInfo walkInfo);
 
-        bool IsFurniture();
+        bool IsEmpty();
 
         void Move(int xOffset, int yOffset);
 

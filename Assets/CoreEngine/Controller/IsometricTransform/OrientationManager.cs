@@ -32,7 +32,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
         public static void RotateClockwise() {
             Orientation previousOrientation = currentOrientation;
 
-            currentOrientation = previousOrientation.Rotate(RotationDirection.Clockwise);
+            currentOrientation = previousOrientation.GetRotated(RotationDirection.Clockwise);
 
             UpdateObservers(previousOrientation, currentOrientation);
         }
@@ -40,7 +40,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
         public static void RotateCounterClockwise() {
             Orientation previousOrientation = currentOrientation;
 
-            currentOrientation = previousOrientation.Rotate(RotationDirection.CounterClockwise);
+            currentOrientation = previousOrientation.GetRotated(RotationDirection.CounterClockwise);
 
             UpdateObservers(previousOrientation, currentOrientation);
         }

@@ -9,7 +9,7 @@
 
     public static class OrientationMethods {
 
-        public static Orientation Rotate(this Orientation orientation, RotationDirection direction) {
+        public static Orientation GetRotated(this Orientation orientation, RotationDirection direction) {
 
             switch (direction) {
                 case RotationDirection.Clockwise:

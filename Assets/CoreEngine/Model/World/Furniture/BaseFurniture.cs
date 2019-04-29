@@ -48,6 +48,10 @@ namespace com.gStudios.isometric.model.world.furniture {
             return spriteVariation;
         }
 
+        public override Orientation GetOrientation() {
+            return orientation;
+        }
+
         public override bool IsWalkable(WalkInfo walkInfo) {
             return false;
         }
@@ -67,7 +71,7 @@ namespace com.gStudios.isometric.model.world.furniture {
 
         public virtual void OnMove(int xOffset, int yOffset) { }
 
-        public override sealed bool IsFurniture() {
+        public override sealed bool IsEmpty() {
             return true;
         }
 

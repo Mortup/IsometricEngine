@@ -14,9 +14,12 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
 
     public class FurnitureMode : DefaultMode {
 
+        Orientation orientation;
+
         public FurnitureMode(Level level) :base(level) {
             mainCursorSr.sortingLayerName = "Tiles";
             index = 1;
+            orientation = Orientation.North;
         }
 
         protected override IWorldCommand GetActionCommand(Vector2 mousePosition) {
@@ -26,7 +29,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
             if (Input.GetButton("InverseFunction"))
                 return new RemoveFurnitureCommand(level, tilePos.x, tilePos.y);
 
-            IFurniture furniture = new DecorationFurniture(index, level, tile);
+            IFurniture furniture = new DecorationFurniture(index, level, tile, orientation);
             return new PlaceFurnitureCommand(level, tilePos.x, tilePos.y, furniture);
         }
 
@@ -38,7 +41,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
                 mainCursorSr.sortingOrder = SortingOrders.TileOrder(tilePos.x, tilePos.y, TileSubLayer.Furniture);
 
                 IFurnitureSprite sprite = DataManager.furnitureSpriteData.GetDataById(index);
-                mainCursorSr.sprite = sprite.GetSprite();
+                mainCursorSr.sprite = sprite.GetSprite(orientation);
 
                 mainCursorGo.transform.position = TileTransformer.CoordToWorld(tilePos);
             }
@@ -50,7 +53,7 @@ namespace com.gStudios.levelEditor.controller.cursor.modes {
         public override void Rotate(RotationDirection rotation) {
             base.Rotate(rotation);
 
-            Debug.Log("Rotandox");
+            orientation = orientation.GetRotated(rotation);
         }
     }
 }
