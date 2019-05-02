@@ -7,7 +7,7 @@ namespace com.gStudios.isometric.model.world.furniture {
 
         string GetTag();
 
-        int GetSpriteIndex();
+        int GetIndex();
 
         Orientation GetOrientation();
 

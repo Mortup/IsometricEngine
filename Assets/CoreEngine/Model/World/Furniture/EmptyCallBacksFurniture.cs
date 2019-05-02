@@ -8,7 +8,7 @@ namespace com.gStudios.isometric.model.world.furniture {
         // For sprite management
         public abstract string GetTag();
 
-        public abstract int GetSpriteIndex();
+        public abstract int GetIndex();
         public abstract string GetSpriteVariation();
 
         public abstract bool IsEmpty();

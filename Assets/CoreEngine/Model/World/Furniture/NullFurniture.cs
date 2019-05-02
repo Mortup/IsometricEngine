@@ -9,7 +9,7 @@ namespace com.gStudios.isometric.model.world.furniture {
             return "NullFurniture";
         }
 
-        public override int GetSpriteIndex() {
+        public override int GetIndex() {
             return 0;
         }
 

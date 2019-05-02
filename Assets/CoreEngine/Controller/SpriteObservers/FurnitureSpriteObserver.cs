@@ -54,7 +54,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             furni_go.transform.position = (Vector3)TileTransformer.CoordToWorld(tile.X, tile.Y);
 
             SpriteRenderer sr = furni_go.GetComponent<SpriteRenderer>();
-            sr.sprite = DataManager.furnitureSpriteData.GetDataById(tile.GetPlacedFurniture().GetSpriteIndex()).GetSprite(tile.GetPlacedFurniture());
+            sr.sprite = DataManager.furnitureSpriteData.GetDataById(tile.GetPlacedFurniture().GetIndex()).GetSprite(tile.GetPlacedFurniture());
             sr.sortingOrder = SortingOrders.TileOrder(tile.X, tile.Y, TileSubLayer.Furniture);
         }
 
