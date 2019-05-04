@@ -10,6 +10,7 @@ namespace com.gStudios.isometric.model.saving {
         public int[] tiles;
         public int[] wallIndexes;
         public int[] furnitureIndexes;
+        public byte[] furnitureOrientations;
     }
 
 }

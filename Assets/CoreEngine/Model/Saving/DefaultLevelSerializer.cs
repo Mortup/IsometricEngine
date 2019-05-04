@@ -51,7 +51,8 @@ namespace com.gStudios.isometric.model.saving {
                     if (furnIndex == 0)
                         continue;
 
-                    level.GetTileAt(x, y).PlaceFurniture(new DecorationFurniture(furnIndex, level, level.GetTileAt(x,y), Orientation.North));
+                    Orientation orientation = (Orientation)levelData.furnitureOrientations[x + y * level.Width];
+                    level.GetTileAt(x, y).PlaceFurniture(new DecorationFurniture(furnIndex, level, level.GetTileAt(x,y), orientation));
 				}
 			}
 
@@ -79,7 +80,8 @@ namespace com.gStudios.isometric.model.saving {
                 width = level.Width,
                 tiles = FlattenTileArray(tiles),
                 wallIndexes = FlattenWallsArray(walls),
-                furnitureIndexes = FlattenFurnitureArray(tiles)
+                furnitureIndexes = FlattenFurnitureArray(tiles),
+                furnitureOrientations = FlattenFurnitureOrientationArray(tiles)
             };
 
 			return data;
@@ -127,6 +129,21 @@ namespace com.gStudios.isometric.model.saving {
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
                     data[x + y * width] = arr[x, y].GetPlacedFurniture().GetIndex();
+                }
+            }
+
+            return data;
+        }
+
+        byte[] FlattenFurnitureOrientationArray(ITile[,] arr) {
+            int width = arr.GetLength(0);
+            int height = arr.GetLength(1);
+
+            byte[] data = new byte[width * height];
+
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    data[x + y * width] = (byte)arr[x, y].GetPlacedFurniture().GetOrientation();
                 }
             }
 
