@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 
 using com.gStudios.isometric.model.world;
+using com.gStudios.isometric.model.world.orientation;
 using com.gStudios.isometric.model.world.tile;
 using com.gStudios.isometric.model.world.furniture;
 using com.gStudios.isometric.controller.isometricTransform;
@@ -10,7 +11,7 @@ using com.gStudios.isometric.controller.data;
 
 namespace com.gStudios.isometric.controller.spriteObservers {
 
-	public class FurnitureSpriteObserver : IFurnitureObserver {
+	public class FurnitureSpriteObserver : IFurnitureObserver, IOrientationObserver {
 
         GameObject furnitureHolder;
 
@@ -20,6 +21,12 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             furnitureHolder = new GameObject("Furniture");
 
             gameobjects = new Dictionary<ITile, GameObject>();
+
+            OrientationManager.RegisterObserver(this);
+        }
+
+        public void StopObserving() {
+            OrientationManager.UnregisterObserver(this);
         }
 
         public GameObject CreateSprite(ITile tile) {
@@ -47,7 +54,7 @@ namespace com.gStudios.isometric.controller.spriteObservers {
             furni_go.transform.position = (Vector3)TileTransformer.CoordToWorld(tile.X, tile.Y);
 
             SpriteRenderer sr = furni_go.GetComponent<SpriteRenderer>();
-            sr.sprite = DataManager.furnitureSpriteData.GetDataById(tile.GetPlacedFurniture().GetSpriteIndex(), tile.GetPlacedFurniture().GetSpriteVariation());
+            sr.sprite = DataManager.furnitureSpriteData.GetDataById(tile.GetPlacedFurniture().GetIndex()).GetSprite(tile.GetPlacedFurniture());
             sr.sortingOrder = SortingOrders.TileOrder(tile.X, tile.Y, TileSubLayer.Furniture);
         }
 
@@ -77,6 +84,10 @@ namespace com.gStudios.isometric.controller.spriteObservers {
 
         public void NotifyFurnitureTypeChanged(ITile tile) {
             UpdateSprite(tile);
+        }
+
+        public void NotifyOrientationChanged(Orientation previousOrientation, Orientation newOrientation) {
+            UpdateAllSprites();
         }
     }
 	

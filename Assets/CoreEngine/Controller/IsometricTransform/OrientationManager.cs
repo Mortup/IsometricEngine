@@ -2,21 +2,9 @@
 
 using UnityEngine;
 
+using com.gStudios.isometric.model.world.orientation;
+
 namespace com.gStudios.isometric.controller.isometricTransform {
-
-    public enum Orientation {
-        North = 0,
-        East = 1,
-        South = 2,
-        West = 3
-    }
-
-    public enum RotationDirection {
-        Clockwise = 0,
-        CounterClockwise = 1,
-        HalfRotation = 2,
-        NoRotation = 3
-    }
 
     public static class OrientationManager {
 
@@ -44,20 +32,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
         public static void RotateClockwise() {
             Orientation previousOrientation = currentOrientation;
 
-            switch (currentOrientation) {
-                case Orientation.North:
-                    currentOrientation = Orientation.West;
-                    break;
-                case Orientation.West:
-                    currentOrientation = Orientation.South;
-                    break;
-                case Orientation.South:
-                    currentOrientation = Orientation.East;
-                    break;
-                case Orientation.East:
-                    currentOrientation = Orientation.North;
-                    break;
-            }
+            currentOrientation = previousOrientation.GetRotated(RotationDirection.Clockwise);
 
             UpdateObservers(previousOrientation, currentOrientation);
         }
@@ -65,20 +40,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
         public static void RotateCounterClockwise() {
             Orientation previousOrientation = currentOrientation;
 
-            switch (currentOrientation) {
-                case Orientation.North:
-                    currentOrientation = Orientation.East;
-                    break;
-                case Orientation.West:
-                    currentOrientation = Orientation.North;
-                    break;
-                case Orientation.South:
-                    currentOrientation = Orientation.West;
-                    break;
-                case Orientation.East:
-                    currentOrientation = Orientation.South;
-                    break;
-            }
+            currentOrientation = previousOrientation.GetRotated(RotationDirection.CounterClockwise);
 
             UpdateObservers(previousOrientation, currentOrientation);
         }
@@ -89,53 +51,7 @@ namespace com.gStudios.isometric.controller.isometricTransform {
             UpdateObservers(previousOrientation, currentOrientation);
         }
 
-        public static RotationDirection GetDirection(Orientation start, Orientation end) {
-            switch (start) {
-                case Orientation.North:
-                    switch (end) {
-                        case Orientation.West:
-                            return RotationDirection.Clockwise;
-                        case Orientation.East:
-                            return RotationDirection.CounterClockwise;
-                        case Orientation.South:
-                            return RotationDirection.HalfRotation;
-                    }
-                    break;
-                case Orientation.West:
-                    switch (end) {
-                        case Orientation.South:
-                            return RotationDirection.Clockwise;
-                        case Orientation.North:
-                            return RotationDirection.CounterClockwise;
-                        case Orientation.West:
-                            return RotationDirection.HalfRotation;
-                    }
-                    break;
-                case Orientation.South:
-                    switch (end) {
-                        case Orientation.East:
-                            return RotationDirection.Clockwise;
-                        case Orientation.West:
-                            return RotationDirection.CounterClockwise;
-                        case Orientation.South:
-                            return RotationDirection.HalfRotation;
-                    }
-                    break;
-                case Orientation.East:
-                    switch (end) {
-                        case Orientation.North:
-                            return RotationDirection.Clockwise;
-                        case Orientation.South:
-                            return RotationDirection.CounterClockwise;
-                        case Orientation.East:
-                            return RotationDirection.HalfRotation;
-                    }
-                    break;
-            }
-            return RotationDirection.NoRotation;
-        }
-
-            private static void UpdateObservers(Orientation previousOrientation, Orientation newOrientation) {
+        private static void UpdateObservers(Orientation previousOrientation, Orientation newOrientation) {
             if (observers == null)
                 return;
 

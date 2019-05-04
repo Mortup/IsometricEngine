@@ -1,5 +1,6 @@
 ﻿using com.gStudios.isometric.model.characters;
 using com.gStudios.isometric.model.world.tile;
+using com.gStudios.isometric.model.world.orientation;
 
 namespace com.gStudios.isometric.model.world.furniture {
 
@@ -8,15 +9,21 @@ namespace com.gStudios.isometric.model.world.furniture {
         protected string tag = "";
         protected Level level;
         protected ITile parent;
+        protected int index;
+        protected Orientation orientation;
 
         private string _spriteVariation;
-
-        public BaseFurniture(Level level, ITile parent) {
+        
+        public BaseFurniture(int index, Level level, ITile parent, Orientation orientation) {
             this.level = level;
             this.parent = parent;
+            this.index = index;
+            this.orientation = orientation;
 
             _spriteVariation = "";
         }
+
+        public BaseFurniture(int index, Level level, ITile parent) : this(index, level, parent, Orientation.North) { }
 
         public override string GetTag() {
             return tag;
@@ -33,9 +40,16 @@ namespace com.gStudios.isometric.model.world.furniture {
             }
         }
 
+        public override int GetIndex() {
+            return index;
+        }
 
         public override string GetSpriteVariation() {
             return spriteVariation;
+        }
+
+        public override Orientation GetOrientation() {
+            return orientation;
         }
 
         public override bool IsWalkable(WalkInfo walkInfo) {
@@ -57,7 +71,7 @@ namespace com.gStudios.isometric.model.world.furniture {
 
         public virtual void OnMove(int xOffset, int yOffset) { }
 
-        public override sealed bool IsFurniture() {
+        public override sealed bool IsEmpty() {
             return true;
         }
 

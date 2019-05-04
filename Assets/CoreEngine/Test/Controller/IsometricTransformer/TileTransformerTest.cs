@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+using com.gStudios.isometric.model.world.orientation;
 using com.gStudios.isometric.controller.config;
 using com.gStudios.isometric.controller.isometricTransform;
 

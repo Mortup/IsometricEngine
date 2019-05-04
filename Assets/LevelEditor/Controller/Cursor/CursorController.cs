@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.commands;
+using com.gStudios.isometric.model.world.orientation;
 
 using com.gStudios.isometric.controller;
 using com.gStudios.isometric.controller.config;
@@ -82,6 +83,16 @@ namespace com.gStudios.levelEditor.controller.cursor {
 				ClickEnd ();
 			if (Input.GetButtonDown ("Undo"))
 				Undo ();
+            if (Input.GetKeyDown(KeyCode.Comma)) {
+                currentMode.Rotate(RotationDirection.Clockwise);
+            }
+            if (Input.GetKeyDown(KeyCode.Period)) {
+                currentMode.Rotate(RotationDirection.CounterClockwise);
+            }
+
+            if (GetPressedNumber() != -1) {
+                currentMode.SetIndex(GetPressedNumber());
+            }
 
 			currentMode.UpdateCursors (Input.mousePosition);
 		}
@@ -106,6 +117,15 @@ namespace com.gStudios.levelEditor.controller.cursor {
 
 			inverseCommands.Pop ().Excecute ();
 		}
-	}
+
+        public int GetPressedNumber() {
+            for (int number = 0; number <= 9; number++) {
+                if (Input.GetKeyDown(number.ToString()))
+                    return number;
+            }
+
+            return -1;
+        }
+    }
 
 }

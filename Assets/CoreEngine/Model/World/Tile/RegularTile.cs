@@ -59,7 +59,7 @@ namespace com.gStudios.isometric.model.world.tile {
         }
 
         public bool HasFurniture() {
-            return placedFurniture.IsFurniture();
+            return placedFurniture.IsEmpty();
         }
 
         public bool IsWalkable(WalkInfo walkInfo) {

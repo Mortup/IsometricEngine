@@ -1,4 +1,5 @@
 ﻿using com.gStudios.isometric.model.characters;
+using com.gStudios.isometric.model.world.orientation;
 
 namespace com.gStudios.isometric.model.world.furniture {
 
@@ -8,7 +9,7 @@ namespace com.gStudios.isometric.model.world.furniture {
             return "NullFurniture";
         }
 
-        public override int GetSpriteIndex() {
+        public override int GetIndex() {
             return 0;
         }
 
@@ -16,7 +17,7 @@ namespace com.gStudios.isometric.model.world.furniture {
             return "";
         }
 
-        public override bool IsFurniture() {
+        public override bool IsEmpty() {
             return false;
         }
 
@@ -26,6 +27,10 @@ namespace com.gStudios.isometric.model.world.furniture {
 
         public override void Move(int xOffset, int yOffset) {
             throw new System.NotImplementedException();
+        }
+
+        public override Orientation GetOrientation() {
+            return Orientation.North;
         }
     }
 	

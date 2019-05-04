@@ -3,6 +3,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 using com.gStudios.isometric.model.world;
 using com.gStudios.isometric.model.world.tile;
+using com.gStudios.isometric.model.world.furniture;
+using com.gStudios.isometric.model.world.orientation;
 using com.gStudios.isometric.model.world.wall;
 
 namespace com.gStudios.isometric.model.saving {
@@ -43,6 +45,17 @@ namespace com.gStudios.isometric.model.saving {
                 }
 			}
 
+			for (int x = 0; x < level.Width; x++) {
+				for (int y = 0; y < level.Height; y++) {
+                    int furnIndex = levelData.furnitureIndexes[x + y * level.Width];
+                    if (furnIndex == 0)
+                        continue;
+
+                    Orientation orientation = (Orientation)levelData.furnitureOrientations[x + y * level.Width];
+                    level.GetTileAt(x, y).PlaceFurniture(new DecorationFurniture(furnIndex, level, level.GetTileAt(x,y), orientation));
+				}
+			}
+
             saveFile.Close();
 			return level;
 		}
@@ -66,7 +79,9 @@ namespace com.gStudios.isometric.model.saving {
                 height = level.Height,
                 width = level.Width,
                 tiles = FlattenTileArray(tiles),
-                wallIndexes = FlattenWallsArray(walls)
+                wallIndexes = FlattenWallsArray(walls),
+                furnitureIndexes = FlattenFurnitureArray(tiles),
+                furnitureOrientations = FlattenFurnitureOrientationArray(tiles)
             };
 
 			return data;
@@ -99,6 +114,36 @@ namespace com.gStudios.isometric.model.saving {
                     for (int z = 0; z < depth; z++) {
                         data[Flattened3dIndex(x, y, z, width, height)] = arr[x, y, z].Type;
                     }
+                }
+            }
+
+            return data;
+        }
+
+        int[] FlattenFurnitureArray(ITile[,] arr) {
+            int width = arr.GetLength(0);
+            int height = arr.GetLength(1);
+
+            int[] data = new int[width * height];
+
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    data[x + y * width] = arr[x, y].GetPlacedFurniture().GetIndex();
+                }
+            }
+
+            return data;
+        }
+
+        byte[] FlattenFurnitureOrientationArray(ITile[,] arr) {
+            int width = arr.GetLength(0);
+            int height = arr.GetLength(1);
+
+            byte[] data = new byte[width * height];
+
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    data[x + y * width] = (byte)arr[x, y].GetPlacedFurniture().GetOrientation();
                 }
             }
 
